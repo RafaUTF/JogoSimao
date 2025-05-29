@@ -1,10 +1,10 @@
 #pragma once
 #include "Jogador.h"
 #include "Inimigo.h"
-//#include "Gerenciador_Grafico.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+//#include "Gerenciador_Grafico.h"
+#include "Gerenciador_Colisoes.h"
 
 class Jogo {
 private:
@@ -14,6 +14,7 @@ private:
 	Jogador* pJog2;
 	Inimigo* pInim;
 	//Gerenciador_Grafico* GG;
+	Gerenciador_Colisoes* GC;
 public:
 	Jogo();
 	~Jogo();

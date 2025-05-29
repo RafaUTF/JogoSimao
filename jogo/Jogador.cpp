@@ -33,7 +33,7 @@ void Jogador::mover()
     else {//chao
         vy = 0;
     }
-    
+
     if (j1) {
         if (corpo.getPosition().y + corpo.getSize().y < CHAO) {//NO AR
 
@@ -75,19 +75,19 @@ void Jogador::mover()
                     vx = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                cout << "pulo unico 2!" << endl;
+                //cout << "pulo unico 2!" << endl;
                 vy += -PULO * agilidade;
             }
         }
     }
-    else{//JOGADOR 2
-        
+    else {//JOGADOR 2
+
         if (corpo.getPosition().y + corpo.getSize().y < CHAO) {//NO AR
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                vx += -agilidade/5;
+                vx += -agilidade / 5;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                vx += agilidade/5;
+                vx += agilidade / 5;
 
             //ATRITO AR(VISCOSO)
             if (vx > 0) {
@@ -122,8 +122,8 @@ void Jogador::mover()
                     vx = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                cout << "pulo unico 2!" << endl;
-                vy += - PULO * agilidade;
+                //cout << "pulo unico 2!" << endl;
+                vy += -PULO * agilidade;
             }
         }
     }
@@ -138,7 +138,7 @@ void Jogador::mover()
         if (vy > 0)
             vy = 0.f;
     }
-    
+
     //paredes invisiveis
     if (corpo.getPosition().x < ESQUERDA && vx<0
         || corpo.getPosition().x + corpo.getSize().x > DIREITA && vx>0) {
@@ -146,7 +146,7 @@ void Jogador::mover()
     }
     if (vx > MAX_VEL)
         vx = MAX_VEL;
-    else if(vx < -MAX_VEL)
+    else if (vx < -MAX_VEL)
         vx = -MAX_VEL;
     corpo.move(vx, vy);
 }

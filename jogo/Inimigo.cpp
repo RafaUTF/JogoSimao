@@ -75,7 +75,7 @@ void Inimigo::mover()
         }
 
         if (p->getYcm() < corpo.getPosition().y) {
-            cout << "pulo unico 1!" << endl;
+            //cout << "pulo unico inimigo!" << endl;
             vy += - PULO * agilidade;
         }
     }

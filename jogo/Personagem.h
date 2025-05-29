@@ -5,7 +5,6 @@ class Personagem: public Entidade
 {
 protected:
 	int num_vidas;
-	sf::RectangleShape corpo;
 	float agilidade;
 	float vy;
 	float vx;
@@ -14,9 +13,9 @@ public:
 	Personagem();
 	~Personagem();
 	virtual void mover();
-	sf::RectangleShape getCorpo();
-	float getXcm();
-	float getYcm();
+	
+	//float getXcm();
+	//float getYcm();
 
 };
 
