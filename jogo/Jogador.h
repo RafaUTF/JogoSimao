@@ -9,6 +9,8 @@ public:
 	Jogador();
 	~Jogador();
 	void mover();
+
+	void executar();
 	
 };
 

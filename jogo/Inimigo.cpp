@@ -104,3 +104,8 @@ void Inimigo::mover()
         vx = -MAX_VEL;
     corpo.move(vx, vy);
 }
+
+void Inimigo::executar()
+{
+    mover();
+}

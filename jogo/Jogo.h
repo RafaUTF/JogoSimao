@@ -3,8 +3,9 @@
 #include "Inimigo.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-//#include "Gerenciador_Grafico.h"
+#include "Gerenciador_Grafico.h"
 #include "Gerenciador_Colisoes.h"
+#include "ListaEntidades.h"
 
 class Jogo {
 private:
@@ -13,7 +14,10 @@ private:
 	Jogador* pJog1;
 	Jogador* pJog2;
 	Inimigo* pInim;
-	//Gerenciador_Grafico* GG;
+
+	ListaEntidades lista;
+
+	Gerenciador_Grafico* GG;
 	Gerenciador_Colisoes* GC;
 public:
 	Jogo();

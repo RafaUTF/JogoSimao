@@ -14,6 +14,8 @@ public:
 	~Personagem();
 	virtual void mover();
 	
+	virtual void executar() = 0;
+
 	//float getXcm();
 	//float getYcm();
 

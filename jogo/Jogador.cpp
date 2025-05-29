@@ -150,3 +150,8 @@ void Jogador::mover()
         vx = -MAX_VEL;
     corpo.move(vx, vy);
 }
+
+void Jogador::executar()
+{
+    mover();
+}

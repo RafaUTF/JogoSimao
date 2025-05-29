@@ -28,6 +28,7 @@ const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) 
 	b = pe2->getYcm();
 	float dy;
 	b > a ? dy = b - a : dy = a - b;
+
 	if(dx< pe1->getRaioX()+ pe2->getRaioX()
 		&& dy< pe1->getRaioY() + pe2->getRaioY()){
 		return true;

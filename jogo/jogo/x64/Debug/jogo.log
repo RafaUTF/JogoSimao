@@ -1,2 +1,12 @@
-﻿  Gerenciador_Colisoes.cpp
+﻿  Ente.cpp
+  Entidade.cpp
+  Gerenciador_Colisoes.cpp
+  Gerenciador_Grafico.cpp
+  Inimigo.cpp
+  Jogador.cpp
+  Jogo.cpp
+  ListaEntidades.cpp
+  main.cpp
+  Personagem.cpp
+  Gerando Código...
   jogo.vcxproj -> C:\Users\Vaio\Desktop\Jogao\jogo\x64\Debug\jogo.exe

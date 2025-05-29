@@ -3,16 +3,18 @@
 class Entidade: public Ente
 {
 protected:
-	sf::RectangleShape corpo;
+	//::RectangleShape corpo;
 	float x;
 	float y;
 public:
 	Entidade();
-	~Entidade();
+	virtual ~Entidade();
 	float getXcm();
 	float getYcm();
 	float getRaioX();
 	float getRaioY();
-	sf::RectangleShape getCorpo();
+	
+	virtual void executar();
+
 };
 

@@ -26,6 +26,7 @@ protected:
 
 	static Gerenciador_Grafico* pGG;
 
+	sf::Sprite sprite;//tirar o RectangleShape
 	sf::RectangleShape corpo;
 	//Figura* pFig;
 
@@ -35,5 +36,8 @@ public:
 	//virtual void executar() = 0;
 	static void setpGG(Gerenciador_Grafico* p);
 
-	void desenhar();
+	void desenhar(Ente* pE=NULL);
+
+	sf::RectangleShape getCorpo();
+
 };

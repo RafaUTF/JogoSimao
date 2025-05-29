@@ -1,6 +1,6 @@
 #include "Entidade.h"
 
-Entidade::Entidade():x(20.f),y(20.f), corpo()
+Entidade::Entidade():x(20.f),y(20.f)
 {
 }
 Entidade::~Entidade()
@@ -26,7 +26,9 @@ float Entidade::getRaioY()
     return corpo.getSize().y / 2;
 }
 
-sf::RectangleShape Entidade::getCorpo()
+
+void Entidade::executar()
 {
-    return corpo;
+    cout<<"executar entidade aleatoria"<<endl;
 }
+

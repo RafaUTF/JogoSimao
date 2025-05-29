@@ -14,5 +14,7 @@ public:
 	~Inimigo();
 	virtual void mover();
 
+	void executar();
+
 };
 
