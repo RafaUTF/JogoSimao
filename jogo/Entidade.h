@@ -7,7 +7,7 @@ protected:
 	float x;
 	float y;
 public:
-	Entidade();
+	Entidade(float xx = 20, float yy = 20);
 	virtual ~Entidade();
 	float getXcm();
 	float getYcm();

@@ -1,7 +1,9 @@
 #include "Entidade.h"
 
-Entidade::Entidade():x(20.f),y(20.f)
+Entidade::Entidade(float xx, float yy)
 {
+    x = xx;
+    y = yy;
 }
 Entidade::~Entidade()
 {

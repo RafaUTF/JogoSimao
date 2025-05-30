@@ -1,11 +1,12 @@
 #include "Jogo.h"
 
 Jogo::Jogo(): pJog1(new Jogador),pJog2(new Jogador),pInim(new Inimigo(pJog1,pJog2)),
-GC(new Gerenciador_Colisoes), GG(new Gerenciador_Grafico)
+GC(new Gerenciador_Colisoes), GG(new Gerenciador_Grafico), pPlat(new Plataforma)
 {
     lista.incluir(pJog1);
     lista.incluir(pJog2);
     lista.incluir(pInim);
+    lista.incluir(pPlat);
     executar();
 }
 
@@ -54,6 +55,7 @@ void Jogo::executar()
         GG->getWindow().draw(pJog1->getCorpo());
         GG->getWindow().draw(pJog2->getCorpo());
         GG->getWindow().draw(pInim->getCorpo());
+        GG->getWindow().draw(pPlat->getCorpo());
         GG->getWindow().display();
     }
 

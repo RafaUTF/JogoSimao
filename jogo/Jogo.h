@@ -6,6 +6,8 @@
 #include "Gerenciador_Grafico.h"
 #include "Gerenciador_Colisoes.h"
 #include "ListaEntidades.h"
+#include "Plataforma.h"
+#include "Ente.h"
 
 class Jogo {
 private:
@@ -14,6 +16,7 @@ private:
 	Jogador* pJog1;
 	Jogador* pJog2;
 	Inimigo* pInim;
+	Plataforma* pPlat;
 
 	ListaEntidades lista;
 
