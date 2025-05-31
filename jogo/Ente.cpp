@@ -5,7 +5,20 @@
 int Ente::cont(0);
 Gerenciador_Grafico* Ente::pGG(0);
 
-Ente::Ente():id(cont++), corpo() {}
+
+Ente::Ente() :id(cont++), corpo(Vector2f(200.f, 200.f)) {
+	
+	// Carregar a textura
+	/*
+	if (!textura.loadFromFile("q.png")) {
+		std::cerr << "Erro ao carregar a textura QUADRADO!" << std::endl;
+	}
+	else {
+		corpo.setTexture(&textura);
+	}*/
+	//corpo.setSize(Vector2f(100.f,100.f));
+
+}
 
 Ente::~Ente()
 {
@@ -29,7 +42,7 @@ void Ente::desenhar(Ente* pE)
 
 
 
-sf::RectangleShape Ente::getCorpo()
+RectangleShape& Ente::getCorpo()
 {
 	return corpo;
 }

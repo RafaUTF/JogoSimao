@@ -1,12 +1,21 @@
 #include "Inimigo.h"
 
-Inimigo::Inimigo(Jogador* pp1, Jogador* pp2):p1(pp1),p2(pp2),nivel_maldade(0)
+Inimigo::Inimigo(Jogador* pp1, Jogador* pp2, Vector2f pos) :
+    Personagem(pos),
+    p1(pp1),p2(pp2),nivel_maldade(0)
 {
     agilidade = 2.f;
-
-    corpo.setSize(sf::Vector2f(50.f, 50.f));
-    corpo.setFillColor(sf::Color::Red);
-    corpo.setPosition(x, y);
+    /*
+    if (!textura.loadFromFile("boss.png")) {
+        std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
+    }
+    else {
+        corpo.setTexture(textura);
+    }
+    */
+    corpo.setSize(Vector2f(150.f, 70.f));
+    centralizarEntidade();
+    corpo.setFillColor(Color::Red);
 }
 
 Inimigo::~Inimigo()
@@ -15,11 +24,11 @@ Inimigo::~Inimigo()
 
 void Inimigo::mover()
 {
-
-    float dx1 = p1->getXcm(),
-        dy1 = p1->getYcm(),
-        dx2 = p2->getXcm(),
-        dy2 = p2->getYcm();
+    //getcm()
+    float dx1 = p1->getcm().x,
+        dy1 = p1->getcm().y,
+        dx2 = p2->getcm().x,
+        dy2 = p2->getcm().y;
 
     Jogador* p = p2;
     if (dx1 * dx1 + dy1 * dy1 > dx2 * dx2 + dy2 * dy2)
@@ -27,82 +36,82 @@ void Inimigo::mover()
 
 
     //GRAVIDADE ANTES!
-    if (corpo.getPosition().y + corpo.getSize().y < CHAO) {
-        vy += GRAVIDADE;
+    if (getcm().y + getRaio().y < CHAO) {
+        vel.y += GRAVIDADE;
     }
     else {//chao
-        vy = 0;
+        vel.y = 0;
     }
 
-    if (corpo.getPosition().y + corpo.getSize().y < CHAO) {//NO AR
+    if (getcm().y + getRaio().y < CHAO) {//NO AR
 
-        if (p->getXcm() < corpo.getPosition().x)
-            vx += -agilidade/5;
-        if (p->getXcm() > corpo.getPosition().x)
-            vx += agilidade/5;
+        if (p->getcm().x < getcm().x)
+            vel.x += -agilidade/5;
+        if (p->getcm().x > getcm().x)
+            vel.x += agilidade/5;
 
         //ATRITO AR(VISCOSO)
-        if (vx > 0) {
-            vx -= VISCOSO;
-            if (vx < 0)
-                vx = 0.f;
+        if (vel.x > 0) {
+            vel.x -= VISCOSO;
+            if (vel.x < 0)
+                vel.x = 0.f;
         }
-        else if (vx < 0) {
-            vx += VISCOSO;
-            if (vx > 0)
-                vx = 0.f;
+        else if (vel.x < 0) {
+            vel.x += VISCOSO;
+            if (vel.x > 0)
+                vel.x = 0.f;
         }
-        if (p->getYcm() > corpo.getPosition().y)
-            vy += agilidade/5;
+        if (p->getcm().y > getcm().y)
+            vel.y += agilidade/5;
     }
-    else if (corpo.getPosition().y < CHAO) {//chao
+    else if (getcm().y - getRaio().y < CHAO) {//chao
 
-        if (p->getXcm() < corpo.getPosition().x)
-            vx += -agilidade;
-        if (p->getXcm() > corpo.getPosition().x)
-            vx += agilidade;
+        if (p->getcm().x < getcm().x)
+            vel.x += -agilidade;
+        if (p->getcm().x > getcm().x)
+            vel.x += agilidade;
 
         //ATRITO CHAO
-        if (vx > 0) {
-            vx -= ATRITO;
-            if (vx < 0)
-                vx = 0.f;
+        if (vel.x > 0) {
+            vel.x -= ATRITO;
+            if (vel.x < 0)
+                vel.x = 0.f;
         }
-        else if (vx < 0) {
-            vx += ATRITO;
-            if (vx > 0)
-                vx = 0.f;
+        else if (vel.x < 0) {
+            vel.x += ATRITO;
+            if (vel.x > 0)
+                vel.x = 0.f;
         }
 
-        if (p->getYcm() < corpo.getPosition().y) {
+        if (p->getcm().y < getcm().y) {
             //cout << "pulo unico inimigo!" << endl;
-            vy += - PULO * agilidade;
+            vel.y += - PULO * agilidade;
         }
     }
 
     //atrito do ar em y
-
-    if (vy > 0) {
-        vy -= VISCOSO;
-        if (vy < 0)
-            vy = 0.f;
+    if (vel.y > 0) {
+        vel.y -= VISCOSO;
+        if (vel.y < 0)
+            vel.y = 0.f;
     }
-    else if (vy < 0) {
-        vy += VISCOSO;
-        if (vy > 0)
-            vy = 0.f;
+    else if (vel.y < 0) {
+        vel.y += VISCOSO;
+        if (vel.y > 0)
+            vel.y = 0.f;
     }
 
     //paredes invisiveis
-    if (corpo.getPosition().x < ESQUERDA && vx<0
-        || corpo.getPosition().x + corpo.getSize().x > DIREITA && vx>0) {
-        vx = 0.f;
+    if (getcm().x - getRaio().x < ESQUERDA && vel.x<0
+        || getcm().x + getRaio().x > DIREITA && vel.x>0) {
+        vel.x = 0.f;
     }
-    if (vx > MAX_VEL)
-        vx = MAX_VEL;
-    else if (vx < -MAX_VEL)
-        vx = -MAX_VEL;
-    corpo.move(vx, vy);
+    if (vel.x > MAX_VEL)
+        vel.x = MAX_VEL;
+    else if (vel.x < -MAX_VEL)
+        vel.x = -MAX_VEL;
+
+    corpo.move(vel);
 }
 
 void Inimigo::executar()

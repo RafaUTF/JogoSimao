@@ -1,20 +1,5 @@
 #pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
-using std::cout;
-using std::cin;
-using std::endl;
-
-#define CHAO 900.f
-#define DIREITA 1750.f
-#define ESQUERDA 50.f
-
-#define PULO 10
-#define ATRITO 0.5f
-#define VISCOSO 0.2f
-#define GRAVIDADE 0.5f
-#define MAX_VEL 10.f//velocidade maxima
+#include "stdafx.h"
 
 class Gerenciador_Grafico;
 
@@ -26,18 +11,20 @@ protected:
 
 	static Gerenciador_Grafico* pGG;
 
-	sf::Sprite sprite;//tirar o RectangleShape
-	sf::RectangleShape corpo;
+	//Sprite corpo;//tirar o RectangleShape
+	RectangleShape corpo;
+	Texture textura;
 	//Figura* pFig;
+	
 
 public:
-	Ente();
+	Ente();//(Vector2f pos = (Vector2f(0.f, 0.f))); ENTIDADE!
 	virtual ~Ente();
 	//virtual void executar() = 0;
 	static void setpGG(Gerenciador_Grafico* p);
 
 	void desenhar(Ente* pE=NULL);
 
-	sf::RectangleShape getCorpo();
+	RectangleShape& getCorpo();
 
 };

@@ -10,7 +10,7 @@ protected:
 	Jogador* p1;
 	Jogador* p2;
 public:
-	Inimigo(Jogador* pp1=NULL, Jogador* pp2=NULL);
+	Inimigo(Jogador* pp1=NULL, Jogador* pp2=NULL, Vector2f pos = (Vector2f(100.f, 100.f)));
 	~Inimigo();
 	virtual void mover();
 

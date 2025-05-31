@@ -2,7 +2,9 @@
 
 #include "Jogador.h"
 #include "Inimigo.h"
-
+//#include "Projetil.h"
+class Projetil;
+#include "Obstaculo.h"
 class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
 	
 private:
@@ -13,15 +15,15 @@ private:
 public:
 	Gerenciador_Colisoes();
 	~Gerenciador_Colisoes();
+	void executar();
 	const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
 private:
-	//void tratarColisoesJogsObstacs();
-	//void tratarColisoesJogsInimgs();
-	//void tratarColisoesJogsProjeteis();
-	//void incluirInimigo(*Inimigo pi);
-	//void incluirObstcaulo(*Obstaculo po);
-	//void incluirProjetil(*Projetil pj);
-	//void executar();
+	void tratarColisoesJogsObstacs();
+	void tratarColisoesJogsInimgs();
+	void tratarColisoesJogsProjeteis();
+	void incluirInimigo(Inimigo* pi=NULL);
+	void incluirObstcaulo(Obstaculo* po=NULL);
+	void incluirProjetil(Projetil* pj=NULL);
 };
 
 

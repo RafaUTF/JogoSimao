@@ -38,7 +38,7 @@ void ListaEntidades::desenhar()
 {
 	for (Lista<Entidade*>::iterator it = LEs.begin();it != LEs.end();++it) {
 		if (*it) {
-			(*it)->desenhar(*it);
+			(*it)->desenhar(static_cast<Ente*>(*it));
 		}
 	}
 }

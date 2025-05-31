@@ -1,20 +1,41 @@
 #include "Jogador.h"
 bool Jogador::jogador1(true);
 
-Jogador::Jogador()
+Jogador::Jogador(Vector2f pos) : Personagem(pos)
 {
     agilidade = 2.f;
     if (jogador1) {
-        corpo.setSize(sf::Vector2f(200.f, 100.f));
-        corpo.setFillColor(sf::Color::Blue);
-        corpo.setPosition(x, y);
+        /*
+        if (!textura.loadFromFile("j1.png")) {
+            std::cerr << "Erro ao carregar a textura JOGADOR1!" << std::endl;
+        }
+        else {
+            corpo.setTexture(textura);
+        }*/
+        //corpo.setScale(0.1f, 0.1f);
+        cout << "JOGADOR 1 CRIADO" << endl;
+        corpo.setSize(Vector2f(200.f, 100.f));
+        centralizarEntidade();
+        corpo.setFillColor(Color::Blue);
+        //corpo.setColor(Color::Blue);//sprite
         jogador1 = false;
         j1 = true;
     }
     else {
-        corpo.setSize(sf::Vector2f(100.f, 200.f));
-        corpo.setFillColor(sf::Color::Green);
-        corpo.setPosition(x, y);
+        /*
+        if (!textura.loadFromFile("j2.png")) {
+            std::cerr << "Erro ao carregar a textura JOGADOR2!" << std::endl;
+        }
+        else {
+            corpo.setTexture(textura);
+        }
+        */
+        //corpo.setScale(0.1f, 0.15f);
+        cout << "JOGADOR 2 CRIADO" << endl;
+        corpo.setSize(Vector2f(100.f, 200.f));
+        centralizarEntidade();
+        corpo.setFillColor(Color::Green);
+        //corpo.setColor(Color::Green);//sprite
         j1 = false;
     }
 
@@ -27,128 +48,127 @@ Jogador::~Jogador()
 void Jogador::mover()
 {
     //GRAVIDADE ANTES!
-    if (corpo.getPosition().y + corpo.getSize().y < CHAO) {
-        vy += GRAVIDADE;
+    if (getcm().y + getRaio().y < CHAO) {
+        vel.y+= GRAVIDADE;
     }
     else {//chao
-        vy = 0;
+        vel.y =0;
     }
-
     if (j1) {
-        if (corpo.getPosition().y + corpo.getSize().y < CHAO) {//NO AR
+        if (getcm().y + getRaio().y < CHAO) {//NO AR
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                vx += -agilidade / 5;
+                vel.x += -agilidade / 5;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                vx += agilidade / 5;
+                vel.x += agilidade / 5;
 
             //ATRITO AR(VISCOSO)
-            if (vx > 0) {
-                vx -= VISCOSO;
-                if (vx < 0)
-                    vx = 0.f;
+            if (vel.x > 0) {
+                vel.x -= VISCOSO;
+                if (vel.x < 0)
+                    vel.x = 0.f;
             }
-            else if (vx < 0) {
-                vx += VISCOSO;
-                if (vx > 0)
-                    vx = 0.f;
+            else if (vel.x < 0) {
+                vel.x += VISCOSO;
+                if (vel.x > 0)
+                    vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-                vy += agilidade;
+                vel.y += agilidade;
         }
-        else if (corpo.getPosition().y < CHAO) {//CHAO
+        else if (getcm().y - getRaio().y < CHAO) {//CHAO
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                vx += -agilidade;
+                vel.x += -agilidade;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                vx += agilidade;
+                vel.x += agilidade;
 
             //ATRITO CHAO
-            if (vx > 0) {
-                vx -= ATRITO;
-                if (vx < 0)
-                    vx = 0.f;
+            if (vel.x > 0) {
+                vel.x -= ATRITO;
+                if (vel.x < 0)
+                    vel.x = 0.f;
             }
-            else if (vx < 0) {
-                vx += ATRITO;
-                if (vx > 0)
-                    vx = 0.f;
+            else if (vel.x < 0) {
+                vel.x += ATRITO;
+                if (vel.x > 0)
+                    vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                 //cout << "pulo unico 2!" << endl;
-                vy += -PULO * agilidade;
+                vel.y += -PULO * agilidade;
             }
         }
     }
     else {//JOGADOR 2
-
-        if (corpo.getPosition().y + corpo.getSize().y < CHAO) {//NO AR
+        if (getcm().y + getRaio().y < CHAO) {//NO AR
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                vx += -agilidade / 5;
+                vel.x += -agilidade / 5;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                vx += agilidade / 5;
+                vel.x += agilidade / 5;
 
             //ATRITO AR(VISCOSO)
-            if (vx > 0) {
-                vx -= VISCOSO;
-                if (vx < 0)
-                    vx = 0.f;
+            if (vel.x > 0) {
+                vel.x -= VISCOSO;
+                if (vel.x < 0)
+                    vel.x = 0.f;
             }
-            else if (vx < 0) {
-                vx += VISCOSO;
-                if (vx > 0)
-                    vx = 0.f;
+            else if (vel.x < 0) {
+                vel.x += VISCOSO;
+                if (vel.x > 0)
+                    vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                vy += agilidade;
+                vel.y += agilidade;
         }
-        else if (corpo.getPosition().y < CHAO) {//CHAO
+        else if (getcm().y - getRaio().y < CHAO) {//CHAO
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                vx += -agilidade;
+                vel.x += -agilidade;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                vx += agilidade;
+                vel.x += agilidade;
 
             //ATRITO CHAO
-            if (vx > 0) {
-                vx -= ATRITO;
-                if (vx < 0)
-                    vx = 0.f;
+            if (vel.x > 0) {
+                vel.x -= ATRITO;
+                if (vel.x < 0)
+                    vel.x = 0.f;
             }
-            else if (vx < 0) {
-                vx += ATRITO;
-                if (vx > 0)
-                    vx = 0.f;
+            else if (vel.x < 0) {
+                vel.x += ATRITO;
+                if (vel.x > 0)
+                    vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 //cout << "pulo unico 2!" << endl;
-                vy += -PULO * agilidade;
+                vel.y += -PULO * agilidade;
             }
         }
     }
     //atrito do ar em y
-    if (vy > 0) {
-        vy -= VISCOSO;
-        if (vy < 0)
-            vy = 0.f;
+    if (vel.y > 0) {
+        vel.y -= VISCOSO;
+        if (vel.y < 0)
+            vel.y = 0.f;
     }
-    else if (vy < 0) {
-        vy += VISCOSO;
-        if (vy > 0)
-            vy = 0.f;
+    else if (vel.y < 0) {
+        vel.y += VISCOSO;
+        if (vel.y > 0)
+            vel.y = 0.f;
     }
 
     //paredes invisiveis
-    if (corpo.getPosition().x < ESQUERDA && vx<0
-        || corpo.getPosition().x + corpo.getSize().x > DIREITA && vx>0) {
-        vx = 0.f;
+    if (getcm().x - getRaio().x < ESQUERDA && vel.x<0
+        || getcm().x + getRaio().x > DIREITA && vel.x>0) {
+        vel.x = 0.f;
     }
-    if (vx > MAX_VEL)
-        vx = MAX_VEL;
-    else if (vx < -MAX_VEL)
-        vx = -MAX_VEL;
-    corpo.move(vx, vy);
+    if (vel.x > MAX_VEL)
+        vel.x = MAX_VEL;
+    else if (vel.x < -MAX_VEL)
+        vel.x = -MAX_VEL;
+
+    corpo.move(vel);
 }
 
 void Jogador::executar()

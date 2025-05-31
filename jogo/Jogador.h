@@ -6,7 +6,7 @@ private:
 	static bool jogador1;
 	bool j1;
 public:
-	Jogador();
+	Jogador(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Jogador();
 	void mover();
 
