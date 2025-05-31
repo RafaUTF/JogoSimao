@@ -1,10 +1,18 @@
 #include "Plataforma.h"
 
-Plataforma::Plataforma() : Entidade(500, 450), tam_x(800.f), tam_y(100.f)
+Plataforma::Plataforma(Vector2f pos): Obstaculo(pos)
 {
-    corpo.setSize(sf::Vector2f(tam_x, tam_y));
-    corpo.setFillColor(sf::Color::Yellow);
-    corpo.setPosition(x, y);
+    //corpo.setScale(0.1f, 0.1f);
+    //corpo.setSize(sf::Vector2f(200.f,100.f ));
+    //corpo.setFillColor(sf::Color::Yellow);
+    // 
+    //corpo.setPosition(x, y);
 }
 
+
 Plataforma::~Plataforma(){}
+
+void Plataforma::executar()
+{
+    //?
+}

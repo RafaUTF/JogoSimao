@@ -6,11 +6,12 @@ class Personagem: public Entidade
 protected:
 	int num_vidas;
 	float agilidade;
-	float vy;
-	float vx;
-	float vg;
+	Vector2f vel;
+	//float vy;
+	//float vx;
+
 public:
-	Personagem();
+	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Personagem();
 	virtual void mover();
 	

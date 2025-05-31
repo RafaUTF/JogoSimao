@@ -1,8 +1,7 @@
 #include "Personagem.h"
 
-Personagem::Personagem() : num_vidas(10), vy(0), vx(0),vg(0), agilidade(5.f) {
-	//corpo.setPosition(100.f, 100.f);
-	//corpo.setFillColor(sf::Color::White);
+Personagem::Personagem(Vector2f pos): Entidade(pos), num_vidas(10), agilidade(5.f), vel(Vector2f(0.f,0.f)) {
+
 }
 
 

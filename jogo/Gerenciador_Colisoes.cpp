@@ -7,6 +7,18 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
 }
 
+void Gerenciador_Colisoes::executar() {
+	/*
+	verificaObsIni();
+	verificaIni();
+	verificaObs();
+	verificaProjetil();
+	verificaObsProjetil();
+	*/
+}
+
+
+
 const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
 	if (pe1 == NULL) {
@@ -17,21 +29,51 @@ const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) 
 		cout << "pe2 nulo" << endl;
 		return false;
 	}
-	//if (pe1->getXcm()+pe1->getRaioX() > pe2->getXcm() - pe2->getRaioX()
-		//&& pe1->getXcm()< pe2->getXcm()){
-
-	float a = pe1->getXcm();
-	float b = pe2->getXcm();
+	
+	
+	float a = pe1->getcm().x;
+	float b = pe2->getcm().x;
 	float dx;
 	b > a ? dx = b - a : dx = a - b;
-	a = pe1->getYcm();
-	b = pe2->getYcm();
+	a = pe1->getcm().y;
+	b = pe2->getcm().y;
 	float dy;
 	b > a ? dy = b - a : dy = a - b;
 
-	if(dx< pe1->getRaioX()+ pe2->getRaioX()
-		&& dy< pe1->getRaioY() + pe2->getRaioY()){
+	if(dx< pe1->getRaio().x+ pe2->getRaio().x
+		&& dy< pe1->getRaio().y + pe2->getRaio().y){
 		return true;
 	}
 	return false;
+
+	//if verificar colisao
+	//obstaculo->obstacular
 }
+
+
+
+
+void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
+
+}
+
+void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
+
+}
+
+void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
+
+}
+
+void Gerenciador_Colisoes::incluirInimigo(Inimigo* pi) {
+
+}
+
+void Gerenciador_Colisoes::incluirObstcaulo(Obstaculo* po) {
+
+}
+
+void Gerenciador_Colisoes::incluirProjetil(Projetil* pj) {
+
+}
+

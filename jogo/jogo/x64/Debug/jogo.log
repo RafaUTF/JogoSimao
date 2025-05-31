@@ -1,12 +1,4 @@
-﻿  Ente.cpp
-  Entidade.cpp
-  Gerenciador_Colisoes.cpp
-  Gerenciador_Grafico.cpp
-  Inimigo.cpp
+﻿  Inimigo.cpp
   Jogador.cpp
-  Jogo.cpp
-  ListaEntidades.cpp
-  main.cpp
-  Personagem.cpp
   Gerando Código...
-  jogo.vcxproj -> C:\Users\Vaio\Desktop\Jogao\jogo\x64\Debug\jogo.exe
+  jogo.vcxproj -> C:\Users\Vaio\Desktop\jogoDeborah\JogoSimao-main\jogo\x64\Debug\jogo.exe

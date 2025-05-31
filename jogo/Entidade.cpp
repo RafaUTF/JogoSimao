@@ -1,36 +1,32 @@
 #include "Entidade.h"
 
-Entidade::Entidade(float xx, float yy)
+Entidade::Entidade(Vector2f pos): Ente()
 {
-    x = xx;
-    y = yy;
+
+    centralizarEntidade();
+    corpo.setPosition(pos); // o centro do sprite ficará em pos
+
 }
 Entidade::~Entidade()
 {
 }
-
-float Entidade::getXcm()
+sf::Vector2f Entidade::getcm()
 {
-    return corpo.getPosition().x + corpo.getSize().x / 2;
-}
-float Entidade::getYcm()
-{
-    return corpo.getPosition().y + corpo.getSize().y / 2;
+    return corpo.getPosition();
 }
 
-float Entidade::getRaioX()
+Vector2f Entidade::getRaio()
 {
-    return corpo.getSize().x / 2;
+    sf::FloatRect bounds = corpo.getGlobalBounds();
+    return sf::Vector2f(
+        bounds.width / 2.f,
+        bounds.height / 2.f
+    );
 }
 
-float Entidade::getRaioY()
+void Entidade::centralizarEntidade()
 {
-    return corpo.getSize().y / 2;
-}
-
-
-void Entidade::executar()
-{
-    cout<<"executar entidade aleatoria"<<endl;
+    sf::FloatRect bounds = corpo.getLocalBounds();
+    corpo.setOrigin(bounds.width / 2.f, bounds.height / 2.f); // origem no centro do sprite
 }
 
