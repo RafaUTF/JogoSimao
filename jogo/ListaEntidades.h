@@ -5,6 +5,8 @@
 class ListaEntidades {
 private:
 	Lista<Entidade*> LEs;
+	Lista<Entidade*>::iterator it;
+
 public:
 	ListaEntidades();
 	~ListaEntidades();
@@ -12,4 +14,9 @@ public:
 	void percorrer();
 
 	void desenhar();
+
+	Entidade* getAtual();
+	void primeiro();
+	bool fim();
+	void operator++();
 };

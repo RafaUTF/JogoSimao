@@ -1,5 +1,6 @@
 #pragma once
 #include "Entidade.h"
+#include "Jogador.h"
 
 class Obstaculo : public Entidade
 {
@@ -10,6 +11,6 @@ public:
 	Obstaculo(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Obstaculo();
 	virtual void executar() = 0;
-	virtual void obstacular() = 0;
+	virtual void obstacular(Jogador* p=NULL) = 0;
 };
 

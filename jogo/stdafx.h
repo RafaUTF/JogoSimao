@@ -19,5 +19,6 @@ using std::endl;
 #define GRAVIDADE 0.5f
 #define MAX_VEL 10.f//velocidade maxima
 
+#define TEMPO_RECARGA 30
 
 

@@ -4,7 +4,7 @@ Inimigo::Inimigo(Jogador* pp1, Jogador* pp2, Vector2f pos) :
     Personagem(pos),
     p1(pp1),p2(pp2),nivel_maldade(0)
 {
-    agilidade = 2.f;
+    agilidade = 1.f;
     /*
     if (!textura.loadFromFile("boss.png")) {
         std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
@@ -24,17 +24,18 @@ Inimigo::~Inimigo()
 
 void Inimigo::mover()
 {
-    //getcm()
-    float dx1 = p1->getcm().x,
-        dy1 = p1->getcm().y,
-        dx2 = p2->getcm().x,
-        dy2 = p2->getcm().y;
+    Jogador* p = p1;
+    if (p2) {
+        float dx1 = p1->getcm().x,
+            dy1 = p1->getcm().y,
+            dx2 = p2->getcm().x,
+            dy2 = p2->getcm().y;
 
-    Jogador* p = p2;
-    if (dx1 * dx1 + dy1 * dy1 > dx2 * dx2 + dy2 * dy2)
-        p = p1;
+        if (dx1 * dx1 + dy1 * dy1 > dx2 * dx2 + dy2 * dy2)
+            p = p2;
 
-
+    }
+    
     //GRAVIDADE ANTES!
     if (getcm().y + getRaio().y < CHAO) {
         vel.y += GRAVIDADE;
@@ -117,4 +118,9 @@ void Inimigo::mover()
 void Inimigo::executar()
 {
     mover();
+}
+
+void Inimigo::danificar(Jogador* p)
+{
+    cout << "atacou" << endl;
 }

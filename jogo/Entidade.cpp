@@ -1,6 +1,6 @@
 #include "Entidade.h"
 
-Entidade::Entidade(Vector2f pos): Ente()
+Entidade::Entidade(Vector2f pos): Ente(),massa(10.f),dirColisao(0), vel(Vector2f(0.f, 0.f))
 {
 
     centralizarEntidade();
@@ -28,5 +28,45 @@ void Entidade::centralizarEntidade()
 {
     sf::FloatRect bounds = corpo.getLocalBounds();
     corpo.setOrigin(bounds.width / 2.f, bounds.height / 2.f); // origem no centro do sprite
+}
+
+void Entidade::colidir(int v)
+{
+    dirColisao = v;
+    if (v != 0) {
+        if (v == 1) {
+            corpo.move(0.f, -vel.y);
+        }
+        if (v == 4) {
+            corpo.move(0.f, -vel.y);
+        }
+        if (v == 2) {
+            corpo.move(-vel.x, 0.f);
+        }
+        if (v == 3) {
+            corpo.move(-vel.x, 0.f);
+        }
+
+    }
+}
+
+void Entidade::setDir(int v)
+{
+    dirColisao = v;
+}
+
+int Entidade::getDir()
+{
+    return dirColisao;
+}
+
+void Entidade::setVel(Vector2f v)
+{
+    vel = v;
+}
+
+Vector2f& Entidade::getVel()
+{
+    return vel;
 }
 

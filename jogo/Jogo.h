@@ -16,7 +16,8 @@ private:
 	Jogador* pJog1;
 	Jogador* pJog2;
 	Inimigo* pInim;
-	Plataforma* pPlat;
+	Plataforma* pPlat1;
+	Plataforma* pPlat2;
 
 	ListaEntidades lista;
 

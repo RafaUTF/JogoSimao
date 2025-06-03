@@ -59,7 +59,7 @@ public:
 	private:
 		Elemento<TL>* pex;
 	public:
-		iterator(Elemento<TL>* p) : pex(p) {}
+		iterator(Elemento<TL>* p=nullptr) : pex(p) {}
 		~iterator() {}
 
 		TL& operator*() const {

@@ -2,11 +2,9 @@
 
 Plataforma::Plataforma(Vector2f pos): Obstaculo(pos)
 {
-    //corpo.setScale(0.1f, 0.1f);
-    //corpo.setSize(sf::Vector2f(200.f,100.f ));
-    //corpo.setFillColor(sf::Color::Yellow);
-    // 
-    //corpo.setPosition(x, y);
+    corpo.setSize(Vector2f(400.f, 50.f));
+    centralizarEntidade();
+    corpo.setFillColor(Color::Yellow);
 }
 
 
@@ -15,4 +13,9 @@ Plataforma::~Plataforma(){}
 void Plataforma::executar()
 {
     //?
+}
+
+void Plataforma::obstacular(Jogador* p)
+{
+
 }

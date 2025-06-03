@@ -1,5 +1,7 @@
 #include "Gerenciador_Grafico.h"
 
+Gerenciador_Grafico* Gerenciador_Grafico::pgg(NULL);
+
 Gerenciador_Grafico::Gerenciador_Grafico():
 	janela(sf::VideoMode(DIREITA+50.f, CHAO), "janela",Style::Default),
 	fundo()
@@ -18,6 +20,8 @@ Gerenciador_Grafico::Gerenciador_Grafico():
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
+	delete pgg;
+	pgg = NULL;
 }
 
 void Gerenciador_Grafico::desenhar(Ente* pE)
@@ -47,6 +51,13 @@ void Gerenciador_Grafico::mostrar()
 void Gerenciador_Grafico::fechar()
 {
 	janela.close();
+}
+
+Gerenciador_Grafico* Gerenciador_Grafico::getInstancia()
+{
+	if (pgg == NULL)
+		pgg = new Gerenciador_Grafico;
+	return pgg;
 }
 
 sf::RenderWindow& Gerenciador_Grafico::getWindow()

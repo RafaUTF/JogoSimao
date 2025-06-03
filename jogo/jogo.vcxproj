@@ -151,6 +151,7 @@
     <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
     <ClCompile Include="Plataforma.cpp" />
+    <ClCompile Include="Projetil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ente.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />
     <ClInclude Include="Plataforma.h" />
+    <ClInclude Include="Projetil.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

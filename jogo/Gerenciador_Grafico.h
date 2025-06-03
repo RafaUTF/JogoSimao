@@ -7,11 +7,15 @@
 class Gerenciador_Grafico
 {
 private:
+	static Gerenciador_Grafico* pgg;
+
 	sf::RenderWindow janela;
 	Sprite fundo;
 	Texture textura;
+
+
+	Gerenciador_Grafico();//tem que ser privada
 public:
-	Gerenciador_Grafico();
 	~Gerenciador_Grafico();
 	sf::RenderWindow& getWindow();
 	const bool aberta() const;
@@ -21,5 +25,7 @@ public:
 	void desenhaFundo();
 	void mostrar();
 	void fechar();
+	
+	static Gerenciador_Grafico* getInstancia();
 };
 

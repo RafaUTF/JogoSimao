@@ -1,8 +1,9 @@
 #pragma once
 #include "Personagem.h" 
+
 class Jogador: public Personagem
 {
-private:
+protected:
 	static bool jogador1;
 	bool j1;
 public:
@@ -12,5 +13,10 @@ public:
 
 	void executar();
 	
+	void colidir(Jogador* p = NULL);
+
+	void atirar();
+
+
 };
 

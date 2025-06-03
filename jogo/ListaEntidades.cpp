@@ -1,8 +1,9 @@
 #include "ListaEntidades.h"
 
-ListaEntidades::ListaEntidades(): LEs()
+ListaEntidades::ListaEntidades(): LEs(), it()
 {
 	LEs.clear();
+	primeiro();
 }
 
 ListaEntidades::~ListaEntidades()
@@ -41,5 +42,28 @@ void ListaEntidades::desenhar()
 			(*it)->desenhar(static_cast<Ente*>(*it));
 		}
 	}
+}
+
+Entidade* ListaEntidades::getAtual()
+{
+	return *it;
+}
+
+void ListaEntidades::primeiro()
+{
+	it = LEs.begin();
+}
+
+bool ListaEntidades::fim()
+{
+	return it == LEs.end();
+}
+
+void ListaEntidades::operator++()
+{
+	if (fim())
+		cout << "Passou do final de LEs em ListaEntidades!" << endl;
+	else
+		++it;
 }
 

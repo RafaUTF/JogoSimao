@@ -14,7 +14,10 @@ public:
 	~Inimigo();
 	virtual void mover();
 
-	void executar();
-
+	virtual void executar();
+	//virtual void salvar();
+	virtual void danificar(Jogador* p=NULL);
 };
+
+
 
