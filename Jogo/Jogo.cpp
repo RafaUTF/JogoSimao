@@ -8,7 +8,9 @@ Jogo::Jogo(int numPlayers_, int fase_):
     pPlat1(new Plataforma(Vector2f(800.f, 550.f))),
     pPlat2(new Plataforma(Vector2f(600.f, 650.f))),
     GC(Gerenciador_Colisoes::getInstancia()),
-    GG(Gerenciador_Grafico::getInstancia())//
+    GG(Gerenciador_Grafico::getInstancia()),
+    numPlayers(numPlayers_),
+    fase(fase_)
 {
     
     Ente::setpGG(Gerenciador_Grafico::getInstancia());
@@ -31,7 +33,7 @@ Jogo::Jogo(int numPlayers_, int fase_):
 
 Jogo::~Jogo()
 {
-    //lista j· deleta tudo;
+    //lista j√° deleta tudo;
     /*
 	delete pJog1;
 	delete pJog2;
