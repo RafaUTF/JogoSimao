@@ -1,0 +1,5 @@
+﻿  Menu.cpp
+C:\Users\User\Downloads\JogoSimao-RafaUTF-patch-1 (1)\JogoSimao-RafaUTF-patch-1\jogo\Menu.cpp(30,48): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  main.cpp
+  Gerando Código...
+  jogo.vcxproj -> C:\Users\User\Downloads\JogoSimao-RafaUTF-patch-1 (1)\JogoSimao-RafaUTF-patch-1\jogo\x64\Debug\jogo.exe
