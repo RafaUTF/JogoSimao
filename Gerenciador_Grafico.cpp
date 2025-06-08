@@ -1,0 +1,96 @@
+#include "Gerenciador_Grafico.h"
+
+Gerenciador_Grafico* Gerenciador_Grafico::pgg(NULL);
+
+Gerenciador_Grafico::Gerenciador_Grafico():
+	janela(sf::VideoMode(DIREITA, CHAO), "janela",Style::Default),
+	fundo(),
+	camera(sf::FloatRect(0, 450, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
+{
+	janela.setFramerateLimit(FPS);
+
+	if (!textura.loadFromFile("fundo.png")) {
+		std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
+	}
+	else {
+		fundo.setTexture(textura);
+	}
+	fundo.setPosition(0.f, 0.f);
+	fundo.scale(1.5f,1.5f);
+}
+
+Gerenciador_Grafico::~Gerenciador_Grafico()
+{
+	delete pgg;
+	pgg = NULL;
+}
+
+void Gerenciador_Grafico::desenhar(Ente* pE)
+{
+	if (pE == NULL) {
+		cout << "nao foi possivel desenhar o ente NULO" << endl;
+		return;
+	}
+	janela.draw(pE->getCorpo());
+}
+
+void Gerenciador_Grafico::desenhar(const RectangleShape& retangulo)
+{
+	janela.draw(retangulo);
+}
+
+void Gerenciador_Grafico::desenhaFundo()
+{
+	janela.draw(fundo);
+}
+
+void Gerenciador_Grafico::mostrar()
+{
+	janela.display();
+}
+
+void Gerenciador_Grafico::fechar()
+{
+	janela.close();
+}
+
+void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
+{
+	if (p2) {
+		camera.setCenter(Vector2f(
+			(p1->getcm().x + p2->getcm().x) / 2.f, CHAO/2.f
+		));
+		
+	}
+	else {
+		camera.setCenter(Vector2f(
+			p1->getcm().x, CHAO/2.f
+		));
+	}
+	janela.setView(camera);
+	
+}
+
+
+
+Gerenciador_Grafico* Gerenciador_Grafico::getInstancia()
+{
+	if (pgg == NULL)
+		pgg = new Gerenciador_Grafico;
+	return pgg;
+}
+
+sf::RenderWindow& Gerenciador_Grafico::getWindow()
+{
+	return janela;
+}
+
+const bool Gerenciador_Grafico::aberta() const
+{
+	return janela.isOpen();
+}
+
+void Gerenciador_Grafico::clear()
+{
+	janela.clear();
+}
