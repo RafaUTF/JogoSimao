@@ -9,8 +9,9 @@ using std::endl;
 
 #define FPS 60
 
-#define CHAO 900.f
-#define DIREITA 1800.f
+#define CHAO 640.f
+#define DIREITA 960.f
+#define TAMANHOTOTALLATERAL 2880.f
 
 #define ESQUERDA 50.f
 

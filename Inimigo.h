@@ -9,10 +9,11 @@ protected:
 	int nivel_maldade;
 	Jogador* p1;
 	Jogador* p2;
+	bool chefao;
 public:
-	Inimigo(Jogador* pp1=NULL, Jogador* pp2=NULL, Vector2f pos = (Vector2f(100.f, 100.f)));
+	Inimigo(Vector2f pos = (Vector2f(100.f, 100.f)));
 	~Inimigo();
-	virtual void mover();
+	virtual void mover() = 0;
 
 	virtual void executar();
 	//virtual void salvar();

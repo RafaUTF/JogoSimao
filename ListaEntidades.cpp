@@ -25,12 +25,10 @@ void ListaEntidades::incluir(Entidade* pE)
 		cout << "ponteiro nulo nao inserido" << endl;
 }
 
-void ListaEntidades::percorrer()
-{
-	for (Lista<Entidade*>::iterator it = LEs.begin();it != LEs.end();++it) {
-		if (*it) {
+void ListaEntidades::percorrer() {
+	for (Lista<Entidade*>::iterator it = LEs.begin(); it != LEs.end(); ++it) {
+		if (*it && *it != nullptr) { // Check for NULL and invalid pointers
 			(*it)->executar();
-			//(*it)->desenhar(*it);
 		}
 	}
 }

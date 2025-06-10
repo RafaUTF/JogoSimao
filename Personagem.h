@@ -31,5 +31,8 @@ public:
 	ListaEntidades* getTiros();
 
 	void criarTiros();
+	
+	void reduzVelocidade(float fator);
+	void restaurarVelocidade();
 };
 

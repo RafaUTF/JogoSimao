@@ -291,10 +291,14 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
+		pJog1->restaurarVelocidade();
 		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
+				po->obstacular(pJog1);
+					
+				
 				if (d == 1) {
 					pJog1->getVel().y = 0.f;
 					pJog1->getCorpo().setPosition(

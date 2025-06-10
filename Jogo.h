@@ -9,18 +9,19 @@
 #include "Plataforma.h"
 #include "Ente.h"
 #include "Menu.h"
+#include "Fase.h"
+#include "Fase1.h"
 
 class Jogo {
 private:
 	//Fase1* pF1;
 	//Fase2* pF2;
-	Jogador* pJog1;
-	Jogador* pJog2;
 	Inimigo* pInim;
 	Inimigo* pBoss;
 
 	Plataforma* pPlat1;
 	Plataforma* pPlat2;
+	Fase* pFase;
 
 	ListaEntidades lista;
 

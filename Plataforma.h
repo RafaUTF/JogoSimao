@@ -10,5 +10,6 @@ public:
 	~Plataforma();
 	void executar();
 	void obstacular(Jogador* p=NULL);
+	void causarDano(Jogador* pJog);
 };
 

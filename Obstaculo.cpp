@@ -8,3 +8,5 @@ Obstaculo::Obstaculo(Vector2f pos) :
 Obstaculo::~Obstaculo()
 {
 }
+
+bool Obstaculo::isDanoso() const { return danoso;}

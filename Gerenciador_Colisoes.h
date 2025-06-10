@@ -10,6 +10,7 @@ using namespace std;
 #include "Inimigo.h"
 #include "Projetil.h"
 #include "Obstaculo.h"
+#include "Espinho.h"
 class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
 	
 private:

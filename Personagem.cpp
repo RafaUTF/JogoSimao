@@ -49,3 +49,13 @@ void Personagem::criarTiros()
 {
     tiros = new ListaEntidades();
 }
+
+void Personagem::reduzVelocidade(float fator)
+{
+    agilidade *= fator;
+    
+}
+
+void Personagem::restaurarVelocidade() {
+    agilidade = 1.f;
+}

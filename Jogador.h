@@ -17,6 +17,8 @@ public:
 
 	void atirar();
 
+	void operator--();
+
 
 };
 

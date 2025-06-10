@@ -4,7 +4,7 @@
 
 class Obstaculo : public Entidade
 {
-private:
+protected:
 	bool danoso;
 	// float hitbox? 
 public:
@@ -12,5 +12,7 @@ public:
 	~Obstaculo();
 	virtual void executar() = 0;
 	virtual void obstacular(Jogador* p=NULL) = 0;
+	bool isDanoso() const;
+	virtual void causarDano(Jogador* pJog = NULL) = 0;
 };
 

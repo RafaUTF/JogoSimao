@@ -50,4 +50,3 @@ Vector2f& Entidade::getVel()
 {
     return vel;
 }
-

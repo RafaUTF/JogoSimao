@@ -9,5 +9,6 @@ public:
 	~Chefao();
 	void executar();
 	void salvar();
+	void mover();
 };
 

@@ -5,7 +5,7 @@ Gerenciador_Grafico* Gerenciador_Grafico::pgg(NULL);
 Gerenciador_Grafico::Gerenciador_Grafico():
 	janela(sf::VideoMode(DIREITA, CHAO), "janela",Style::Default),
 	fundo(),
-	camera(sf::FloatRect(0, 450, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
+	camera(sf::FloatRect(0, 0, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
 {
 	janela.setFramerateLimit(FPS);
 
@@ -56,19 +56,27 @@ void Gerenciador_Grafico::fechar()
 
 void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
 {
+	float larguraJanela = camera.getSize().x;
+	float larguraCenario = TAMANHOTOTALLATERAL;
+
+	float centroX;
 	if (p2) {
-		camera.setCenter(Vector2f(
-			(p1->getcm().x + p2->getcm().x) / 2.f, CHAO/2.f
-		));
-		
+		centroX = (p1->getcm().x + p2->getcm().x) / 2.f;
 	}
 	else {
-		camera.setCenter(Vector2f(
-			p1->getcm().x, CHAO/2.f
-		));
+		centroX = p1->getcm().x;
 	}
+
+	float minCentro = larguraJanela / 2.f;
+	float maxCentro = larguraCenario - larguraJanela / 2.f;
+
+	if (centroX < minCentro)
+		centroX = minCentro;
+	if (centroX > maxCentro)
+		centroX = maxCentro;
+
+	camera.setCenter(Vector2f(centroX, CHAO / 2.f));
 	janela.setView(camera);
-	
 }
 
 
