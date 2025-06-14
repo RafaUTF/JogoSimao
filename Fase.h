@@ -10,6 +10,8 @@
 #include "Chefao.h"
 #include "InimigoPequeno.h"
 #include "InimigoAlto.h"
+#include "BandeiraChegada.h"
+
 
 class Fase : public Ente {
 protected:

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BandeiraChegada.cpp" />
     <ClCompile Include="Chefao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="TeiaAranha.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BandeiraChegada.h" />
     <ClInclude Include="Chefao.h" />
     <ClInclude Include="Ente.h" />
     <ClInclude Include="Entidade.h" />

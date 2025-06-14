@@ -9,14 +9,14 @@ Gerenciador_Grafico::Gerenciador_Grafico():
 {
 	janela.setFramerateLimit(FPS);
 
-	if (!textura.loadFromFile("fundo.png")) {
+	/*if (!textura.loadFromFile("teste.png")) {
 		std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
 	}
 	else {
 		fundo.setTexture(textura);
 	}
-	fundo.setPosition(0.f, 0.f);
-	fundo.scale(1.5f,1.5f);
+	fundo.setPosition(-16.f, -16.f);
+	fundo.scale(1.f,1.f);*/
 }
 
 Gerenciador_Grafico::~Gerenciador_Grafico()

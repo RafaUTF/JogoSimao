@@ -26,6 +26,7 @@ Jogo::~Jogo()
 
 void Jogo::executar()
 {
+
     if (pFase)
         pFase->executar();
 }

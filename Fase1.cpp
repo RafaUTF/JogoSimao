@@ -73,6 +73,11 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
     const auto& camada = mapaJson["layers"][0];  // Usando primeira camada ("Camada de Blocos 1")
     const auto& data = camada["data"];
 
+    std::vector<std::pair<float, float>> bloco_teia;
+    std::vector<std::pair<float, float>> bloco_plataforma;
+
+
+
     for (int i = 0; i < data.size(); ++i) {
         int id = data[i];
         if (id == 0)
@@ -84,48 +89,127 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
         float x = coluna * larguraTiles;
         float y = linha * alturaTiles;
 
+        srand(static_cast<unsigned int>(time(0)));
+		
+
+        //teia de aranha aleatória
+        if (id == 16) {
+            bloco_teia.emplace_back(x, y);
+            if (bloco_teia.size() == 5) {
+                int chance = rand() % 2; // 0 = teia, 1 = plataforma
+                for (auto& pos : bloco_teia) {
+                    if (chance == 0) {
+                        TeiaAranha* teiaaranha = new TeiaAranha({ pos.first, pos.second });
+                        LE.incluir(teiaaranha);
+                        pGC->incluirObstaculo(teiaaranha);
+                    }
+                    else {
+                        Plataforma* plataforma = new Plataforma({ pos.first, pos.second });
+                        LE.incluir(plataforma);
+                        pGC->incluirObstaculo(plataforma);
+                    }
+                }
+                bloco_teia.clear();
+            }
+        }
+        else {
+            // Se encontrar um tile diferente, reseta o bloco
+            bloco_teia.clear();
+        }
+
+
+        //plataforma aleatória
+        if (id == 12) {
+            bloco_plataforma.emplace_back(x, y);
+            if (bloco_plataforma.size() == 6) {
+                int chance = rand() % 2;
+                for (auto& pos : bloco_plataforma) {
+                    if (chance == 0) {
+                        Plataforma* plataforma = new Plataforma({ pos.first, pos.second });
+                        LE.incluir(plataforma);
+                        pGC->incluirObstaculo(plataforma);
+                    }
+                }
+                bloco_plataforma.clear();
+            }
+        }
+            else {
+                // Se encontrar um tile diferente, reseta o bloco
+                bloco_plataforma.clear();
+            }
+        
+        //Inimigo Alto aleatório
+        if(id == 11){
+            int chance = rand() % 2;
+            if (chance == 0) {
+                InimigoAlto* inimigoalto = new InimigoAlto({ x, y });
+                LE.incluir(inimigoalto);
+                pGC->incluirInimigo(inimigoalto);
+            }
+        }
+
+        if (id == 26) {
+            int chance = rand() % 2;
+            if (chance == 0) {
+                InimigoPequeno* inimigoPequeno = new InimigoPequeno({ x, y });
+                LE.incluir(inimigoPequeno);
+                pGC->incluirInimigo(inimigoPequeno);
+            }
+        }
+
+
+
         if (id == 19) {
-			pJog1->getCorpo().setPosition({x, y});
-        }
+                pJog1->getCorpo().setPosition({ x, y });
+            }
         if (id == 23) {
-            if (pJog2)
-                pJog2->getCorpo().setPosition({ x, y });
-        }
+                if (pJog2)
+                    pJog2->getCorpo().setPosition({ x, y });
+            }
 
         // Ex: id 2 = chão, id 781 = plataforma, etc.
         if (id == 2 || id == 781 || id == 34 || id == 28) {
-            auto* plataforma = new Plataforma({ x, y });
-            LE.incluir(plataforma);
-            pGC->incluirObstaculo(plataforma);
-        }
+                auto* plataforma = new Plataforma({ x, y });
+                LE.incluir(plataforma);
+                pGC->incluirObstaculo(plataforma);
+            }
 
         if (id == 10) {
-            criarChefe({ x, y });
-        }
-        
+                criarChefe({ x, y });
+            }
+
         if (id == 14) {
-            Espinho* espinho = new Espinho({ x, y });
-            LE.incluir(espinho);
-            pGC->incluirObstaculo(espinho);
-        }
+                Espinho* espinho = new Espinho({ x, y });
+                LE.incluir(espinho);
+                pGC->incluirObstaculo(espinho);
+            }
 
         if (id == 13) {
-            TeiaAranha* teiaaranha = new TeiaAranha({ x, y });
-            LE.incluir(teiaaranha);
-            pGC->incluirObstaculo(teiaaranha);
-        }
+                TeiaAranha* teiaaranha = new TeiaAranha({ x, y });
+                LE.incluir(teiaaranha);
+                pGC->incluirObstaculo(teiaaranha);
+            }
 
         if (id == 18) {
-			InimigoPequeno* inimigoPequeno = new InimigoPequeno({ x, y });
-            LE.incluir(inimigoPequeno);
-			pGC->incluirInimigo(inimigoPequeno);
-        }
+                InimigoPequeno* inimigoPequeno = new InimigoPequeno({ x, y });
+                LE.incluir(inimigoPequeno);
+                pGC->incluirInimigo(inimigoPequeno);
+            }
 
         if (id == 11) {
-            InimigoAlto* inimigoalto = new InimigoAlto({ x, y });
-            LE.incluir(inimigoalto);
-            pGC->incluirInimigo(inimigoalto);
+                InimigoAlto* inimigoalto = new InimigoAlto({ x, y });
+                LE.incluir(inimigoalto);
+                pGC->incluirInimigo(inimigoalto);
+            }
+
+
+        if (id == 17) {
+            std::cout << "Criando bandeira em: " << x << ", " << y << std::endl;
+            BandeiraChegada* bandeiraChegada = new BandeiraChegada({ x, y });
+            LE.incluir(bandeiraChegada); // Garante que será desenhada
+            pGC->incluirObstaculo(bandeiraChegada); // Para colisão, se necessário
         }
 
     }
+
 }

@@ -11,7 +11,7 @@ using std::endl;
 
 #define CHAO 640.f
 #define DIREITA 960.f
-#define TAMANHOTOTALLATERAL 2880.f
+#define TAMANHOTOTALLATERAL 3200.f
 
 #define ESQUERDA 50.f
 
