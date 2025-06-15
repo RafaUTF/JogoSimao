@@ -89,7 +89,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
         float x = coluna * larguraTiles;
         float y = linha * alturaTiles;
 
-        srand(static_cast<unsigned int>(time(0)));
+       
 		
 
         //teia de aranha aleatória

@@ -4,7 +4,7 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1800, 900), "Jogo");
-
+    srand(static_cast<unsigned int>(time(0)));
     Menu menu;
     int nJogadores, fase;
     int opcao = menu.mostrar(window, nJogadores, fase);
