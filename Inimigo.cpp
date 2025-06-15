@@ -1,7 +1,7 @@
 #include "Inimigo.h"
 
 Inimigo::Inimigo(Vector2f pos) :
-    Personagem(pos),nivel_maldade(0),pAlvo(nullptr),p1(nullptr),p2(nullptr)
+    Personagem(pos), nivel_maldade(0), pAlvo(nullptr), p1(nullptr), p2(nullptr)
 {
     agilidade = 1.f;
 

@@ -1,6 +1,6 @@
 #include "ListaEntidades.h"
 
-ListaEntidades::ListaEntidades(): LEs(), it()
+ListaEntidades::ListaEntidades() : LEs(), it()
 {
 	LEs.clear();
 	primeiro();
@@ -8,6 +8,8 @@ ListaEntidades::ListaEntidades(): LEs(), it()
 
 ListaEntidades::~ListaEntidades()
 {
+	cout << "destrutora ListaEntidades" << endl;
+
 	cout << "destrutora ListaEntidades" << endl;
 	for (Lista<Entidade*>::iterator it = LEs.begin();it != LEs.end();++it) {
 		if (*it) {
@@ -81,7 +83,6 @@ void ListaEntidades::retirar(Entidade* pE)
 	else {
 		cout << "ponteiro nao encontrado em LEs(nao retirado)" << endl;
 		it = anterior;
-		
+
 	}
 }
-

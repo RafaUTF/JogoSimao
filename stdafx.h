@@ -27,4 +27,4 @@ using std::endl;
 
 #define VISAO_INIMIGO2 80000.f//distancia que o inimigo enxerga ao quadrado
 
-#define VIDA_JOGADOR 3
+#define VIDA_JOGADOR 2

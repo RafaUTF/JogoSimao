@@ -20,10 +20,8 @@ Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
     criarMapa("mapa1.json");
 
     criarChefoes();
-    cout << "xx" << endl;
     criarObstMedios();
     //criarProjeteis();
-    cout << "aa" << endl;
     criarInimigos();
     criarObstaculos();
 
@@ -40,73 +38,8 @@ void Fase2::criarObstaculos()
 {
 }
 
-void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e do Gerenciador_Colisoes e deleta
-{
-    pGC->retirarProjeteis();
 
-    ListaEntidades* l = pJog1->getTiros();
 
-    for (l->primeiro();!l->fim();l->operator++()) {
-        Projetil* pj = static_cast<Projetil*>(l->getAtual());
-        if (pj->getAtivo() == false) {
-            l->retirar(pj);
-            delete pj;
-            pj = nullptr;
-        }
-    }
-    if (pJog2) {
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            Projetil* pj = static_cast<Projetil*>(l->getAtual());
-            if (pj->getAtivo() == false) {
-                l->retirar(pj);
-                delete pj;
-                pj = nullptr;
-            }
-        }
-    }
-    
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i]) {
-            l = LIs[i]->getTiros();
-            for (l->primeiro();!l->fim();l->operator++()) {
-                Projetil* pj = static_cast<Projetil*>(l->getAtual());
-                if (pj->getAtivo() == false) {
-                    l->retirar(pj);
-                    delete pj;
-                    pj = nullptr;
-                }
-            }
-        }
-        else
-            cout << "chefao nulo em destruirProjeteis na Fase2" << endl;
-    }
-}
-
-void Fase2::incluirProjeteisGC()
-{
-    ListaEntidades* l = pJog1->getTiros();
-    for (l->primeiro();!l->fim();l->operator++()) {
-        pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-    }
-    if (pJog2) {
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-        }
-    }
-    
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i]) {
-            l = LIs[i]->getTiros();
-            if (l) {
-                for (l->primeiro();!l->fim();l->operator++()) {
-                    pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-                }
-            }
-        }
-    }
-}
 
 void Fase2::criarChefoes()
 {
@@ -117,6 +50,7 @@ void Fase2::criarChefoes()
         pi = new Chefao(pJog1, pJog2, (Vector2f(1200.f+i*300.f, 400.f)));
         LE.incluir(pi);
         LIs.push_back(pi);
+        pGC->incluirInimigo(pi);
     }
 }
 
@@ -124,20 +58,6 @@ void Fase2::criarObstMedios()
 {
 }
 
-void Fase2::desenharProjeteis()//mostra os projeteis na tela
-{
-    pJog1->getTiros()->desenhar();
-    if(pJog2)
-        pJog2->getTiros()->desenhar();
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i]) {
-            LIs[i]->getTiros()->desenhar();
-        }
-        else {
-            cout << "ponteiro inimigo nulo em criar projeteis fase2" << endl;
-        }
-    }
-}
 
 
 
@@ -168,6 +88,9 @@ void Fase2::executar() {
         pGG->mostrar();
 
         destruirProjeteis();
+        destruirNeutralizados();
+
+
     }
 }
 
@@ -254,5 +177,89 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
             pGC->incluirInimigo(inimigoalto);
         }
 
+    }
+}
+
+
+
+void Fase2::desenharProjeteis()//mostra os projeteis na tela
+{
+    pJog1->getTiros()->desenhar();
+    if (pJog2)
+        pJog2->getTiros()->desenhar();
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i]) {
+            LIs[i]->getTiros()->desenhar();
+        }
+        else {
+            cout << "ponteiro inimigo nulo em criar projeteis fase2" << endl;
+        }
+    }
+}
+void Fase2::incluirProjeteisGC()
+{
+    ListaEntidades* l = pJog1->getTiros();
+    for (l->primeiro();!l->fim();l->operator++()) {
+        pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+    }
+    if (pJog2) {
+        l = pJog2->getTiros();
+        for (l->primeiro();!l->fim();l->operator++()) {
+            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+        }
+    }
+
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i]) {
+            l = LIs[i]->getTiros();
+            if (l) {
+                for (l->primeiro();!l->fim();l->operator++()) {
+                    pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+                }
+            }
+        }
+    }
+}
+
+void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e do Gerenciador_Colisoes e deleta
+{
+    pGC->retirarProjeteis();
+
+    ListaEntidades* l = pJog1->getTiros();
+
+    for (l->primeiro();!l->fim();l->operator++()) {
+        Projetil* pj = static_cast<Projetil*>(l->getAtual());
+        if (pj->getAtivo() == false) {
+            l->retirar(pj);
+            delete pj;
+            pj = nullptr;
+        }
+    }
+    if (pJog2) {
+        l = pJog2->getTiros();
+        for (l->primeiro();!l->fim();l->operator++()) {
+            Projetil* pj = static_cast<Projetil*>(l->getAtual());
+            if (pj->getAtivo() == false) {
+                l->retirar(pj);
+                delete pj;
+                pj = nullptr;
+            }
+        }
+    }
+
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i]) {
+            l = LIs[i]->getTiros();
+            for (l->primeiro();!l->fim();l->operator++()) {
+                Projetil* pj = static_cast<Projetil*>(l->getAtual());
+                if (pj->getAtivo() == false) {
+                    l->retirar(pj);
+                    delete pj;
+                    pj = nullptr;
+                }
+            }
+        }
+        else
+            cout << "chefao nulo em destruirProjeteis na Fase2" << endl;
     }
 }

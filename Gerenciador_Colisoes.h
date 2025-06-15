@@ -13,21 +13,21 @@ using namespace std;
 #include "Espinho.h"
 
 class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
-	
+
 private:
 	bool chao1;
 	bool chao2;
 
-	
+
 	vector<Inimigo*> LIs;
 	list<Obstaculo*> LOs;
 	set<Projetil*> LPs;
-	
+
 	vector<Jogador*> LJs;
 
 	Gerenciador_Colisoes();//privada
 
-	const int verificarDirecao(Entidade* pe1=NULL, Entidade* pe2=NULL) const;
+	const int verificarDirecao(Entidade* pe1 = NULL, Entidade* pe2 = NULL) const;
 
 	void tratarColisoesJogs();
 	void tratarColisoesJogsObstacs();
@@ -42,12 +42,12 @@ public:
 	~Gerenciador_Colisoes();
 	void executar();
 	void retirarProjeteis();
+	void retirarPersonagens();
 
-	void incluirInimigo(Inimigo* pi=NULL);
-	void incluirObstaculo(Obstaculo* po=NULL);
-	void incluirProjetil(Projetil* pj=NULL);
+	void incluirInimigo(Inimigo* pi = NULL);
+	void incluirObstaculo(Obstaculo* po = NULL);
+	void incluirProjetil(Projetil* pj = NULL);
 	void incluirJogador(Jogador* pjog = NULL);
 };
-
 
 

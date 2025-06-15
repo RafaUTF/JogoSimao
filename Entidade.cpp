@@ -12,7 +12,7 @@ Entidade::~Entidade()
 }
 sf::Vector2f Entidade::getcm()
 {
-    return corpo.getPosition();//?
+    return corpo.getPosition();
 }
 
 Vector2f Entidade::getRaio()
@@ -51,6 +51,7 @@ Vector2f& Entidade::getVel()
     return vel;
 }
 
-void Entidade::sofrerGravidade()
+const int Entidade::getVidas()
 {
+    return 1;
 }

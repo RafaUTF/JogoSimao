@@ -2,17 +2,17 @@
 
 
 
-Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos):
-	Inimigo(pos), forca(100)
+Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
+    Inimigo(pos), forca(100)
 {
-	agilidade = 0.7f;
+    agilidade = 0.7f;
     p1 = pp1;
     p2 = pp2;
-	criarTiros();
+    criarTiros();
 
-	corpo.setSize(Vector2f(150.f, 150.f));
-	centralizarEntidade();
-	corpo.setFillColor(Color::Magenta);
+    corpo.setSize(Vector2f(150.f, 150.f));
+    centralizarEntidade();
+    corpo.setFillColor(Color::Magenta);
 }
 Chefao::~Chefao()
 {
@@ -22,11 +22,11 @@ Chefao::~Chefao()
 void Chefao::executar()
 {
     escolherAlvo();
-	mover();//mover inimigo
+    mover();//mover inimigo
     if (pAlvo) {
-	    atirar();
+        //atirar();
     }
-	tiros->percorrer();
+    tiros->percorrer();
 }
 
 void Chefao::salvar()
@@ -34,7 +34,7 @@ void Chefao::salvar()
 }
 
 void Chefao::mover() {
-    
+
     //GRAVIDADE ANTES!
     if (getcm().y + getRaio().y < CHAO && !comChao) {
         vel.y += GRAVIDADE;
@@ -50,11 +50,11 @@ void Chefao::mover() {
     else {//chao
         vel.y = 0;
     }*/
-    
+
     if (pAlvo)
         perseguir();
 
     corpo.move(vel);
 
-    
+
 }

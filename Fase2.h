@@ -4,24 +4,25 @@
 class Fase2 : public Fase {
 
 private:
-    Jogador* pJog1;
-    Jogador* pJog2;
     
-    vector<Inimigo*> LIs;
+    vector<Inimigo*> LIs;//lista de chefes
 
     const int maxChefoes;
 
     void criarInimigos();
     void criarObstaculos();
 
+    void incluirProjeteisGC();
+
+    void desenharProjeteis();
+
     void destruirProjeteis();
 
-    void incluirProjeteisGC();
+
 
 protected:
     void criarChefoes();
     void criarObstMedios();
-    void desenharProjeteis();
 
 public:
     Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);

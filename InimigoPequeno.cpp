@@ -21,7 +21,7 @@ InimigoPequeno::InimigoPequeno(Vector2f pos) :
 }
 InimigoPequeno::~InimigoPequeno()
 {
-	cout << "destrutora inimigo pequeno" << endl;
+	cout << "destrutora InimigoPequeno" << endl;
 }
 
 void InimigoPequeno::executar()

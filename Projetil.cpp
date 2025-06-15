@@ -2,8 +2,8 @@
 
 #include "Personagem.h"
 
-Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp):
-	Entidade(pos), ativo(true),lista(lp),duracao(TEMPO_PROJETIL)
+Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp) :
+    Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL)
 {
     /*
     if (!textura.loadFromFile("boss.png")) {
@@ -20,11 +20,11 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp):
 
     if (dir) {
         vel = (Vector2f(10.f, -10.f));
-        corpo.move(raio*1.5f, 0.f);
+        corpo.move(raio * 1.5f, 0.f);
     }
     else {
         vel = (Vector2f(-10.f, -10.f));
-        corpo.move(-raio*1.5f, 0.f);
+        corpo.move(-raio * 1.5f, 0.f);
     }
 
 }
@@ -37,7 +37,7 @@ Projetil::~Projetil()
 void Projetil::executar()
 {
     vel.y += GRAVIDADE;
-	corpo.move(vel);
+    corpo.move(vel);
     duracao--;
     if (duracao == 0) {
         cout << "acabou o tempo do projetil" << endl;
@@ -58,9 +58,11 @@ void Projetil::explodir(Personagem* pp)
 {
     ativo = false;
     cout << "projetil colidiu" << endl;
-    if (pp)
-        pp--;
-    
+    if (pp&&pp!=nullptr) {
+        pp->operator--();
+        if (pp&&pp!=nullptr&&pp->getVidas() == 0)
+            cout << "personagem neutralizado por projetil" << endl;
+    }
+ 
 }
-
 

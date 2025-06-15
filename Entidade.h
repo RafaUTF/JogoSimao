@@ -30,7 +30,6 @@ public:
 
 	Vector2f& getVel();
 
-
-	virtual void sofrerGravidade();
+	virtual const int getVidas();
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Inimigo.h"
-class Chefao: public Inimigo
+class Chefao : public Inimigo
 {
 private:
 	short int forca;
@@ -11,4 +11,3 @@ public:
 	void salvar();
 	void mover();
 };
-

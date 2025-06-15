@@ -10,12 +10,35 @@ void Gerenciador_Colisoes::retirarProjeteis()
 {
 	set<Projetil*>::iterator it = LPs.begin();
 	while (it != LPs.end()) {
-		if (*it && (*it)->getAtivo()==false) {
+		if (*it && (*it)->getAtivo() == false) {
 			it = LPs.erase(it);
 			cout << "projetil retirado Gerenciador_Colisoes" << endl;
 		}
 		else
 			it++;
+	}
+}
+
+void Gerenciador_Colisoes::retirarPersonagens()
+{
+	vector<Inimigo*>::iterator it = LIs.begin();
+	while (it != LIs.end()) {
+		if (*it && (*it)->getVidas() == 0) {
+			it = LIs.erase(it);
+			cout << "INIMIGO retirado Gerenciador_Colisoes" << endl;
+		}
+		else
+			it++;
+	}
+
+	vector<Jogador*>::iterator it2 = LJs.begin();
+	while (it2 != LJs.end()) {
+		if (*it2 && (*it2)->getVidas() == 0) {
+			it2 = LJs.erase(it2);
+			cout << "JOGADOR retirado Gerenciador_Colisoes" << endl;
+		}
+		else
+			it2++;
 	}
 }
 
@@ -62,7 +85,7 @@ void Gerenciador_Colisoes::executar() {
 	tratarColisoesJogsProjeteis();
 	tratarColisoesJogsInimgs();
 	tratarColisoesJogsObstacs();
-	
+
 	LJs[0]->setChao(chao1);
 
 	if (LJs.size() > 1) {
@@ -278,7 +301,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
-		
+
 		for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
@@ -313,7 +336,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 					);
 				}
 				pj->explodir(pJog1);
-			
+
 			}
 		}
 

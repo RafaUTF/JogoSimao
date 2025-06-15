@@ -21,7 +21,7 @@ InimigoAlto::InimigoAlto(Vector2f pos) :
 }
 InimigoAlto::~InimigoAlto()
 {
-	cout << "destrutora inimigo alto" << endl;
+	cout << "destrutora InimigoAlto" << endl;
 }
 
 void InimigoAlto::executar()

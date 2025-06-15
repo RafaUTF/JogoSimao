@@ -5,7 +5,8 @@ Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
     danoso = true;
     corpo.setSize(sf::Vector2f(32.f, 32.f));
     centralizarEntidade();
-    corpo.setFillColor(sf::Color::White);
+    //corpo.setFillColor(sf::Color::White);
+    corpo.setFillColor(sf::Color::Transparent);
 }
 
 Espinho::~Espinho()

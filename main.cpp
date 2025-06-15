@@ -1,11 +1,8 @@
+
 #include "Jogo.h"
-#include <stdlib.h>
 
 int main()
 {
-    time_t tempo;
-    srand((unsigned)time(&tempo));
-
     sf::RenderWindow window(sf::VideoMode(1800, 900), "Jogo");
 
     Menu menu;

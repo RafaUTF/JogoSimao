@@ -1,9 +1,8 @@
 #include "Gerenciador_Grafico.h"
 
-//Gerenciador_Grafico* Gerenciador_Grafico::pgg(NULL);
 
-Gerenciador_Grafico::Gerenciador_Grafico():
-	janela(sf::VideoMode(DIREITA, CHAO), "janela",Style::Default),
+Gerenciador_Grafico::Gerenciador_Grafico() :
+	janela(sf::VideoMode(DIREITA, CHAO), "janela", Style::Default),
 	fundo(),
 	camera(sf::FloatRect(0, 0, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
 {
@@ -17,13 +16,13 @@ Gerenciador_Grafico::Gerenciador_Grafico():
 		fundo.setTexture(textura);
 	}
 	fundo.setPosition(0.f, 0.f);
-	fundo.scale(1.5f,1.5f);
+	fundo.scale(1.5f, 1.5f);
 }
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
 	cout << "destrutora Gerenciador_Grafico" << endl;
-	
+
 }
 
 void Gerenciador_Grafico::desenhar(Ente* pE)

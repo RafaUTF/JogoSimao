@@ -13,7 +13,7 @@ private:
 		TIPO Info;
 	public:
 		Elemento(TIPO i = NULL) : pProx(NULL), Info(i) {}
-		~Elemento() { pProx = NULL; Info = NULL; }
+		~Elemento() { pProx = NULL; Info = NULL;}
 		void setProx(Elemento<TIPO>* pp) { pProx = pp; }
 		Elemento<TIPO>* getProx() { return pProx; }
 		void setInfo(TIPO i) { Info = i; }

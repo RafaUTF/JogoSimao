@@ -30,7 +30,6 @@ public:
 	void fechar();
 
 	void moverCamera(Entidade* p1 = NULL, Entidade* p2 = NULL);
-	
+
 	static Gerenciador_Grafico* getInstancia();
 };
-

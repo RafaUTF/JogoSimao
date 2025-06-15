@@ -1,9 +1,9 @@
 #include "Personagem.h"
 
 Personagem::Personagem(Vector2f pos) :
-Entidade(pos), num_vidas(VIDA_JOGADOR),
-agilidade(5.f), comChao(false), tiros(NULL), 
-recarga(TEMPO_RECARGA) ,olhandoDir(true)
+    Entidade(pos), num_vidas(VIDA_JOGADOR),
+    agilidade(5.f), comChao(false), tiros(NULL),
+    recarga(TEMPO_RECARGA), olhandoDir(true)
 {
 
 }
@@ -11,6 +11,7 @@ recarga(TEMPO_RECARGA) ,olhandoDir(true)
 
 Personagem::~Personagem()
 {
+    cout << "destrutora personagem apagando a lista de tiros" << endl;
     if (tiros) {
         delete tiros;
         tiros = NULL;
@@ -23,12 +24,12 @@ void Personagem::mover()
 
 void Personagem::setChao(bool b)
 {
-	comChao = b;
+    comChao = b;
 }
 
 ListaEntidades* Personagem::getTiros()
 {
-	return tiros;
+    return tiros;
 }
 
 
@@ -38,7 +39,7 @@ void Personagem::atirar()
 {
     if (recarga >= TEMPO_RECARGA) {
         cout << "CHEFAO ATIROU" << endl;
-        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x,tiros));
+        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros));
         recarga = 0;
     }
     else
@@ -54,7 +55,7 @@ void Personagem::criarTiros()
 void Personagem::reduzVelocidade(float fator)
 {
     agilidade *= fator;
-    
+
 }
 
 void Personagem::restaurarVelocidade() {
@@ -68,4 +69,9 @@ void Personagem::sofrerGravidade()
 void Personagem::operator--() {
     if (num_vidas > 0)
         num_vidas--;
+}
+
+const int Personagem::getVidas()
+{
+    return num_vidas;
 }

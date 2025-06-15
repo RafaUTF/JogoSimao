@@ -13,17 +13,30 @@
 
 class Fase : public Ente {
 protected:
+
+    Jogador* pJog1;
+    Jogador* pJog2;
+
     ListaEntidades LE;
     Gerenciador_Colisoes* pGC;
     Gerenciador_Grafico* pGG;
 
-	virtual void criarInimigos() = 0;
-	virtual void criarObstaculos() = 0;
-	void criarCenario();//tem q fazer
-    
+    virtual void criarInimigos() = 0;
+    virtual void criarObstaculos() = 0;
+    void criarCenario();//tem q fazer
+
     virtual void criarMapa(const std::string& caminhoJson) = 0;
     virtual void criarEntidades() = 0;
     virtual void criarChefe(Vector2f pos) = 0;
+
+
+    virtual void incluirProjeteisGC();
+
+    virtual void desenharProjeteis();
+
+    virtual void destruirProjeteis();
+
+    void destruirNeutralizados();
 
 public:
     Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg);

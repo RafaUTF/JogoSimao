@@ -3,7 +3,7 @@
 
 #include "Jogador.h"
 
-class Inimigo: public Personagem
+class Inimigo : public Personagem
 {
 protected:
 	int nivel_maldade;
@@ -18,12 +18,11 @@ public:
 
 	virtual void executar();
 	//virtual void salvar();
-	virtual void danificar(Jogador* p=NULL);
+	virtual void danificar(Jogador* p = NULL);
 
 	void escolherAlvo();
 
 	void perseguir();
 };
-
 
 
