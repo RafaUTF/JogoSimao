@@ -2,12 +2,12 @@
 
 
 Gerenciador_Grafico::Gerenciador_Grafico() :
-	janela(sf::VideoMode(DIREITA, CHAO), "janela", Style::Default),
+	janela(new sf::RenderWindow(sf::VideoMode(DIREITA, CHAO), "janela", Style::Default)),
 	fundo(),
 	camera(sf::FloatRect(0, 0, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
 {
 	cout << "Gerenciador_Grafico criado" << endl;
-	janela.setFramerateLimit(FPS);
+	janela->setFramerateLimit(FPS);
 
 	if (!textura.loadFromFile("fundo.png")) {
 		std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
@@ -31,27 +31,27 @@ void Gerenciador_Grafico::desenhar(Ente* pE)
 		cout << "nao foi possivel desenhar o ente NULO" << endl;
 		return;
 	}
-	janela.draw(pE->getCorpo());
+	janela->draw(pE->getCorpo());
 }
 
 void Gerenciador_Grafico::desenhar(const RectangleShape& retangulo)
 {
-	janela.draw(retangulo);
+	janela->draw(retangulo);
 }
 
 void Gerenciador_Grafico::desenhaFundo()
 {
-	janela.draw(fundo);
+	janela->draw(fundo);
 }
 
 void Gerenciador_Grafico::mostrar()
 {
-	janela.display();
+	janela->display();
 }
 
 void Gerenciador_Grafico::fechar()
 {
-	janela.close();
+	janela->close();
 }
 
 void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
@@ -76,7 +76,7 @@ void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
 		centroX = maxCentro;
 
 	camera.setCenter(Vector2f(centroX, CHAO / 2.f));
-	janela.setView(camera);
+	janela->setView(camera);
 }
 
 
@@ -86,17 +86,23 @@ Gerenciador_Grafico* Gerenciador_Grafico::getInstancia() {
 	return &instancia;
 }
 
-sf::RenderWindow& Gerenciador_Grafico::getWindow()
+sf::RenderWindow* Gerenciador_Grafico::getWindow()
 {
 	return janela;
 }
 
 const bool Gerenciador_Grafico::aberta() const
 {
-	return janela.isOpen();
+	return janela->isOpen();
 }
 
 void Gerenciador_Grafico::clear()
 {
-	janela.clear();
+	janela->clear();
+}
+void Gerenciador_Grafico::setJanelaExterna(sf::RenderWindow* j) {
+	if (j) {
+		delete janela;
+		janela = j;
+	}
 }

@@ -14,7 +14,7 @@ public:
 	void obstacular(Jogador* p = NULL);
 	void executar();
 
-	std::string getTipo() const{ return "Espinho"; }
+	std::string getTipo() const override { return "Espinho"; }
 
 };
 

@@ -10,6 +10,7 @@ Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
     }
     else {
         corpo.setTexture(&textura);
+		cout << "construtora espinho" << endl;
     }
 }
 
