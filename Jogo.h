@@ -30,6 +30,6 @@ public:
 	~Jogo();
 	void executar();
 
-	Fase1* getFase1() const { return pF1; }
+	Fase* getFase();
 	//void //executar as fases();
 };

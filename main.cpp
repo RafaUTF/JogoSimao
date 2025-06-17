@@ -12,14 +12,18 @@ int main()
 
 	srand(static_cast<unsigned int>(time(0))); // Semente para números aleatórios
 
-    if (escolha == 0 || escolha == 1) {
+    
         Jogo jogo(nJog, fase);
-        if (escolha == 1) jogo.getFase1()->carregarJogo("save.json");
-		else if (escolha == 0) jogo.getFase1()->criarMapa("fase1.json");
+        if (escolha == 0) 
+            jogo.getFase()->carregarJogo("save.json"); // agora 0 é Carregar
+        else if (escolha == 1) {
+            if(fase == 1)
+                jogo.getFase()->criarMapa("mapa1.json"); 
+			else if (fase == 2)
+				jogo.getFase()->criarMapa("mapa2.json");
+        }
         jogo.executar();
-
-    }
-    else if (escolha == 2) {
+    if (escolha == 2) {
         // Leaderboard
     }
     return 0;

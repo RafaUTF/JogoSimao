@@ -1,12 +1,12 @@
 #include "Fase2.h"
-
 #include <fstream>
 #include "json.hpp"
+#include "BandeiraChegada.h"
 
 using json = nlohmann::json;
 
 Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
-    : Fase(gc, gg), maxChefoes(1), LIs()
+    : Fase(gc, gg)
 {
     pJog1 = new Jogador();
     LE.incluir(pJog1);
@@ -16,54 +16,10 @@ Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
         LE.incluir(pJog2);
         pGC->incluirJogador(pJog2);
     }
-
-    criarMapa("mapa1.json");
-
-    criarChefoes();
-    criarObstMedios();
-    //criarProjeteis();
-    criarInimigos();
-    criarObstaculos();
-
-    criarCenario();
 }
-
-
-
-void Fase2::criarInimigos()
-{
-}
-
-void Fase2::criarObstaculos()
-{
-}
-
-
-
-
-void Fase2::criarChefoes()
-{
-    int nChefes = 1+(rand() % maxChefoes);//1 a maxChefoes
-    cout << "numero chefoes fase 2: " << nChefes << endl;
-    Inimigo* pi = nullptr;
-    for (int i = 0;i < nChefes;i++) {
-        pi = new Chefao(pJog1, pJog2, (Vector2f(1200.f+i*300.f, 400.f)));
-        LE.incluir(pi);
-        LIs.push_back(pi);
-        pGC->incluirInimigo(pi);
-    }
-}
-
-void Fase2::criarObstMedios()
-{
-}
-
-
-
 
 Fase2::~Fase2() {
     cout << "destrutora fase2" << endl;
-    LIs.clear();
 }
 
 void Fase2::executar() {
@@ -72,25 +28,22 @@ void Fase2::executar() {
         while (pGG->getWindow().pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 pGG->fechar();
+
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
+                salvarJogo("save.json");
+                std::cout << "Jogo salvo!" << std::endl;
+            }
         }
 
-        LE.percorrer();//executa tudo menos projeteis
-        incluirProjeteisGC();
+        LE.percorrer();
         pGC->executar();
-        
 
         pGG->moverCamera(pJog1, pJog2);
 
         pGG->clear();
         pGG->desenhaFundo();
         LE.desenhar();
-        desenharProjeteis();
         pGG->mostrar();
-
-        destruirProjeteis();
-        destruirNeutralizados();
-
-
     }
 }
 
@@ -102,6 +55,14 @@ void Fase2::criarChefe(Vector2f pos) {
     Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
+}
+
+void Fase2::criarInimigos()
+{
+}
+
+void Fase2::criarObstaculos()
+{
 }
 
 
@@ -123,6 +84,11 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
     const auto& camada = mapaJson["layers"][0];  // Usando primeira camada ("Camada de Blocos 1")
     const auto& data = camada["data"];
 
+    std::vector<std::pair<float, float>> bloco_teia;
+    std::vector<std::pair<float, float>> bloco_plataforma;
+
+
+
     for (int i = 0; i < data.size(); ++i) {
         int id = data[i];
         if (id == 0)
@@ -133,6 +99,56 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
 
         float x = coluna * larguraTiles;
         float y = linha * alturaTiles;
+
+ 
+
+
+        //plataforma aleatória
+        if (id == 12) {
+            bloco_plataforma.emplace_back(x, y);
+            if (bloco_plataforma.size() == 6) {
+                int chance = rand() % 2;
+                for (auto& pos : bloco_plataforma) {
+                    if (chance == 0) {
+                        Plataforma* plataforma = new Plataforma({ pos.first, pos.second });
+                        LE.incluir(plataforma);
+                        pGC->incluirObstaculo(plataforma);
+                    }
+                }
+                bloco_plataforma.clear();
+            }
+        }
+        else {
+            // Se encontrar um tile diferente, reseta o bloco
+            bloco_plataforma.clear();
+        }
+
+        //Espinho aleatório
+        if (id == 4) {
+            int chance = rand() % 2;
+            if (chance == 0) {
+                Espinho* espinho = new Espinho({ x, y });
+                LE.incluir(espinho);
+                pGC->incluirObstaculo(espinho);
+            }
+        }
+
+        //Boss aleatório
+        if (id == 21) {
+            int chance = rand() % 2;
+            if (chance == 0) {
+				criarChefe({ x, y });
+            }
+        }
+
+        if (id == 26) {
+            int chance = rand() % 2;
+            if (chance == 0) {
+                InimigoPequeno* inimigoPequeno = new InimigoPequeno({ x, y });
+                LE.incluir(inimigoPequeno);
+                pGC->incluirInimigo(inimigoPequeno);
+            }
+        }
 
         if (id == 19) {
             pJog1->getCorpo().setPosition({ x, y });
@@ -153,16 +169,10 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
             criarChefe({ x, y });
         }
 
-        if (id == 14) {
+        if (id == 20) {
             Espinho* espinho = new Espinho({ x, y });
             LE.incluir(espinho);
             pGC->incluirObstaculo(espinho);
-        }
-
-        if (id == 13) {
-            TeiaAranha* teiaaranha = new TeiaAranha({ x, y });
-            LE.incluir(teiaaranha);
-            pGC->incluirObstaculo(teiaaranha);
         }
 
         if (id == 18) {
@@ -171,23 +181,99 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
             pGC->incluirInimigo(inimigoPequeno);
         }
 
-        if (id == 11) {
-            InimigoAlto* inimigoalto = new InimigoAlto({ x, y });
-            LE.incluir(inimigoalto);
-            pGC->incluirInimigo(inimigoalto);
+
+        if (id == 17) {
+            std::cout << "Criando bandeira em: " << x << ", " << y << std::endl;
+            BandeiraChegada* bandeiraChegada = new BandeiraChegada({ x, y });
+            LE.incluir(bandeiraChegada); // Garante que será desenhada
+            pGC->incluirObstaculo(bandeiraChegada); // Para colisão, se necessário
         }
 
     }
+
 }
 
+void Fase2::salvarJogo(const std::string& caminho) {
+    json estado;
+    estado["numPlayers"] = (pJog2 ? 2 : 1);
+    estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
+    if (pJog2)
+        estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y} };
 
+    estado["entities"] = json::array();
+    for (LE.primeiro(); !LE.fim(); ++LE) {
+        Entidade* e = LE.getAtual();
+        if (e == pJog1 || e == pJog2) continue;
+        json je;
+        je["type"] = e->getTipo();
+        auto p = e->getcm();
+        je["x"] = p.x;
+        je["y"] = p.y;
+        estado["entities"].push_back(je);
+    }
+
+    std::ofstream out(caminho);
+    if (out.is_open()) out << estado.dump(4);
+}
+
+void Fase2::carregarJogo(const std::string& caminho) {
+    std::ifstream in(caminho);
+    if (!in.is_open()) return;
+
+    json estado;
+    in >> estado;
+
+    pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
+    if (estado["numPlayers"] == 2 && pJog2)
+        pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+
+    std::vector<Entidade*> remover;
+    for (LE.primeiro(); !LE.fim(); ++LE) {
+        Entidade* e = LE.getAtual();
+        if (e != pJog1 && e != pJog2) remover.push_back(e);
+    }
+    for (auto* e : remover) {
+        LE.retirar(e);
+        Gerenciador_Colisoes::getInstancia()->removerEntidade(e);
+        delete e;
+    }
+
+    for (auto& je : estado["entities"]) {
+        Entidade* ne = nullptr;
+        Obstaculo* no = nullptr;
+        sf::Vector2f pos(je["x"], je["y"]);
+        std::string tipo = je["type"];
+
+
+        if (tipo == "TeiaAranha") no = new TeiaAranha(pos);
+        else if (tipo == "Plataforma") no = new Plataforma(pos);
+        else if (tipo == "InimigoPequeno") ne = new InimigoPequeno(pos);
+        else if (tipo == "InimigoAlto") ne = new InimigoAlto(pos);
+        else if (tipo == "Espinho") no = new Espinho(pos);
+        else if (tipo == "Chefao") ne = new Chefao(pJog1, pJog2, pos);
+        else if (tipo == "BandeiraChegada") ne = new BandeiraChegada(pos);
+
+        if (ne) {
+            LE.incluir(ne);
+            pGC->incluirInimigo(static_cast<Inimigo*>(ne));
+
+        }
+
+        if (no) {
+            LE.incluir(no);
+            pGC->incluirObstaculo(no);
+        }
+
+    }
+
+}
 
 void Fase2::desenharProjeteis()//mostra os projeteis na tela
 {
     pJog1->getTiros()->desenhar();
     if (pJog2)
         pJog2->getTiros()->desenhar();
-    for (int i = 0;i < LIs.size();i++) {
+    for (int i = 0; i < LIs.size(); i++) {
         if (LIs[i]) {
             LIs[i]->getTiros()->desenhar();
         }
@@ -199,21 +285,21 @@ void Fase2::desenharProjeteis()//mostra os projeteis na tela
 void Fase2::incluirProjeteisGC()
 {
     ListaEntidades* l = pJog1->getTiros();
-    for (l->primeiro();!l->fim();l->operator++()) {
+    for (l->primeiro(); !l->fim(); l->operator++()) {
         pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
     }
     if (pJog2) {
         l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
+        for (l->primeiro(); !l->fim(); l->operator++()) {
             pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
         }
     }
 
-    for (int i = 0;i < LIs.size();i++) {
+    for (int i = 0; i < LIs.size(); i++) {
         if (LIs[i]) {
             l = LIs[i]->getTiros();
             if (l) {
-                for (l->primeiro();!l->fim();l->operator++()) {
+                for (l->primeiro(); !l->fim(); l->operator++()) {
                     pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
                 }
             }
@@ -227,7 +313,7 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
 
     ListaEntidades* l = pJog1->getTiros();
 
-    for (l->primeiro();!l->fim();l->operator++()) {
+    for (l->primeiro(); !l->fim(); l->operator++()) {
         Projetil* pj = static_cast<Projetil*>(l->getAtual());
         if (pj->getAtivo() == false) {
             l->retirar(pj);
@@ -237,7 +323,7 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
     }
     if (pJog2) {
         l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
+        for (l->primeiro(); !l->fim(); l->operator++()) {
             Projetil* pj = static_cast<Projetil*>(l->getAtual());
             if (pj->getAtivo() == false) {
                 l->retirar(pj);
@@ -247,10 +333,10 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
         }
     }
 
-    for (int i = 0;i < LIs.size();i++) {
+    for (int i = 0; i < LIs.size(); i++) {
         if (LIs[i]) {
             l = LIs[i]->getTiros();
-            for (l->primeiro();!l->fim();l->operator++()) {
+            for (l->primeiro(); !l->fim(); l->operator++()) {
                 Projetil* pj = static_cast<Projetil*>(l->getAtual());
                 if (pj->getAtivo() == false) {
                     l->retirar(pj);

@@ -546,6 +546,11 @@
             "y": 160.0
         },
         {
+            "type": "InimigoPequeno",
+            "x": 2751.0,
+            "y": 144.0
+        },
+        {
             "type": "Plataforma",
             "x": 3168.0,
             "y": 160.0
@@ -557,7 +562,7 @@
         },
         {
             "type": "InimigoPequeno",
-            "x": 1417.0,
+            "x": 1490.0,
             "y": 176.0
         },
         {
@@ -592,6 +597,36 @@
         },
         {
             "type": "Plataforma",
+            "x": 416.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 448.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 480.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 512.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 544.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 576.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
             "x": 1376.0,
             "y": 224.0
         },
@@ -618,36 +653,6 @@
         {
             "type": "Plataforma",
             "x": 1536.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1984.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2016.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2048.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2080.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2112.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2144.0,
             "y": 224.0
         },
         {
@@ -692,7 +697,7 @@
         },
         {
             "type": "InimigoPequeno",
-            "x": 2505.0,
+            "x": 2578.0,
             "y": 336.0
         },
         {
@@ -707,32 +712,32 @@
         },
         {
             "type": "Plataforma",
-            "x": 192.0,
+            "x": 672.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 224.0,
+            "x": 704.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 256.0,
+            "x": 736.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 288.0,
+            "x": 768.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 320.0,
+            "x": 800.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 352.0,
+            "x": 832.0,
             "y": 384.0
         },
         {
@@ -766,38 +771,8 @@
             "y": 384.0
         },
         {
-            "type": "Plataforma",
-            "x": 1696.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1728.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1760.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1792.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1824.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1856.0,
-            "y": 384.0
-        },
-        {
             "type": "InimigoAlto",
-            "x": 2168.0,
+            "x": 2239.0,
             "y": 384.0
         },
         {
@@ -828,36 +803,6 @@
         {
             "type": "Plataforma",
             "x": 2592.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2816.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2848.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2880.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2912.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2944.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2976.0,
             "y": 384.0
         },
         {
@@ -932,22 +877,22 @@
         },
         {
             "type": "InimigoAlto",
-            "x": 760.0,
+            "x": 831.0,
             "y": 512.0
         },
         {
             "type": "InimigoAlto",
-            "x": 760.0,
+            "x": 831.0,
             "y": 512.0
         },
         {
             "type": "InimigoAlto",
-            "x": 2520.0,
+            "x": 2591.0,
             "y": 512.0
         },
         {
             "type": "InimigoAlto",
-            "x": 2520.0,
+            "x": 2591.0,
             "y": 512.0
         },
         {
@@ -972,12 +917,12 @@
         },
         {
             "type": "InimigoPequeno",
-            "x": 1417.0,
+            "x": 1490.0,
             "y": 560.0
         },
         {
             "type": "InimigoPequeno",
-            "x": 2153.0,
+            "x": 2226.0,
             "y": 560.0
         },
         {
@@ -1492,7 +1437,7 @@
         }
     ],
     "jogador1": {
-        "x": 1177.6002197265625,
+        "x": 797.1000366210938,
         "y": 336.0
     },
     "numPlayers": 1

@@ -1,6 +1,7 @@
 // Jogo.cpp
 #include "Jogo.h"
 #include "Fase1.h"  // Inclua a Fase1 aqui
+#include "Fase2.h"
 
 Jogo::Jogo(int numPlayers_, int fase_)
     : GC(Gerenciador_Colisoes::getInstancia()),
@@ -36,4 +37,12 @@ void Jogo::executar()
         pF1->executar();
     else if (pF2)
         pF2->executar();
+}
+
+Fase* Jogo::getFase()
+{
+    if(pF1)
+        return pF1;
+    else if(pF2)
+		return pF2;
 }
