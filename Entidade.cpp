@@ -50,3 +50,8 @@ Vector2f& Entidade::getVel()
 {
     return vel;
 }
+
+const int Entidade::getVidas()
+{
+    return 1;
+}

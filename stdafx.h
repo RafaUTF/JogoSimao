@@ -17,10 +17,14 @@ using std::endl;
 
 #define PULO 10
 #define ATRITO 0.5f
-#define VISCOSO 0.2f
+#define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
 #define MAX_VEL 10.f//velocidade maxima
 
 #define TEMPO_RECARGA 30
 
+#define TEMPO_PROJETIL 60
 
+#define VISAO_INIMIGO2 80000.f//distancia que o inimigo enxerga ao quadrado
+
+#define VIDA_JOGADOR 2

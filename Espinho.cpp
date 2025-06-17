@@ -11,6 +11,7 @@ Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
 
 Espinho::~Espinho()
 {
+    cout << "destrutora espinho" << endl;
 }
 
 void Espinho::causarDano(Jogador* pJog)

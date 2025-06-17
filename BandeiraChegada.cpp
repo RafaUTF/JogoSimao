@@ -17,6 +17,7 @@ BandeiraChegada::BandeiraChegada(Vector2f pos)
 
 BandeiraChegada::~BandeiraChegada()
 {
+    cout << "destrutora bandeira" << endl;
 }
 
 void BandeiraChegada::executar()

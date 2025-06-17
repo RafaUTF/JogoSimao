@@ -8,7 +8,8 @@
 class Gerenciador_Grafico
 {
 private:
-	static Gerenciador_Grafico* pgg;
+	//static Gerenciador_Grafico* pgg;
+
 
 	sf::RenderWindow janela;
 	Sprite fundo;
@@ -29,7 +30,6 @@ public:
 	void fechar();
 
 	void moverCamera(Entidade* p1 = NULL, Entidade* p2 = NULL);
-	
+
 	static Gerenciador_Grafico* getInstancia();
 };
-

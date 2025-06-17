@@ -1,7 +1,7 @@
 #pragma once
 #include "Personagem.h" 
 
-class Jogador: public Personagem
+class Jogador : public Personagem
 {
 protected:
 	static bool jogador1;
@@ -12,13 +12,12 @@ public:
 	void mover();
 
 	void executar();
-	
+
 	void colidir(Jogador* p = NULL);
 
 	void atirar();
 
-	void operator--();
+	std::string getTipo() const { return "Jogador"; }
 
 
 };
-

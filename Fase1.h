@@ -14,4 +14,10 @@ public:
     void criarMapa(const std::string& caminhoJson);
     void criarEntidades();
     void criarChefe(Vector2f pos);
+
+    void criarInimigos();
+    void criarObstaculos();
+
+    void carregarJogo(const std::string& caminho);
+    void salvarJogo(const std::string& caminho);
 };

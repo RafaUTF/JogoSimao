@@ -1,16 +1,50 @@
 #include "Gerenciador_Colisoes.h"
 
-Gerenciador_Colisoes* Gerenciador_Colisoes::pgc(NULL);
 Gerenciador_Colisoes* Gerenciador_Colisoes::getInstancia()
 {
-	if (pgc == NULL)
-		pgc = new Gerenciador_Colisoes;
-	return pgc;
+	static Gerenciador_Colisoes instancia;
+	return &instancia;
 }
 
-Gerenciador_Colisoes::Gerenciador_Colisoes():
-	chao1(false),chao2(false),
-	LIs(),LOs(),LPs(),LJs()
+void Gerenciador_Colisoes::retirarProjeteis()
+{
+	set<Projetil*>::iterator it = LPs.begin();
+	while (it != LPs.end()) {
+		if (*it && (*it)->getAtivo() == false) {
+			it = LPs.erase(it);
+			cout << "projetil retirado Gerenciador_Colisoes" << endl;
+		}
+		else
+			it++;
+	}
+}
+
+void Gerenciador_Colisoes::retirarPersonagens()
+{
+	vector<Inimigo*>::iterator it = LIs.begin();
+	while (it != LIs.end()) {
+		if (*it && (*it)->getVidas() == 0) {
+			it = LIs.erase(it);
+			cout << "INIMIGO retirado Gerenciador_Colisoes" << endl;
+		}
+		else
+			it++;
+	}
+
+	vector<Jogador*>::iterator it2 = LJs.begin();
+	while (it2 != LJs.end()) {
+		if (*it2 && (*it2)->getVidas() == 0) {
+			it2 = LJs.erase(it2);
+			cout << "JOGADOR retirado Gerenciador_Colisoes" << endl;
+		}
+		else
+			it2++;
+	}
+}
+
+Gerenciador_Colisoes::Gerenciador_Colisoes() :
+	chao1(false), chao2(false),
+	LIs(), LOs(), LPs(), LJs()
 {
 	LIs.clear();
 	LOs.clear();
@@ -18,6 +52,7 @@ Gerenciador_Colisoes::Gerenciador_Colisoes():
 
 	LJs.clear();
 
+	cout << "Gerenciador_Colisoes criado" << endl;
 }
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
@@ -27,43 +62,36 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 	LPs.clear();
 	LJs.clear();
 
-	delete pgc;
+	cout << "destrutora Gerenciador_Colisoes" << endl;
 }
 
 void Gerenciador_Colisoes::executar() {
-	
+
 	LJs[0]->setChao(false);
 	chao1 = false;
-	
-	if (LJs.size()>1) {
+
+	if (LJs.size() > 1) {
 		LJs[1]->setChao(false);
 		chao2 = false;
 		tratarColisoesJogs();
 	}
-	
+	//inimigos
+	tratarColisoesInimgsObstacs();
+	tratarColisoesInimgsProjeteis();
+
+	tratarColisoesProjeteisObstacs();
+
+	//jogadores
 	tratarColisoesJogsProjeteis();
-	
 	tratarColisoesJogsInimgs();
 	tratarColisoesJogsObstacs();
-	
 
 	LJs[0]->setChao(chao1);
 
-	if (LJs.size()>1) {
+	if (LJs.size() > 1) {
 		LJs[1]->setChao(chao2);
 	}
 
-
-
-	//nao deu certo
-
-	/*
-	verificaObsIni();
-	verificaIni();
-	verificaObs();
-	verificaProjetil();
-	verificaObsProjetil();
-	*/
 }
 float modulo(float x) {
 	return x < 0 ? (-1.f) * x : x;
@@ -85,12 +113,12 @@ const int Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) c
 		dry = pe1->getRaio().y + pe2->getRaio().y;
 	if (modulo(dx) < drx && modulo(dy) < dry) {
 		if (drx - modulo(dx) < dry - modulo(dy)) {//colisao lado
-			if(dx>0)//dir pe1
+			if (dx > 0)//dir pe1
 				return 3;
 			else//esq pe1
 				return 2;
 		}
-		else{//colisao vertical
+		else {//colisao vertical
 			if (dy > 0)//baixo pe1
 				return 4;
 			else//cima pe1
@@ -117,8 +145,8 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 		if (d == 1) {
 			chao2 = true;
 			p2->getVel().y = p1->getVel().y;
-			p1->getCorpo().move(0.f, y/2);
-			p2->getCorpo().move(0.f, -y/2);
+			p1->getCorpo().move(0.f, y / 2);
+			p2->getCorpo().move(0.f, -y / 2);
 			/*
 			p2->getCorpo().setPosition(
 				p2->getcm().x,
@@ -126,7 +154,7 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 			);*/
 		}
 		if (d == 4) {
-			chao1=true;
+			chao1 = true;
 			p1->getVel().y = p2->getVel().y;
 			p1->getCorpo().move(0.f, -y / 2);
 			p2->getCorpo().move(0.f, y / 2);
@@ -163,126 +191,6 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 	}
 }
 
-
-/*
-const Vector2f Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) const
-{
-	if (pe1 == NULL) {
-		cout << "pe1 nulo" << endl;
-		return Vector2f(0.f, 0.f);
-	}
-	if (pe2 == NULL) {
-		cout << "pe2 nulo" << endl;
-		return Vector2f(0.f, 0.f);
-	}
-	float dx = pe2->getcm().x - pe1->getcm().x,//+ -> colisao dir do pe1
-		dy = pe2->getcm().y - pe1->getcm().y,//+ -> colisao em baixo do pe1
-		drx = pe1->getRaio().x + pe2->getRaio().x,
-		dry = pe1->getRaio().y + pe2->getRaio().y;
-	if (modulo(dx) < drx && modulo(dy) < dry) {
-		if (modulo(dx) < pe1->getRaio().x) {
-			dx = 0.f;
-		}
-		if (modulo(dy) < pe1->getRaio().y)
-			dy = 0.f;
-		return Vector2f(-dx, -dy);
-	}
-	
-	return Vector2f(0.f, 0.f);
-}
-*/
-/*
-const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
-{
-	if (pe1 == NULL) {
-		cout << "pe1 nulo" << endl;
-		return false;
-	}
-	if (pe2 == NULL){
-		cout << "pe2 nulo" << endl;
-		return false;
-	}
-
-
-	float a = pe1->getcm().x;
-	float b = pe2->getcm().x;
-	float dx;
-	b > a ? dx = b - a : dx = a - b;
-	a = pe1->getcm().y;
-	b = pe2->getcm().y;
-	float dy;
-	b > a ? dy = b - a : dy = a - b;
-
-	if(dx< pe1->getRaio().x+ pe2->getRaio().x
-		&& dy< pe1->getRaio().y + pe2->getRaio().y){
-		return true;
-	}
-	return false;
-
-	//if verificar colisao
-	//obstaculo->obstacular
-}*/
-
-/*
-const float Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) const
-{
-	if (pe1 == NULL) {
-		cout << "pe1 nulo" << endl;
-		return false;
-	}
-	if (pe2 == NULL) {
-		cout << "pe2 nulo" << endl;
-		return false;
-	}
-	float dx = pe1->getcm().x - pe2->getcm().x,//+ -> colisao esq do pe1
-		dy = pe1->getcm().y - pe2->getcm().y,//+ -> colisao em cima do pe1
-		drx = pe1->getRaio().x + pe2->getRaio().x,
-		dry = pe1->getRaio().y + pe2->getRaio().y;
-	if (modulo(dx) < drx && modulo(dy) < dry) {
-		if (dx < 0 && dy>0)
-			return 3;
-	}
-	/*
-	if (dx > 0) {//possivel colisao esq
-		if (dx < drx && modulo(dy) < dry)
-			return 2;
-	}
-	else {//possivel colisao dir
-		if (modulo(dx) < drx && modulo(dy) < dry)
-			return 3;
-	}
-	//nao vai cair nunca!
-	if (dy > 0) {//possivel colisao cima
-		if (dy < dry && modulo(dx) < drx)
-			return 1;
-	}
-	else {//possivel colisao baixo
-		if (modulo(dy) < dry && modulo(dy) < dry)
-			return 4;
-	}
-	/*
-	if (pe1->getRaio().y + pe2->getRaio().y > modulo(pe2->getcm().y - pe1->getcm().y)) {
-		float a = pe2->getcm().x - pe1->getcm().x,
-			d = pe1->getRaio().x + pe2->getRaio().x;
-		if (a > 0 && d > a)
-			return 3;
-		if (a<0 && d >a * (-1.f))
-			return 2;
-	}
-	*/
-
-/*
-	if (pe1->getRaio().x + pe2->getRaio().x > modulo(pe2->getcm().x - pe1->getcm().x)) {
-		//cout << "colisao direita p1" << endl;
-		return 3;
-	}
-	if (pe1->getRaio().x + pe2->getRaio().x > modulo(pe1->getcm().x - pe2->getcm().x)) {
-		//cout << "colisao direita p1" << endl;
-		return 2;
-	}
-	*/
-
-
 void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 	//CHAMAR OBSTACULAR PARA PARAR O JOGADOR
 
@@ -296,9 +204,10 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
+
 				po->obstacular(pJog1);
-					
-				
+
+
 				if (d == 1) {
 					pJog1->getVel().y = 0.f;
 					pJog1->getCorpo().setPosition(
@@ -328,180 +237,13 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 						pJog1->getcm().y
 					);
 				}
-				
+
 			}
 		}
 
-	}
-	
-}
-
-
-/*
-void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
-	//CHAMAR OBSTACULAR PARA PARAR O JOGADOR
-	Obstaculo* po = NULL;
-	Jogador* pJog1 = LJs[0];
-	Jogador* pJog2 = LJs[1];
-	for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
-		po = *it;
-		int d = verificarDirecao(pJog1, po);
-		if (d != 0) {
-			if (d == 1) {
-				pJog1->getVel().y = 0.f;
-				pJog1->getCorpo().setPosition(
-					pJog1->getcm().x,
-					po->getcm().y + pJog1->getRaio().y + po->getRaio().y
-				);
-			}
-			if (d == 4) {
-				pJog1->getVel().y = 0.f;
-				chao1 = true;
-				pJog1->getCorpo().setPosition(
-					pJog1->getcm().x,
-					po->getcm().y - pJog1->getRaio().y - po->getRaio().y
-				);
-			}
-			if (d == 2) {
-				pJog1->getVel().x = 0.f;
-				pJog1->getCorpo().setPosition(
-					po->getcm().x + pJog1->getRaio().x + po->getRaio().x,
-					pJog1->getcm().y
-				);
-			}
-			if (d == 3) {
-				pJog1->getVel().x = 0.f;
-				pJog1->getCorpo().setPosition(
-					po->getcm().x - pJog1->getRaio().x - po->getRaio().x,
-					pJog1->getcm().y
-				);
-			}
-
-		}
-	
-		d = verificarDirecao(pJog2, po);
-		if (d != 0) {
-			if (d == 1) {
-				pJog2->getVel().y = 0.f;
-				pJog2->getCorpo().setPosition(
-					pJog2->getcm().x,
-					po->getcm().y + pJog2->getRaio().y + po->getRaio().y
-				);
-			}
-			if (d == 4) {
-				pJog2->getVel().y = 0.f;
-				chao2 = true;
-				pJog2->getCorpo().setPosition(
-					pJog2->getcm().x,
-					po->getcm().y - pJog2->getRaio().y - po->getRaio().y
-				);
-			}
-			if (d == 2) {
-				pJog2->getVel().x = 0.f;
-				pJog2->getCorpo().setPosition(
-					po->getcm().x + pJog2->getRaio().x + po->getRaio().x,
-					pJog2->getcm().y
-				);
-			}
-			if (d == 3) {
-				pJog2->getVel().x = 0.f;
-				pJog2->getCorpo().setPosition(
-					po->getcm().x - pJog2->getRaio().x - po->getRaio().x,
-					pJog2->getcm().y
-				);
-			}
-
-		}
-		
-	}
-}
-*/
-/*
-void Gerenciador_Colisoes::tratarColisoesJogs()
-{
-
-	Jogador* pJog1 = LJs[0];
-	Jogador* pJog2 = LJs[1];
-	int d = verificarDirecao(pJog1, pJog2);
-
-	//pJog2->setDir(verificarDirecao(pJog2, pJog1));
-	if (d != 0) {
-		if (d == 1) {
-			pJog2->setChao(true);
-			pJog2->getCorpo().setPosition(
-				pJog2->getcm().x,
-				pJog1->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-			);
-		}
-		if (d == 4) {
-			pJog1->setChao(true);
-			pJog1->getCorpo().setPosition(
-				pJog1->getcm().x,
-				pJog2->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-			);
-		}
-		if (d == 2) {
-			pJog1->getCorpo().setPosition(
-				pJog2->getcm().x + pJog1->getRaio().x + pJog2->getRaio().x,
-				pJog1->getcm().y
-			);
-		}
-		if (d == 3) {
-			pJog1->getCorpo().setPosition(
-				pJog2->getcm().x - pJog1->getRaio().x - pJog2->getRaio().x,
-				pJog1->getcm().y
-			);
-		}
-
-	}
-	if (pJog1->getDir() != d) {
-		pJog1->setDir(d);
-		// pJog2->setChao(false);
-		pJog1->setChao(false);
-	}
-
-	//JOGADOR 2
-
-	d = verificarDirecao(pJog2, pJog1);//ALTERAR
-
-	//pJog2->setDir(verificarDirecao(pJog2, pJog1));
-	if (d != 0) {
-		if (d == 1) {
-			//pJog1->setChao(true);
-			//pJog1->getCorpo().setPosition(
-			//	pJog1->getcm().x,
-			//	pJog2->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-			//);
-		}
-		if (d == 4) {
-			pJog2->setChao(true);
-			pJog2->getCorpo().setPosition(
-				pJog2->getcm().x,
-				pJog1->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-			);
-		}
-		if (d == 2) {
-			pJog2->getCorpo().setPosition(
-				pJog1->getcm().x + pJog1->getRaio().x + pJog2->getRaio().x,
-				pJog2->getcm().y
-			);
-		}
-		if (d == 3) {
-			pJog2->getCorpo().setPosition(
-				pJog1->getcm().x - pJog1->getRaio().x - pJog2->getRaio().x,
-				pJog2->getcm().y
-			);
-		}
-
-	}
-	if (pJog2->getDir() != d) {
-		pJog2->setDir(d);
-		pJog2->setChao(false);
-		//pJog1->setChao(false);
 	}
 
 }
-*/
 
 void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 	Inimigo* pi = NULL;
@@ -546,19 +288,20 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 
 			}
 		}
-	
+
 	}
 }
 
 
 
 
-void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {//DESATUALIZADO!
+void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 	Projetil* pj = NULL;
 	Jogador* pJog1 = NULL;
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
+
 		for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
@@ -593,9 +336,128 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {//DESATUALIZADO!
 					);
 				}
 				pj->explodir(pJog1);
-				//LPs.erase(pj);//nao deu!
-				//delete pj;
 
+			}
+		}
+
+	}
+
+}
+
+void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
+{
+	//CHAMAR OBSTACULAR PARA PARAR O INIMIGO
+
+	Obstaculo* po = NULL;
+	Inimigo* pJog1 = NULL;
+	int d = 0;
+	for (int i = 0;i < LIs.size();i++) {
+		pJog1 = LIs[i];
+		pJog1->restaurarVelocidade();
+		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
+			po = *it;
+			d = verificarDirecao(pJog1, po);
+			if (d != 0) {
+
+				//po->obstacular(pJog1);
+
+
+				if (d == 1) {
+					pJog1->getVel().y = 0.f;
+					pJog1->getCorpo().setPosition(
+						pJog1->getcm().x,
+						po->getcm().y + pJog1->getRaio().y + po->getRaio().y
+					);
+				}
+				if (d == 4) {
+					pJog1->getVel().y = 0.f;
+					pJog1->getCorpo().setPosition(
+						pJog1->getcm().x,
+						po->getcm().y - pJog1->getRaio().y - po->getRaio().y
+					);
+				}
+				if (d == 2) {
+					pJog1->getVel().x = 0.f;
+					pJog1->getCorpo().setPosition(
+						po->getcm().x + pJog1->getRaio().x + po->getRaio().x,
+						pJog1->getcm().y
+					);
+				}
+				if (d == 3) {
+					pJog1->getVel().x = 0.f;
+					pJog1->getCorpo().setPosition(
+						po->getcm().x - pJog1->getRaio().x - po->getRaio().x,
+						pJog1->getcm().y
+					);
+				}
+
+			}
+		}
+
+	}
+}
+
+void Gerenciador_Colisoes::tratarColisoesInimgsProjeteis()
+{
+	Projetil* pj = NULL;
+	Inimigo* pJog1 = NULL;
+	int d = 0;
+	for (int i = 0;i < LIs.size();i++) {
+		pJog1 = LIs[i];
+
+		for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
+			pj = *it;
+			d = verificarDirecao(pJog1, pj);
+			if (d != 0) {
+				if (d == 1) {
+					pJog1->getVel().y = 0.f;
+					pJog1->getCorpo().setPosition(
+						pJog1->getcm().x,
+						pj->getcm().y + pJog1->getRaio().y + pj->getRaio().y
+					);
+				}
+				if (d == 4) {
+					pJog1->getVel().y = 0.f;
+					pJog1->getCorpo().setPosition(
+						pJog1->getcm().x,
+						pj->getcm().y - pJog1->getRaio().y - pj->getRaio().y
+					);
+				}
+				if (d == 2) {
+					pJog1->getVel().x = 0.f;
+					pJog1->getCorpo().setPosition(
+						pj->getcm().x + pJog1->getRaio().x + pj->getRaio().x,
+						pJog1->getcm().y
+					);
+				}
+				if (d == 3) {
+					pJog1->getVel().x = 0.f;
+					pJog1->getCorpo().setPosition(
+						pj->getcm().x - pJog1->getRaio().x - pj->getRaio().x,
+						pJog1->getcm().y
+					);
+				}
+				pj->explodir(pJog1);
+
+			}
+		}
+
+	}
+}
+
+void Gerenciador_Colisoes::tratarColisoesProjeteisObstacs()
+{
+
+	Obstaculo* po = NULL;
+	Projetil* pj = NULL;
+	int d = 0;
+	for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
+		pj = *it;
+		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
+			po = *it;
+			d = verificarDirecao(pj, po);
+			if (d != 0) {
+				pj->explodir();
 			}
 		}
 
@@ -631,3 +493,38 @@ void Gerenciador_Colisoes::incluirJogador(Jogador* pjog)
 		cout << "ponteiro jogador nulo nao incluido no vector" << endl;
 }
 
+void Gerenciador_Colisoes::removerEntidade(Entidade* pE) {
+	if (!pE) return;
+
+	// Tenta remover de jogadores
+	if (auto* pj = dynamic_cast<Jogador*>(pE)) {
+		auto it = std::find(LJs.begin(), LJs.end(), pj);
+		if (it != LJs.end()) {
+			LJs.erase(it);
+			std::cout << "Jogador removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	// Tenta remover de inimigos
+	if (auto* pi = dynamic_cast<Inimigo*>(pE)) {
+		auto it = std::find(LIs.begin(), LIs.end(), pi);
+		if (it != LIs.end()) {
+			LIs.erase(it);
+			std::cout << "Inimigo removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	// Tenta remover de obstáculos
+	if (auto* po = dynamic_cast<Obstaculo*>(pE)) {
+		auto it = std::find(LOs.begin(), LOs.end(), po);
+		if (it != LOs.end()) {
+			LOs.erase(it);
+			std::cout << "Obstáculo removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	std::cout << "Entidade não removida: tipo desconhecido." << std::endl;
+}

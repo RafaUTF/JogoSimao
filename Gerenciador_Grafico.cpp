@@ -1,33 +1,33 @@
 #include "Gerenciador_Grafico.h"
 
-Gerenciador_Grafico* Gerenciador_Grafico::pgg(NULL);
 
-Gerenciador_Grafico::Gerenciador_Grafico():
-	janela(sf::VideoMode(DIREITA, CHAO), "janela",Style::Default),
+Gerenciador_Grafico::Gerenciador_Grafico() :
+	janela(sf::VideoMode(DIREITA, CHAO), "janela", Style::Default),
 	fundo(),
 	camera(sf::FloatRect(0, 0, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
 {
+	cout << "Gerenciador_Grafico criado" << endl;
 	janela.setFramerateLimit(FPS);
 
-	/*if (!textura.loadFromFile("teste.png")) {
+	if (!textura.loadFromFile("fundo.png")) {
 		std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
 	}
 	else {
 		fundo.setTexture(textura);
 	}
-	fundo.setPosition(-16.f, -16.f);
-	fundo.scale(1.f,1.f);*/
+	fundo.setPosition(0.f, 0.f);
+	fundo.scale(1.5f, 1.5f);
 }
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
-	delete pgg;
-	pgg = NULL;
+	cout << "destrutora Gerenciador_Grafico" << endl;
+
 }
 
 void Gerenciador_Grafico::desenhar(Ente* pE)
 {
-	if (pE == NULL) {
+	if (pE == nullptr) {
 		cout << "nao foi possivel desenhar o ente NULO" << endl;
 		return;
 	}
@@ -81,11 +81,9 @@ void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
 
 
 
-Gerenciador_Grafico* Gerenciador_Grafico::getInstancia()
-{
-	if (pgg == NULL)
-		pgg = new Gerenciador_Grafico;
-	return pgg;
+Gerenciador_Grafico* Gerenciador_Grafico::getInstancia() {
+	static Gerenciador_Grafico instancia;
+	return &instancia;
 }
 
 sf::RenderWindow& Gerenciador_Grafico::getWindow()

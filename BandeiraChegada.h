@@ -11,5 +11,8 @@ class BandeiraChegada : public Obstaculo
 		void executar();
 		void obstacular(Jogador* p = NULL);
 		void causarDano(Jogador* pJog);
+
+		std::string getTipo() const{ return "BandeiraChegada"; }
+
 };
 

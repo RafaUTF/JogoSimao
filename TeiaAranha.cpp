@@ -16,6 +16,7 @@ TeiaAranha::TeiaAranha(Vector2f pos) : Obstaculo(pos), dano(1)
 
 TeiaAranha::~TeiaAranha()
 {
+    cout << "destrutora teia" << endl;
 }
 
 void TeiaAranha::causarDano(Jogador* pJog)
