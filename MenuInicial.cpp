@@ -30,7 +30,7 @@ MenuInicial::MenuInicial() : etapa(0), nJogadores(1), fase(1) {
     seletores[1].setPosition(480, 270);
 
     instrucoes.setFont(fonte);
-    instrucoes.setCharacterSize(20);
+    instrucoes.setCharacterSize(17);
     instrucoes.setFillColor(sf::Color::White);
     instrucoes.setPosition(480, 320);
 }
@@ -62,6 +62,8 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
             if (ev.type == sf::Event::Closed) window.close();
             if (ev.type == sf::Event::KeyPressed) {
                 if (etapa == 0) {
+
+                    
                     switch (ev.key.code) {
                     case sf::Keyboard::Up:
                         if (opcaoSelecionada > 0) opcaoSelecionada--;
@@ -75,6 +77,9 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
                         break;
                     default: break;
                     }
+                    
+
+                    
                     for (int i = 0; i < (int)opcoes.size(); ++i)
                         opcoes[i].setFillColor(i == opcaoSelecionada ? sf::Color::Blue : sf::Color::White);
                 }
@@ -106,12 +111,14 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
         window.clear();
         window.draw(spriteFundo);
 
-        sf::FloatRect bounds = nomeJogo.getLocalBounds();
-        nomeJogo.setOrigin(bounds.width / 2, bounds.height / 2);
-        nomeJogo.setPosition(480, 100);
-        window.draw(nomeJogo);
+
 
         if (etapa == 0) {
+            sf::FloatRect bounds = nomeJogo.getLocalBounds();
+            nomeJogo.setOrigin(bounds.width / 2, bounds.height / 2);
+            nomeJogo.setPosition(480, 100);
+            window.draw(nomeJogo);
+            
             for (auto& t : opcoes) window.draw(t);
         }
         else {
