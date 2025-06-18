@@ -26,4 +26,5 @@ public:
 	void operator+=(const int n);
 
 	void operator++();
+
 };

@@ -17,6 +17,8 @@ protected:
     int pontos1;
     int pontos2;
 
+	int numPlayers;
+
     Jogador* pJog1;
     Jogador* pJog2;
 
@@ -43,11 +45,16 @@ protected:
 
 public:
     virtual void criarMapa(const std::string& caminhoJson) = 0;
-    Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
+    Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_);
     virtual ~Fase();
     virtual void executar();
     ListaEntidades* getListaEntidades();
 
     virtual void carregarJogo(const std::string& caminho) = 0;
     virtual void salvarJogo(const std::string& caminho)=0;
+
+	int getPontos1() const { return pontos1; }
+	int getPontos2() const { return pontos2; }
+	int getNumPlayers() const { return numPlayers; }    
+    
 };

@@ -512,3 +512,8 @@ void Gerenciador_Colisoes::removerEntidade(Entidade* pE) {
 
 	std::cout << "Entidade não removida: tipo desconhecido." << std::endl;
 }
+
+set<Projetil*>& Gerenciador_Colisoes::getProjeteis()
+{
+	return LPs;
+}

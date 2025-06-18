@@ -226,10 +226,32 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
 void Fase2::salvarJogo(const std::string& caminho) {
     json estado;
     estado["fase"] = 2;
-    estado["numPlayers"] = (pJog2 ? 2 : 1);
-    estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
-    if (pJog2)
-        estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y} };
+    estado["numPlayers"] = getNumPlayers();
+    if (pJog1)
+        estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y}, {"numvidas", pJog1->getVidas() }, {"pontos1", pJog1->getPontos()} };
+    else
+        estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1",getPontos1() } };
+    if (getNumPlayers() == 2)
+    {
+        if (pJog2) {
+            estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y}, {"numvidas", pJog2->getVidas()}, {"pontos2", pJog2->getPontos()} };
+        }
+        else
+            estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", getPontos2() } };
+    }
+
+    estado["projeteis"] = json::array();
+    set<Projetil*>::iterator it = pGC->getProjeteis().begin();
+    while (it != pGC->getProjeteis().end()) {
+        estado["projeteis"].push_back({
+             {"x", (*it)->getCorpo().getPosition().x},
+             {"y", (*it)->getCorpo().getPosition().y},
+             {"vx", (*it)->getVelocidade().x},
+             {"vy", (*it)->getVelocidade().y},
+
+            });
+        ++it;
+    }
 
     estado["entities"] = json::array();
     for (LE.primeiro(); !LE.fim(); ++LE) {
@@ -264,9 +286,31 @@ void Fase2::carregarJogo(const std::string& caminho) {
     json estado;
     in >> estado;
 
-    pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
-    if (estado["numPlayers"] == 2 && pJog2)
-        pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+    if (estado["jogador1"]["numvidas"] > 0) {
+
+        pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
+        pJog1->setVida(estado["jogador1"]["numvidas"]);
+        pontos1 = estado["jogador1"]["pontos1"];
+    }
+    else {
+        pontos1 = estado["jogador1"]["pontos1"];
+        pJog1->setVida(0);
+    }
+    destruirNeutralizados();
+    if (estado["numPlayers"] == 2) {
+        if (estado["jogador2"]["numvidas"] > 0) {
+            pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+            pJog2->setVida(estado["jogador2"]["numvidas"]);
+            pontos2 = estado["jogador2"]["pontos2"];
+        }
+        else
+        {
+            pontos2 = estado["jogador2"]["pontos2"];
+            pJog2->setVida(0);
+        }
+    }
+
+    destruirNeutralizados();
 
 
     for (auto& je : estado["entities"]) {
@@ -308,6 +352,23 @@ void Fase2::carregarJogo(const std::string& caminho) {
         }
 
     }
+    for (auto& jp : estado["projeteis"]) {
+        Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]));
+        proj->getCorpo().setPosition(jp["x"], jp["y"]);
+        proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+
+        if (pJog1) {
+            proj->setDono(pJog1);
+            pJog1->incluirTiros(proj);
+        }
+        else {
+            proj->setDono(pJog2);
+            pJog2->incluirTiros(proj);
+        }
+
+        pGC->incluirProjetil(proj);
+    }
+
 
 }
 

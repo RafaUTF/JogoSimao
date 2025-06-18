@@ -50,6 +50,8 @@ public:
 	void incluirJogador(Jogador* pjog = NULL);
 
 	void removerEntidade(Entidade* pE);
+
+	set<Projetil*>& getProjeteis();
 };
 
 

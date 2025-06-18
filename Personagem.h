@@ -45,6 +45,6 @@ public:
 	void setVida(int v);
 
 	void colidir(Entidade* pe = NULL, int d = 0);
-
+	void incluirTiros(Projetil* p);
 
 };

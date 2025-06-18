@@ -118,6 +118,15 @@ void Personagem::colidir(Entidade* pe, int d)
 
 }
 
+void Personagem::incluirTiros(Projetil* p)
+{
+    if (tiros == NULL) {
+        cout << "criando lista de tiros" << endl;
+        criarTiros();
+    }
+	tiros->incluir(p);
+}
+
 /*
 if (d == 1) {
     //chao2 = true;

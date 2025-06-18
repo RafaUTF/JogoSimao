@@ -67,3 +67,24 @@ void Projetil::explodir(Personagem* pp)
     }
 
 }
+
+Vector2f Projetil::getVelocidade()
+{
+    return vel;
+}
+
+void Projetil::setVelocidade(Vector2f v)
+{
+    vel = v; 
+}
+
+Jogador* Projetil::getDono()
+{
+    return pDono;
+}
+
+void Projetil::setDono(Jogador* pdono)
+{
+    pDono = pdono;
+}
+

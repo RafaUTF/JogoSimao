@@ -23,4 +23,9 @@ public:
 	void explodir(Personagem* pp = nullptr);
 
 	std::string getTipo() const { return "Projetil"; }
+
+	Vector2f getVelocidade();
+	void setVelocidade(Vector2f v);
+	Jogador* getDono();
+	void setDono(Jogador* pdono);
 };

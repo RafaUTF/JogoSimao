@@ -4,11 +4,13 @@ void Fase::criarCenario()
 {
 }
 
-Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers) :
+Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_) :
     pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
 {
 
     Ente::setpGG(gg); // define o gerenciador gr�fico no Ente base
+
+    numPlayers = numPlayers_;
 
     pJog1 = new Jogador();
     LE.incluir(pJog1);
