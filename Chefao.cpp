@@ -5,6 +5,10 @@
 Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
     Inimigo(pos), forca(100)
 {
+	num_vidas = VIDA_CHEFE;
+
+    nivel_maldade = DANO_ALTO;
+
     agilidade = 0.7f;
     p1 = pp1;
     p2 = pp2;
@@ -12,7 +16,12 @@ Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
 
     corpo.setSize(Vector2f(150.f, 150.f));
     centralizarEntidade();
-    corpo.setFillColor(Color::Magenta);
+    if (!textura.loadFromFile("boss.png")) {
+        std::cerr << "Erro ao carregar a textura boss!" << std::endl;
+    }
+    else {
+        corpo.setTexture(&textura);
+    }
 }
 Chefao::~Chefao()
 {
@@ -24,7 +33,7 @@ void Chefao::executar()
     escolherAlvo();
     mover();//mover inimigo
     if (pAlvo) {
-        //atirar();
+        atirar();
     }
     tiros->percorrer();
 }

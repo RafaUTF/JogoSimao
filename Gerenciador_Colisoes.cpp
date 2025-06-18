@@ -26,6 +26,7 @@ void Gerenciador_Colisoes::retirarPersonagens()
 		if (*it && (*it)->getVidas() == 0) {
 			it = LIs.erase(it);
 			cout << "INIMIGO retirado Gerenciador_Colisoes" << endl;
+			//*it = nullptr;
 		}
 		else
 			it++;
@@ -36,6 +37,7 @@ void Gerenciador_Colisoes::retirarPersonagens()
 		if (*it2 && (*it2)->getVidas() == 0) {
 			it2 = LJs.erase(it2);
 			cout << "JOGADOR retirado Gerenciador_Colisoes" << endl;
+			//*it2 = nullptr;
 		}
 		else
 			it2++;
@@ -43,7 +45,7 @@ void Gerenciador_Colisoes::retirarPersonagens()
 }
 
 Gerenciador_Colisoes::Gerenciador_Colisoes() :
-	chao1(false), chao2(false),
+	//chao1(false), chao2(false),
 	LIs(), LOs(), LPs(), LJs()
 {
 	LIs.clear();
@@ -67,12 +69,13 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 
 void Gerenciador_Colisoes::executar() {
 
-	LJs[0]->setChao(false);
-	chao1 = false;
+
+	//LJs[0]->setChao(false);
+	//chao1 = false;
 
 	if (LJs.size() > 1) {
-		LJs[1]->setChao(false);
-		chao2 = false;
+		//LJs[1]->setChao(false);
+		//chao2 = false;
 		tratarColisoesJogs();
 	}
 	//inimigos
@@ -86,10 +89,10 @@ void Gerenciador_Colisoes::executar() {
 	tratarColisoesJogsInimgs();
 	tratarColisoesJogsObstacs();
 
-	LJs[0]->setChao(chao1);
+	//LJs[0]->setChao(chao1);
 
 	if (LJs.size() > 1) {
-		LJs[1]->setChao(chao2);
+		//LJs[1]->setChao(chao2);
 	}
 
 }
@@ -143,7 +146,8 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 			x = drx - modulo(dx), y = dry - modulo(dy);
 
 		if (d == 1) {
-			chao2 = true;
+			//chao2 = true;
+			p2->setChao(true);
 			p2->getVel().y = p1->getVel().y;
 			p1->getCorpo().move(0.f, y / 2);
 			p2->getCorpo().move(0.f, -y / 2);
@@ -154,7 +158,8 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 			);*/
 		}
 		if (d == 4) {
-			chao1 = true;
+			//chao1 = true;
+			p1->setChao(true);
 			p1->getVel().y = p2->getVel().y;
 			p1->getCorpo().move(0.f, -y / 2);
 			p2->getCorpo().move(0.f, y / 2);
@@ -190,54 +195,23 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 		}
 	}
 }
-
 void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 	//CHAMAR OBSTACULAR PARA PARAR O JOGADOR
 
-	Obstaculo* po = NULL;
-	Jogador* pJog1 = NULL;
+	Obstaculo* po = nullptr;
+	Jogador* pJog1 = nullptr;
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
+		pJog1->setChao(false);
 		pJog1->restaurarVelocidade();
 		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-
 				po->obstacular(pJog1);
-
-
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y + pJog1->getRaio().y + po->getRaio().y
-					);
-				}
-				if (d == 4) {
-					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y - pJog1->getRaio().y - po->getRaio().y
-					);
-				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x + pJog1->getRaio().x + po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x - pJog1->getRaio().x - po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-
+				pJog1->colidir(po, d);
+				
 			}
 		}
 
@@ -255,35 +229,23 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 			pi = *it;
 			d = verificarDirecao(pJog1, pi);
 			if (d != 0) {
-				pi->danificar(pJog1);
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pi->getcm().y + pJog1->getRaio().y + pi->getRaio().y
-					);
-				}
+
+
 				if (d == 4) {
 					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
+					//i == 0 ? chao1 = true : chao2 = true;
 					pJog1->getCorpo().setPosition(
 						pJog1->getcm().x,
-						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y
+						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
 					);
+					while (pi->getVidas() > 0) {
+						pi->operator--();
+						pJog1++;
+					}
 				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pi->getcm().x + pJog1->getRaio().x + pi->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pi->getcm().x - pJog1->getRaio().x - pi->getRaio().x,
-						pJog1->getcm().y
-					);
+				else {
+					pi->danificar(pJog1, d);
+
 				}
 
 			}
@@ -315,7 +277,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 				}
 				if (d == 4) {
 					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
+					//i == 0 ? chao1 = true : chao2 = true;
 					pJog1->getCorpo().setPosition(
 						pJog1->getcm().x,
 						pj->getcm().y - pJog1->getRaio().y - pj->getRaio().y
@@ -348,8 +310,8 @@ void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
 {
 	//CHAMAR OBSTACULAR PARA PARAR O INIMIGO
 
-	Obstaculo* po = NULL;
-	Inimigo* pJog1 = NULL;
+	Obstaculo* po = nullptr;
+	Inimigo* pJog1 = nullptr;
 	int d = 0;
 	for (int i = 0;i < LIs.size();i++) {
 		pJog1 = LIs[i];
@@ -358,10 +320,7 @@ void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-
 				//po->obstacular(pJog1);
-
-
 				if (d == 1) {
 					pJog1->getVel().y = 0.f;
 					pJog1->getCorpo().setPosition(
@@ -399,8 +358,8 @@ void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
 
 void Gerenciador_Colisoes::tratarColisoesInimgsProjeteis()
 {
-	Projetil* pj = NULL;
-	Inimigo* pJog1 = NULL;
+	Projetil* pj = nullptr;
+	Inimigo* pJog1 = nullptr;
 	int d = 0;
 	for (int i = 0;i < LIs.size();i++) {
 		pJog1 = LIs[i];
@@ -491,4 +450,40 @@ void Gerenciador_Colisoes::incluirJogador(Jogador* pjog)
 		LJs.push_back(pjog);
 	else
 		cout << "ponteiro jogador nulo nao incluido no vector" << endl;
+}
+
+void Gerenciador_Colisoes::removerEntidade(Entidade* pE) {
+	if (!pE) return;
+
+	// Tenta remover de jogadores
+	if (auto* pj = dynamic_cast<Jogador*>(pE)) {
+		auto it = std::find(LJs.begin(), LJs.end(), pj);
+		if (it != LJs.end()) {
+			LJs.erase(it);
+			std::cout << "Jogador removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	// Tenta remover de inimigos
+	if (auto* pi = dynamic_cast<Inimigo*>(pE)) {
+		auto it = std::find(LIs.begin(), LIs.end(), pi);
+		if (it != LIs.end()) {
+			LIs.erase(it);
+			std::cout << "Inimigo removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	// Tenta remover de obstáculos
+	if (auto* po = dynamic_cast<Obstaculo*>(pE)) {
+		auto it = std::find(LOs.begin(), LOs.end(), po);
+		if (it != LOs.end()) {
+			LOs.erase(it);
+			std::cout << "Obstáculo removido do Gerenciador_Colisoes." << std::endl;
+			return;
+		}
+	}
+
+	std::cout << "Entidade não removida: tipo desconhecido." << std::endl;
 }

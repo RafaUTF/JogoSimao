@@ -31,5 +31,7 @@ public:
 	Vector2f& getVel();
 
 	virtual const int getVidas();
+
+	virtual std::string getTipo() const = 0;
 };
 

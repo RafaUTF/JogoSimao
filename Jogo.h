@@ -29,5 +29,7 @@ public:
 	Jogo(int numPlayers_, int fase_);
 	~Jogo();
 	void executar();
+
+	Fase* getFase();
 	//void //executar as fases();
 };

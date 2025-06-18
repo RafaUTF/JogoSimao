@@ -14,5 +14,8 @@ class InimigoAlto : public Inimigo
 		Vector2f getPosicaoInicial();
 		Vector2f getPosicaoAtual();
 		void mover();
+
+		std::string getTipo() const{ return "InimigoAlto"; }
+
 };
 

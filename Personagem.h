@@ -17,6 +17,8 @@ protected:
 
 	bool olhandoDir;
 
+	
+
 public:
 	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Personagem();
@@ -40,4 +42,8 @@ public:
 	void operator--();
 
 	const int getVidas();
+
+	void colidir(Entidade* pe = NULL, int d = 0);
+
+
 };

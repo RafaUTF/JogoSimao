@@ -5,8 +5,12 @@ Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
     danoso = true;
     corpo.setSize(sf::Vector2f(32.f, 32.f));
     centralizarEntidade();
-    //corpo.setFillColor(sf::Color::White);
-    corpo.setFillColor(sf::Color::Transparent);
+    if (!textura.loadFromFile("espinho.png")) {
+        std::cerr << "Erro ao carregar a textura espinho!" << std::endl;
+    }
+    else {
+        corpo.setTexture(&textura);
+    }
 }
 
 Espinho::~Espinho()
@@ -16,10 +20,11 @@ Espinho::~Espinho()
 
 void Espinho::causarDano(Jogador* pJog)
 {
-    if (pJog != NULL) {
+    if (pJog) {
         pJog->operator--();
 		cout << "Jogador atingido por espinho" << endl;
     }
+
 }
 
 void Espinho::obstacular(Jogador* p)

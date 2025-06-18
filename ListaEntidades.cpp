@@ -9,8 +9,6 @@ ListaEntidades::ListaEntidades() : LEs(), it()
 ListaEntidades::~ListaEntidades()
 {
 	cout << "destrutora ListaEntidades" << endl;
-
-	cout << "destrutora ListaEntidades" << endl;
 	for (Lista<Entidade*>::iterator it = LEs.begin();it != LEs.end();++it) {
 		if (*it) {
 			delete* it;

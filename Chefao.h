@@ -10,4 +10,7 @@ public:
 	void executar();
 	void salvar();
 	void mover();
+
+	std::string getTipo() const { return "Chefao"; }
+
 };

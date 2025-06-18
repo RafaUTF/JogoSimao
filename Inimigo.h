@@ -18,7 +18,7 @@ public:
 
 	virtual void executar();
 	//virtual void salvar();
-	virtual void danificar(Jogador* p = NULL);
+	virtual void danificar(Jogador* p = NULL, int d=0);
 
 	void escolherAlvo();
 

@@ -13,5 +13,8 @@ public:
 	void causarDano(Jogador* pJog);
 	void obstacular(Jogador* p = NULL);
 	void executar();
+
+	std::string getTipo() const{ return "Espinho"; }
+
 };
 

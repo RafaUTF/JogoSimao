@@ -4,11 +4,23 @@ void Fase::criarCenario()
 {
 }
 
-Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg) :
-    pGC(gc), pGG(gg), LE()
+Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers) :
+	pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
 {
 
     Ente::setpGG(gg); // define o gerenciador gr�fico no Ente base
+
+    pJog1 = new Jogador();
+    LE.incluir(pJog1);
+    pGC->incluirJogador(pJog1);
+    if (numPlayers == 2) {
+        pJog2 = new Jogador();
+        LE.incluir(pJog2);
+        pGC->incluirJogador(pJog2);
+    }
+	else {
+		pJog2 = nullptr;
+	}
 }
 
 Fase::~Fase() {
@@ -79,9 +91,18 @@ void Fase::destruirNeutralizados()
 
     Entidade* pe = nullptr;
     for (LE.primeiro();!LE.fim();LE.operator++()) {
-        //Personagem* pp = static_cast<Personagem*>(LE.getAtual());
         pe = LE.getAtual();
-        if (pe&&pe->getVidas()==0) {
+        if (pe && pe->getVidas() == 0) {
+            Jogador* pjog = static_cast<Jogador*>(pe);
+            if (pjog == pJog1) {
+                pontos1 += pJog1->getPontos();
+                pJog1 = nullptr;
+            }
+            else if (pjog == pJog2) {
+                pontos2 += pJog2->getPontos();
+                pJog2 = nullptr;
+            }
+           
             LE.retirar(pe);
             delete pe;
             pe = nullptr;

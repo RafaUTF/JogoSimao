@@ -2,11 +2,14 @@
 bool Jogador::jogador1(true);
 
 
-Jogador::Jogador(Vector2f pos) : Personagem(pos)
+Jogador::Jogador(Vector2f pos) : Personagem(pos),pontos(0)
 {
+	num_vidas = VIDA_JOGADOR;
+
     agilidade = 1.f;
 
     criarTiros();
+
 
     if (jogador1) {
 
@@ -55,7 +58,7 @@ float modulo2(float x) {
     return x < 0 ? (-1.f) * x : x;
 }
 
-void Jogador::colidir(Jogador* p)//bom para o inimigo
+void Jogador::colidir0(Jogador* p)//bom para o inimigo
 {
     float dx = p->getcm().x - getcm().x,//+ -> colisao dir do pe1
         dy = p->getcm().y - getcm().y,//+ -> colisao em baixo do pe1
@@ -102,12 +105,12 @@ void Jogador::atirar()
     if (recarga >= TEMPO_RECARGA) {
         if (j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
             cout << "p1 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros,this));
             recarga = 0;
         }
         else if (!j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
             cout << "p2 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros,this));
             recarga = 0;
         }
     }
@@ -115,6 +118,23 @@ void Jogador::atirar()
         recarga++;
 
 }
+
+const int Jogador::getPontos() const
+{
+    return pontos;
+}
+
+void Jogador::operator+=(const int n)
+{
+    pontos += n;
+}
+
+void Jogador::operator++()
+{
+    pontos++;
+}
+
+
 
 void Jogador::mover()
 {

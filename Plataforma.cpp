@@ -9,6 +9,7 @@ Plataforma::Plataforma(Vector2f pos): Obstaculo(pos)
     }
     else {
         corpo.setTexture(&textura);
+		cout << "Plataforma criada!" << endl;
     }
     //corpo.setFillColor(sf::Color::Transparent);
 }

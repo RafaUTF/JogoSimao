@@ -3,6 +3,10 @@
 InimigoPequeno::InimigoPequeno(Vector2f pos) :
 	Inimigo(pos)
 {
+
+	num_vidas = VIDA_BAIXO;
+
+	nivel_maldade = DANO_BAIXO;
 	agilidade = 1.f;
 	direcao = 1;
 
