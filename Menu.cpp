@@ -1,50 +1,55 @@
-#include "MenuInicial.h"
-#include "MenuLeaderboard.h"
+﻿#include "Menu.h"
+#include <iostream>
 
-MenuInicial::MenuInicial() : etapa(0), nJogadores(1), fase(1) {
-    
-    
-    nomeJogo.setFont(fonte);
-    nomeJogo.setString("ADefinir++");
-    nomeJogo.setCharacterSize(60);
-    nomeJogo.setFillColor(sf::Color::White);
-    sf::FloatRect nJ = nomeJogo.getLocalBounds();
-    nomeJogo.setOrigin(nJ.width / 2, nJ.height / 2);
-    nomeJogo.setPosition(480, 100);
-    
+Menu::Menu()
+    : etapa(0), opcaoSelecionada(0), nJogadores(1), fase(1)
+{
+    fonte.loadFromFile("arial.ttf");
+
     titulo.setFont(fonte);
     titulo.setString("Configurar Jogo");
-    titulo.setCharacterSize(40);
+    titulo.setCharacterSize(60);
     titulo.setFillColor(sf::Color::White);
     sf::FloatRect tb = titulo.getLocalBounds();
     titulo.setOrigin(tb.width / 2, tb.height / 2);
-    titulo.setPosition(480, 100);
+    titulo.setPosition(900, 150);
 
     seletores[0].setFont(fonte);
     seletores[0].setCharacterSize(32);
     seletores[0].setFillColor(sf::Color::White);
-    seletores[0].setPosition(480, 220);
+    seletores[0].setPosition(900, 300);
 
     seletores[1].setFont(fonte);
     seletores[1].setCharacterSize(32);
     seletores[1].setFillColor(sf::Color::White);
-    seletores[1].setPosition(480, 270);
+    seletores[1].setPosition(900, 360);
 
     instrucoes.setFont(fonte);
-    instrucoes.setCharacterSize(17);
+    instrucoes.setString("Pressione L para Leaderboard");
+    instrucoes.setCharacterSize(24);
     instrucoes.setFillColor(sf::Color::White);
-    instrucoes.setPosition(480, 320);
+    sf::FloatRect bi = instrucoes.getLocalBounds();
+    instrucoes.setOrigin(bi.width / 2, bi.height / 2);
+    instrucoes.setPosition(900, 430);
+
+    if (texturaFundo.loadFromFile("fundomenu.png")) {
+        spriteFundo.setTexture(texturaFundo);
+        spriteFundo.setScale(1800.0f / texturaFundo.getSize().x,
+            900.0f / texturaFundo.getSize().y);
+    }
 }
 
-int MenuInicial::mostrar(sf::RenderWindow& window) {
+Menu::~Menu() {}
+
+int Menu::mostrar(sf::RenderWindow& window) {
     etapa = 0;
     opcaoSelecionada = 0;
-    
 
+    // Tela inicial: Carregar, Novo, Leaderboard
     std::vector<std::string> nomes = { "Carregar Jogo", "Novo Jogo", "Leaderboard" };
     opcoes.clear();
 
-    float yStart = 220;
+    float yStart = 300;
     for (int i = 0; i < (int)nomes.size(); ++i) {
         sf::Text t;
         t.setFont(fonte);
@@ -53,7 +58,7 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
         t.setFillColor(i == 0 ? sf::Color::Blue : sf::Color::White);
         sf::FloatRect br = t.getLocalBounds();
         t.setOrigin(br.width / 2, br.height / 2);
-        t.setPosition(480, yStart + i * 60);
+        t.setPosition(900, yStart + i * 100);
         opcoes.push_back(t);
     }
 
@@ -63,8 +68,6 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
             if (ev.type == sf::Event::Closed) window.close();
             if (ev.type == sf::Event::KeyPressed) {
                 if (etapa == 0) {
-
-                    
                     switch (ev.key.code) {
                     case sf::Keyboard::Up:
                         if (opcaoSelecionada > 0) opcaoSelecionada--;
@@ -73,22 +76,15 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
                         if (opcaoSelecionada + 1 < (int)opcoes.size()) opcaoSelecionada++;
                         break;
                     case sf::Keyboard::Enter:
-                        if (opcaoSelecionada == 1) {
-                            etapa = 1; // Configurar novo jogo
-                        }
-                        else if (opcaoSelecionada == 2) {
-                            MenuLeaderboard leaderboard;
-                            leaderboard.mostrar(window);
-                            continue; // volta ao menu inicial
+                        if (opcaoSelecionada == 1) { // Novo Jogo
+                            etapa = 1;
                         }
                         else {
-                            return opcaoSelecionada; // Carregar jogo, etc.
+                            return opcaoSelecionada; // 0 = Carregar, 2 = Leaderboard
                         }
+                        break;
                     default: break;
                     }
-                    
-
-                    
                     for (int i = 0; i < (int)opcoes.size(); ++i)
                         opcoes[i].setFillColor(i == opcaoSelecionada ? sf::Color::Blue : sf::Color::White);
                 }
@@ -107,9 +103,9 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
                         if (fase < 2) fase++;
                         break;
                     case sf::Keyboard::Enter:
-                        return 1; // Novo jogo
+                        return 1; // Iniciar novo jogo
                     case sf::Keyboard::Escape:
-                        etapa = 0;
+                        etapa = 0; // Voltar ao menu inicial
                         break;
                     default: break;
                     }
@@ -120,39 +116,32 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
         window.clear();
         window.draw(spriteFundo);
 
-
-
         if (etapa == 0) {
-            sf::FloatRect bounds = nomeJogo.getLocalBounds();
-            nomeJogo.setOrigin(bounds.width / 2, bounds.height / 2);
-            nomeJogo.setPosition(480, 100);
-            window.draw(nomeJogo);
-            
             for (auto& t : opcoes) window.draw(t);
         }
-        else {
+        else if (etapa == 1) {
             titulo.setString("Configurar Novo Jogo");
-            sf::FloatRect bounds = titulo.getLocalBounds();
-            titulo.setOrigin(bounds.width / 2, bounds.height / 2);
-            titulo.setPosition(480, 100);
+            sf::FloatRect bounds2 = titulo.getLocalBounds();
+            titulo.setOrigin(bounds2.width / 2, bounds2.height / 2);
+			titulo.setPosition(900, 150);
             window.draw(titulo);
 
             seletores[0].setString("Jogadores: " + std::to_string(nJogadores));
             sf::FloatRect bounds0 = seletores[0].getLocalBounds();
             seletores[0].setOrigin(bounds0.width / 2, bounds0.height / 2);
-            seletores[0].setPosition(480, 220);
+            seletores[0].setPosition(900, 300);
 
             seletores[1].setString("Fase: " + std::to_string(fase));
             sf::FloatRect bounds1 = seletores[1].getLocalBounds();
             seletores[1].setOrigin(bounds1.width / 2, bounds1.height / 2);
-            seletores[1].setPosition(480, 270);
+            seletores[1].setPosition(900, 360);
 
-            for (auto& s : seletores) window.draw(s);
+            window.draw(seletores[0]);
+            window.draw(seletores[1]);
 
             instrucoes.setString("W S Jogadores | A D Fase | Enter para jogar | Esc para voltar");
             sf::FloatRect bi = instrucoes.getLocalBounds();
             instrucoes.setOrigin(bi.width / 2, bi.height / 2);
-            instrucoes.setPosition(480, 320);
             window.draw(instrucoes);
         }
 

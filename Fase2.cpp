@@ -7,16 +7,8 @@
 using json = nlohmann::json;
 
 Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
-    : Fase(gc, gg)
+    : Fase(gc, gg,numPlayers)
 {
-    pJog1 = new Jogador();
-    LE.incluir(pJog1);
-    pGC->incluirJogador(pJog1);
-    if (numPlayers == 2) {
-        pJog2 = new Jogador();
-        LE.incluir(pJog2);
-        pGC->incluirJogador(pJog2);
-    }
 }
 
 Fase2::~Fase2() {
@@ -50,15 +42,71 @@ void Fase2::executar() {
                 }
             }
         }
-        LE.percorrer();
+        //cout << "a" << endl;
+        LE.percorrer();//executa tudo menos projeteis
+        //cout << "b" << endl;
+        incluirProjeteisGC();//////////////////////////////////
+        //cout << "c" << endl;
         pGC->executar();
-
+        //cout << "d" << endl;
         pGG->moverCamera(pJog1, pJog2);
-
+        //cout << "e" << endl;
         pGG->clear();
+        //cout << "f" << endl;
         pGG->desenhaFundo();
+        //cout << "g" << endl;
         LE.desenhar();
+        //cout << "h" << endl;
+        desenharProjeteis();
+        //cout << "i" << endl;
         pGG->mostrar();
+        //cout << "j" << endl;
+        destruirProjeteis();
+        //cout << "k" << endl;
+        destruirNeutralizados();
+        //cout << "l" << endl;
+
+
+        if (pJog1 == nullptr && pJog2 == nullptr) {
+            cout << "todos os jogadores foram neutralizados, fim do programa!" << endl;
+            cout << "PONTUACAO1: " << pontos1 << endl;
+            cout << "PONTUACAO2: " << pontos2 << endl;
+            
+            gravarNome(pGG->getWindow());
+
+            
+            pGG->fechar();
+
+            return;
+            
+        }
+    }
+
+    if (numPlayers == 1) {
+        if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+            gravarNome(pGG->getWindow());
+            pGG->fechar();
+        }
+    }
+    else if (numPlayers == 2) {
+        if (pJog1 && pJog2) {
+            if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else if (pJog1) {
+            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else
+            if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+
     }
 }
 
@@ -211,10 +259,32 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
 void Fase2::salvarJogo(const std::string& caminho) {
     json estado;
     estado["fase"] = 2;
-    estado["numPlayers"] = (pJog2 ? 2 : 1);
-    estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
-    if (pJog2)
-        estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y} };
+    estado["numPlayers"] = getNumPlayers();
+    if (pJog1)
+        estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y}, {"numvidas", pJog1->getVidas() }, {"pontos1", pJog1->getPontos()} };
+    else
+        estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1",getPontos1() } };
+    if (getNumPlayers() == 2)
+    {
+        if (pJog2) {
+            estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y}, {"numvidas", pJog2->getVidas()}, {"pontos2", pJog2->getPontos()} };
+        }
+        else
+            estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", getPontos2() } };
+    }
+
+    estado["projeteis"] = json::array();
+    set<Projetil*>::iterator it = pGC->getProjeteis().begin();
+    while (it != pGC->getProjeteis().end()) {
+        estado["projeteis"].push_back({
+             {"x", (*it)->getCorpo().getPosition().x},
+             {"y", (*it)->getCorpo().getPosition().y},
+             {"vx", (*it)->getVelocidade().x},
+             {"vy", (*it)->getVelocidade().y},
+
+            });
+        ++it;
+    }
 
     estado["entities"] = json::array();
     for (LE.primeiro(); !LE.fim(); ++LE) {
@@ -249,9 +319,31 @@ void Fase2::carregarJogo(const std::string& caminho) {
     json estado;
     in >> estado;
 
-    pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
-    if (estado["numPlayers"] == 2 && pJog2)
-        pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+    if (estado["jogador1"]["numvidas"] > 0) {
+
+        pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
+        pJog1->setVida(estado["jogador1"]["numvidas"]);
+        pontos1 = estado["jogador1"]["pontos1"];
+    }
+    else {
+        pontos1 = estado["jogador1"]["pontos1"];
+        pJog1->setVida(0);
+    }
+    destruirNeutralizados();
+    if (estado["numPlayers"] == 2) {
+        if (estado["jogador2"]["numvidas"] > 0) {
+            pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+            pJog2->setVida(estado["jogador2"]["numvidas"]);
+            pontos2 = estado["jogador2"]["pontos2"];
+        }
+        else
+        {
+            pontos2 = estado["jogador2"]["pontos2"];
+            pJog2->setVida(0);
+        }
+    }
+
+    destruirNeutralizados();
 
 
     for (auto& je : estado["entities"]) {
@@ -293,16 +385,34 @@ void Fase2::carregarJogo(const std::string& caminho) {
         }
 
     }
+    for (auto& jp : estado["projeteis"]) {
+        Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]));
+        proj->getCorpo().setPosition(jp["x"], jp["y"]);
+        proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+
+        if (pJog1) {
+            proj->setDono(pJog1);
+            pJog1->incluirTiros(proj);
+        }
+        else {
+            proj->setDono(pJog2);
+            pJog2->incluirTiros(proj);
+        }
+
+        pGC->incluirProjetil(proj);
+    }
+
 
 }
 
 void Fase2::desenharProjeteis()//mostra os projeteis na tela
 {
-    pJog1->getTiros()->desenhar();
-    if (pJog2)
+    if (pJog1 && pJog1->getTiros())
+        pJog1->getTiros()->desenhar();
+    if (pJog2 && pJog2->getTiros())
         pJog2->getTiros()->desenhar();
-    for (int i = 0; i < LIs.size(); i++) {
-        if (LIs[i]) {
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i] && LIs[i]->getTiros()) {
             LIs[i]->getTiros()->desenhar();
         }
         else {
@@ -312,24 +422,35 @@ void Fase2::desenharProjeteis()//mostra os projeteis na tela
 }
 void Fase2::incluirProjeteisGC()
 {
-    ListaEntidades* l = pJog1->getTiros();
-    for (l->primeiro(); !l->fim(); l->operator++()) {
-        pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+    int j;
+    ListaEntidades* l = nullptr;
+    if (pJog1 && pJog1->getTiros()) {
+        //cout << "1" << endl;
+        l = pJog1->getTiros();
+        j = 0;
+        for (l->primeiro();!l->fim();l->operator++()) {
+            //cout << "a " << j++ << endl;
+            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+        }
     }
-    if (pJog2) {
+    j = 0;
+    if (pJog2 && pJog2->getTiros()) {
+        //cout << "2" << endl;
         l = pJog2->getTiros();
-        for (l->primeiro(); !l->fim(); l->operator++()) {
+        for (l->primeiro();!l->fim();l->operator++()) {
+            //cout << "b " << j++ << endl;
             pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
         }
     }
 
-    for (int i = 0; i < LIs.size(); i++) {
-        if (LIs[i]) {
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i] && LIs[i]->getTiros()) {
+            //cout << "3" << endl;
             l = LIs[i]->getTiros();
-            if (l) {
-                for (l->primeiro(); !l->fim(); l->operator++()) {
-                    pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-                }
+            j = 0;
+            for (l->primeiro();!l->fim();l->operator++()) {
+                //cout << "c " << j++ << endl;
+                pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
             }
         }
     }
@@ -339,19 +460,11 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
 {
     pGC->retirarProjeteis();
 
-    ListaEntidades* l = pJog1->getTiros();
+    ListaEntidades* l = nullptr;
 
-    for (l->primeiro(); !l->fim(); l->operator++()) {
-        Projetil* pj = static_cast<Projetil*>(l->getAtual());
-        if (pj->getAtivo() == false) {
-            l->retirar(pj);
-            delete pj;
-            pj = nullptr;
-        }
-    }
-    if (pJog2) {
-        l = pJog2->getTiros();
-        for (l->primeiro(); !l->fim(); l->operator++()) {
+    if (pJog1 && pJog1->getTiros()) {
+        l = pJog1->getTiros();
+        for (l->primeiro();!l->fim();l->operator++()) {
             Projetil* pj = static_cast<Projetil*>(l->getAtual());
             if (pj->getAtivo() == false) {
                 l->retirar(pj);
@@ -361,10 +474,22 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
         }
     }
 
-    for (int i = 0; i < LIs.size(); i++) {
-        if (LIs[i]) {
+    if (pJog2 && pJog2->getTiros()) {
+        l = pJog2->getTiros();
+        for (l->primeiro();!l->fim();l->operator++()) {
+            Projetil* pj = static_cast<Projetil*>(l->getAtual());
+            if (pj->getAtivo() == false) {
+                l->retirar(pj);
+                delete pj;
+                pj = nullptr;
+            }
+        }
+    }
+
+    for (int i = 0;i < LIs.size();i++) {
+        if (LIs[i] && LIs[i]->getTiros()) {
             l = LIs[i]->getTiros();
-            for (l->primeiro(); !l->fim(); l->operator++()) {
+            for (l->primeiro();!l->fim();l->operator++()) {
                 Projetil* pj = static_cast<Projetil*>(l->getAtual());
                 if (pj->getAtivo() == false) {
                     l->retirar(pj);
@@ -375,5 +500,40 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
         }
         else
             cout << "chefao nulo em destruirProjeteis na Fase2" << endl;
+    }
+}
+
+void Fase2::destruirNeutralizados()
+{
+    pGC->retirarPersonagens();
+
+    Entidade* pe = nullptr;
+    for (LE.primeiro();!LE.fim();LE.operator++()) {
+        pe = LE.getAtual();
+        if (pe && pe->getVidas() == 0) {
+            Jogador* pjog = static_cast<Jogador*>(pe);
+            if (pJog1 && pjog == pJog1) {
+                pontos1 = pJog1->getPontos();
+                cout << "j1 morreu" << endl;
+                pJog1 = nullptr;
+            }
+            else if (pJog2 && pjog == pJog2) {
+                pontos2 = pJog2->getPontos();
+                cout << "j2 morreu" << endl;
+                pJog2 = nullptr;
+            }
+            else {
+                Chefao* pi = static_cast<Chefao*>(pe);
+                for (int i = 0;i < LIs.size();i++) {
+                    if (pi == LIs[i]) {
+                        cout << "chefe morreu" << endl;
+                        LIs[i] = nullptr;
+                    }
+                }
+            }
+            LE.retirar(pe);
+            delete pe;
+            pe = nullptr;
+        }
     }
 }

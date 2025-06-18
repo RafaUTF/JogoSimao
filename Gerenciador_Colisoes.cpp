@@ -65,6 +65,13 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 	cout << "destrutora Gerenciador_Colisoes" << endl;
 }
 
+void Gerenciador_Colisoes::limpaLista() {
+	LIs.clear();
+	LOs.clear();
+	LPs.clear();
+	LJs.clear();
+}
+
 void Gerenciador_Colisoes::executar() {
 
 	LJs[0]->setChao(false);
@@ -204,8 +211,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-
-				po->obstacular(pJog1);
+				if(po)
+					po->obstacular(pJog1);
 
 
 				if (d == 1) {
@@ -255,42 +262,26 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 			pi = *it;
 			d = verificarDirecao(pJog1, pi);
 			if (d != 0) {
-				pi->danificar(pJog1);
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pi->getcm().y + pJog1->getRaio().y + pi->getRaio().y
-					);
-				}
 				if (d == 4) {
 					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
+					//i == 0 ? chao1 = true : chao2 = true;
 					pJog1->getCorpo().setPosition(
 						pJog1->getcm().x,
-						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y
+						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
 					);
+					pi->setVida(0);
+					pJog1->operator++();
+					
 				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pi->getcm().x + pJog1->getRaio().x + pi->getRaio().x,
-						pJog1->getcm().y
-					);
+				else {
+					pi->danificar(pJog1, d);
 				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pi->getcm().x - pJog1->getRaio().x - pi->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-
 			}
 		}
 
 	}
 }
+
 
 
 
@@ -527,4 +518,9 @@ void Gerenciador_Colisoes::removerEntidade(Entidade* pE) {
 	}
 
 	std::cout << "Entidade não removida: tipo desconhecido." << std::endl;
+}
+
+set<Projetil*>& Gerenciador_Colisoes::getProjeteis()
+{
+	return LPs;
 }

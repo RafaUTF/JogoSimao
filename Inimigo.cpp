@@ -1,7 +1,8 @@
 #include "Inimigo.h"
 
 Inimigo::Inimigo(Vector2f pos) :
-    Personagem(pos), nivel_maldade(0), pAlvo(nullptr), p1(nullptr), p2(nullptr)
+    Personagem(pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
+    nivel_maldade(NIVEL_MALDADE_BASICO),chefao(false)
 {
     agilidade = 1.f;
 
@@ -20,9 +21,38 @@ void Inimigo::executar()
     mover();
 }
 
-void Inimigo::danificar(Jogador* p)
+void Inimigo::danificar(Jogador* p, int d)
 {
     cout << "atacou" << endl;
+    if (p) {
+        for (int i = 0; i < nivel_maldade; i++) {
+            p->operator--();
+        }
+        if (d == 1) {
+            p->getVel().y = 0.f;
+            p->getCorpo().setPosition(
+                p->getcm().x,
+                getcm().y + p->getRaio().y + getRaio().y
+            );
+        }
+        if (d == 2) {
+            p->getVel().x = 0.f;
+            p->getCorpo().setPosition(
+                getcm().x + p->getRaio().x + getRaio().x + ELASTICIDADE_INIMIGO,
+                p->getcm().y
+            );
+        }
+        if (d == 3) {
+            p->getVel().x = 0.f;
+            p->getCorpo().setPosition(
+                getcm().x - p->getRaio().x - getRaio().x - ELASTICIDADE_INIMIGO,
+                p->getcm().y
+            );
+        }
+    }
+    else {
+        cout << "jogador nulo" << endl;
+    }
 }
 
 void Inimigo::escolherAlvo()

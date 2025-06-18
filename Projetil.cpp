@@ -1,9 +1,9 @@
 #include "Projetil.h"
 
-#include "Personagem.h"
+#include "Jogador.h"
 
-Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp) :
-    Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL)
+Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogador* pdono) :
+    Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
 {
     /*
     if (!textura.loadFromFile("boss.png")) {
@@ -58,11 +58,33 @@ void Projetil::explodir(Personagem* pp)
 {
     ativo = false;
     cout << "projetil colidiu" << endl;
-    if (pp&&pp!=nullptr) {
+    if (pp && pp != nullptr) {
         pp->operator--();
-        if (pp&&pp!=nullptr&&pp->getVidas() == 0)
+        if (pp && pp != nullptr && pp->getVidas() == 0) {
             cout << "personagem neutralizado por projetil" << endl;
+            pDono->operator+=(100);
+        }
     }
- 
+
+}
+
+Vector2f Projetil::getVelocidade()
+{
+    return vel;
+}
+
+void Projetil::setVelocidade(Vector2f v)
+{
+    vel = v; 
+}
+
+Jogador* Projetil::getDono()
+{
+    return pDono;
+}
+
+void Projetil::setDono(Jogador* pdono)
+{
+    pDono = pdono;
 }
 

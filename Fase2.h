@@ -1,11 +1,10 @@
 #pragma once
 #include "Fase.h"
 
-
 class Fase2 : public Fase {
 
 private:
-    
+
     vector<Inimigo*> LIs;//lista de chefes
 
 
@@ -17,6 +16,7 @@ private:
     void desenharProjeteis();
     void destruirProjeteis();
 
+    void destruirNeutralizados();
 
 public:
     Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
@@ -30,5 +30,6 @@ public:
 
     void carregarJogo(const std::string& caminho);
     void salvarJogo(const std::string& caminho);
-};
 
+
+};

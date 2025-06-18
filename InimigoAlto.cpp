@@ -3,6 +3,9 @@
 InimigoAlto::InimigoAlto(Vector2f pos) :
 	Inimigo(pos)
 {
+	num_vidas = VIDA_BAIXO;
+
+	nivel_maldade = DANO_ALTO;
 	agilidade = 1.f;
 	direcao = 1;
 

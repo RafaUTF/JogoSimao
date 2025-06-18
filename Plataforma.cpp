@@ -1,6 +1,6 @@
-#include "Plataforma.h"
+ï»¿#include "Plataforma.h"
 
-Plataforma::Plataforma(Vector2f pos): Obstaculo(pos)
+Plataforma::Plataforma(Vector2f pos) : Obstaculo(pos)
 {
     corpo.setSize(Vector2f(32.f, 32.f));
     centralizarEntidade();
@@ -14,7 +14,7 @@ Plataforma::Plataforma(Vector2f pos): Obstaculo(pos)
 }
 
 
-Plataforma::~Plataforma(){
+Plataforma::~Plataforma() {
     //cout << "destrutora plataforma" << endl;
 }
 
@@ -30,5 +30,5 @@ void Plataforma::obstacular(Jogador* p)
 
 void Plataforma::causarDano(Jogador* p)
 {
-    // Plataformas não causam dano
+    // Plataformas nï¿½o causam dano
 }

@@ -5,6 +5,12 @@
 Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
     Inimigo(pos), forca(100)
 {
+    chefao = true;
+
+    num_vidas = VIDA_CHEFE;
+
+    nivel_maldade = DANO_ALTO;
+
     agilidade = 0.7f;
     p1 = pp1;
     p2 = pp2;
@@ -29,7 +35,7 @@ void Chefao::executar()
     escolherAlvo();
     mover();//mover inimigo
     if (pAlvo) {
-        //atirar();
+        atirar();
     }
     tiros->percorrer();
 }

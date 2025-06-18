@@ -4,8 +4,9 @@
 class Fase1 : public Fase {
 
 private: 
-    Jogador* pJog1;
-    Jogador* pJog2;
+    bool proximaFase;
+
+
 public:
     Fase1(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
     ~Fase1();
@@ -20,4 +21,7 @@ public:
 
     void carregarJogo(const std::string& caminho);
     void salvarJogo(const std::string& caminho);
+
+    bool deveTrocarFase();
+    void setTrocarFase(bool t);
 };

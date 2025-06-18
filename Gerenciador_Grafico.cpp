@@ -59,12 +59,15 @@ void Gerenciador_Grafico::moverCamera(Entidade* p1, Entidade* p2)
 	float larguraJanela = camera.getSize().x;
 	float larguraCenario = TAMANHOTOTALLATERAL;
 
-	float centroX;
-	if (p2) {
+	float centroX = 0;
+	if (p2 && p1) {
 		centroX = (p1->getcm().x + p2->getcm().x) / 2.f;
 	}
-	else {
+	else if (p1) {
 		centroX = p1->getcm().x;
+	}
+	else {//p2
+		centroX = p2->getcm().x;
 	}
 
 	float minCentro = larguraJanela / 2.f;
