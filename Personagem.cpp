@@ -79,7 +79,7 @@ const int Personagem::getVidas()
 
 void Personagem::setVida(int v)
 {
-	num_vidas = v;
+    num_vidas = v;
 }
 
 void Personagem::colidir(Entidade* pe, int d)
@@ -117,34 +117,11 @@ void Personagem::colidir(Entidade* pe, int d)
 
 }
 
-/*
-if (d == 1) {
-    //chao2 = true;
-    p2->getVel().y = p1->getVel().y;
-    p1->getCorpo().move(0.f, y / 2);
-    p2->getCorpo().move(0.f, -y / 2);
-
+void Personagem::incluirTiros(Projetil* p)
+{
+    if (tiros == NULL) {
+        cout << "criando lista de tiros" << endl;
+        criarTiros();
+    }
+    tiros->incluir(p);
 }
-if (d == 4) {
-    //chao1 = true;
-    p1->getVel().y = p2->getVel().y;
-    p1->getCorpo().move(0.f, -y / 2);
-    p2->getCorpo().move(0.f, y / 2);
-
-}
-
-if (d == 2) {
-    p1->getVel().x = 0.f;
-    p2->getVel().x = 0.f;
-    p1->getCorpo().move(x / 2, 0.f);
-    p2->getCorpo().move(-x / 2, 0.f);
-
-}
-if (d == 3) {
-    p1->getVel().x = 0.f;
-    p2->getVel().x = 0.f;
-
-    p1->getCorpo().move(-x / 2, 0.f);
-    p2->getCorpo().move(x / 2, 0.f);
-
-}*/

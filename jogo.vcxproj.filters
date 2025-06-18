@@ -17,7 +17,6 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BandeiraChegada.cpp" />
     <ClCompile Include="Chefao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -43,9 +42,9 @@
     <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="TeiaAranha.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuLeaderboard.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BandeiraChegada.h" />
     <ClInclude Include="Chefao.h" />
     <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
@@ -76,6 +75,7 @@
     <ClInclude Include="json.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="MenuLeaderboard.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="boss.png">
@@ -125,5 +125,6 @@
     <None Include="save.json">
       <Filter>Arquivos de Cabeçalho</Filter>
     </None>
+    <None Include="leaderboard.json" />
   </ItemGroup>
 </Project>

@@ -6,16 +6,18 @@ class Jogador : public Personagem
 protected:
 	int pontos;
 
-	static bool jogador1;
+	
 	bool j1;
 public:
+	static bool jogador1;
+
 	Jogador(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Jogador();
 	void mover();
 
 	void executar();
 
-	void colidirJog(Jogador* p = nullptr,int d=0);
+	void colidirJog(Jogador* p = nullptr, int d = 0);
 
 	void atirar(short int f = 1);
 

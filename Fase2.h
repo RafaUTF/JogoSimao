@@ -4,10 +4,9 @@
 class Fase2 : public Fase {
 
 private:
-    const int maxChefoes;
+
     vector<Inimigo*> LIs;//lista de chefes
 
-    void criarChefes();
 
     void criarInimigos();
     void criarObstaculos();

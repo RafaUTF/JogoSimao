@@ -46,7 +46,7 @@ void Chefao::salvar()
 }
 
 void Chefao::mover() {
-    
+
     //GRAVIDADE ANTES!
     if (getcm().y + getRaio().y < CHAO && !comChao) {
         vel.y += GRAVIDADE;

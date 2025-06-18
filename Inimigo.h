@@ -1,9 +1,6 @@
 #pragma once
 #include "Personagem.h"
 
-#pragma once
-#include "Personagem.h"
-
 #include "Jogador.h"
 
 class Inimigo : public Personagem
@@ -29,4 +26,3 @@ public:
 
 	void colidirInim(Inimigo* p = nullptr, int d = 0);
 };
-

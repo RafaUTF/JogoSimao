@@ -11,10 +11,9 @@ public:
 	Espinho(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Espinho();
 	void causarDano(Personagem* p);
-	void obstacular(Personagem* p = NULL, int d=0);
+	void obstacular(Personagem* p = NULL, int d = 0);
 	void executar();
 
 	std::string getTipo() const override { return "Espinho"; }
 
 };
-

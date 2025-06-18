@@ -19,9 +19,9 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogad
     centralizarEntidade();
     corpo.setFillColor(Color::White);
 
-    float v = -1.f*static_cast<float>(f);
+    float v = -1.f * static_cast<float>(f);
     if (dir) {
-        vel = (Vector2f(-1.f*v, v));
+        vel = (Vector2f(-1.f * v, v));
         corpo.move(raio * 1.5f, 0.f);
     }
     else {
@@ -67,4 +67,19 @@ void Projetil::explodir(Personagem* pp)
             pDono->operator+=(100);
         }
     }
+}
+
+Vector2f Projetil::getVelocidade()
+{
+    return vel;
+}
+
+void Projetil::setVelocidade(Vector2f v)
+{
+    vel = v;
+}
+
+void Projetil::setDono(Jogador* pdono)
+{
+    pDono = pdono;
 }

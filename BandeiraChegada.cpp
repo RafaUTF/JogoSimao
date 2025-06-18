@@ -25,7 +25,7 @@ void BandeiraChegada::executar()
     terminoufase = true;
 }
 
-void BandeiraChegada::obstacular(Personagem* p, int d)
+void BandeiraChegada::obstacular(Jogador* p)
 {
     executar();
 }

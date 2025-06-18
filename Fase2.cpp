@@ -1,16 +1,14 @@
 #include "Fase2.h"
 #include <fstream>
 #include "json.hpp"
-#include "BandeiraChegada.h"
+
 #include "MenuPause.h"
 
 using json = nlohmann::json;
 
 Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
-    : Fase(gc, gg,numPlayers),maxChefoes(MAX_CHEFES)
+    : Fase(gc, gg,numPlayers)
 {
-	criarInimigos();
-	
 }
 
 Fase2::~Fase2() {
@@ -73,8 +71,42 @@ void Fase2::executar() {
             cout << "todos os jogadores foram neutralizados, fim do programa!" << endl;
             cout << "PONTUACAO1: " << pontos1 << endl;
             cout << "PONTUACAO2: " << pontos2 << endl;
+            
+            gravarNome(pGG->getWindow());
+
+            
+            pGG->fechar();
+
+            return;
+            
+        }
+    }
+
+    if (numPlayers == 1) {
+        if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+            gravarNome(pGG->getWindow());
             pGG->fechar();
         }
+    }
+    else if (numPlayers == 2) {
+        if (pJog1 && pJog2) {
+            if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else if (pJog1) {
+            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else
+            if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+
     }
 }
 
@@ -86,11 +118,6 @@ void Fase2::criarChefe(Vector2f pos) {
     Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
-}
-
-void Fase2::criarChefes()
-{
-	
 }
 
 void Fase2::criarInimigos()
@@ -218,13 +245,6 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
         }
 
 
-        if (id == 17) {
-            std::cout << "Criando bandeira em: " << x << ", " << y << std::endl;
-            BandeiraChegada* bandeiraChegada = new BandeiraChegada({ x, y });
-            LE.incluir(bandeiraChegada); // Garante que será desenhada
-            pGC->incluirObstaculo(bandeiraChegada); // Para colisão, se necessário
-        }
-
     }
 
 }
@@ -232,10 +252,32 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
 void Fase2::salvarJogo(const std::string& caminho) {
     json estado;
     estado["fase"] = 2;
-    estado["numPlayers"] = (pJog2 ? 2 : 1);
-    estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
-    if (pJog2)
-        estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y} };
+    estado["numPlayers"] = getNumPlayers();
+    if (pJog1)
+        estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y}, {"numvidas", pJog1->getVidas() }, {"pontos1", pJog1->getPontos()} };
+    else
+        estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1",getPontos1() } };
+    if (getNumPlayers() == 2)
+    {
+        if (pJog2) {
+            estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y}, {"numvidas", pJog2->getVidas()}, {"pontos2", pJog2->getPontos()} };
+        }
+        else
+            estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", getPontos2() } };
+    }
+
+    estado["projeteis"] = json::array();
+    set<Projetil*>::iterator it = pGC->getProjeteis().begin();
+    while (it != pGC->getProjeteis().end()) {
+        estado["projeteis"].push_back({
+             {"x", (*it)->getCorpo().getPosition().x},
+             {"y", (*it)->getCorpo().getPosition().y},
+             {"vx", (*it)->getVelocidade().x},
+             {"vy", (*it)->getVelocidade().y},
+
+            });
+        ++it;
+    }
 
     estado["entities"] = json::array();
     for (LE.primeiro(); !LE.fim(); ++LE) {
@@ -270,9 +312,31 @@ void Fase2::carregarJogo(const std::string& caminho) {
     json estado;
     in >> estado;
 
-    pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
-    if (estado["numPlayers"] == 2 && pJog2)
-        pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+    if (estado["jogador1"]["numvidas"] > 0) {
+
+        pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
+        pJog1->setVida(estado["jogador1"]["numvidas"]);
+        pontos1 = estado["jogador1"]["pontos1"];
+    }
+    else {
+        pontos1 = estado["jogador1"]["pontos1"];
+        pJog1->setVida(0);
+    }
+    destruirNeutralizados();
+    if (estado["numPlayers"] == 2) {
+        if (estado["jogador2"]["numvidas"] > 0) {
+            pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
+            pJog2->setVida(estado["jogador2"]["numvidas"]);
+            pontos2 = estado["jogador2"]["pontos2"];
+        }
+        else
+        {
+            pontos2 = estado["jogador2"]["pontos2"];
+            pJog2->setVida(0);
+        }
+    }
+
+    destruirNeutralizados();
 
 
     for (auto& je : estado["entities"]) {
@@ -314,6 +378,23 @@ void Fase2::carregarJogo(const std::string& caminho) {
         }
 
     }
+    for (auto& jp : estado["projeteis"]) {
+        Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]));
+        proj->getCorpo().setPosition(jp["x"], jp["y"]);
+        proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+
+        if (pJog1) {
+            proj->setDono(pJog1);
+            pJog1->incluirTiros(proj);
+        }
+        else {
+            proj->setDono(pJog2);
+            pJog2->incluirTiros(proj);
+        }
+
+        pGC->incluirProjetil(proj);
+    }
+
 
 }
 

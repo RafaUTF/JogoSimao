@@ -69,12 +69,12 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 }
 
 void Gerenciador_Colisoes::executar() {
-	
-	for (vector<Jogador*>::iterator it = LJs.begin();it != LJs.end(); it++) {
+
+	for (vector<Jogador*>::iterator it = LJs.begin(); it != LJs.end(); it++) {
 		if (*it)
 			(*it)->setChao(false);
 	}
-	for (vector<Inimigo*>::iterator it = LIs.begin();it != LIs.end(); it++) {
+	for (vector<Inimigo*>::iterator it = LIs.begin(); it != LIs.end(); it++) {
 		if (*it)
 			(*it)->setChao(false);
 	}
@@ -138,7 +138,7 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 	int d = verificarDirecao(p1, p2);
 	if (d != 0) {
 		p1->colidirJog(p2, d);
-		
+
 	}
 }
 
@@ -148,10 +148,10 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 	Obstaculo* po = NULL;
 	Jogador* pJog1 = NULL;
 	int d = 0;
-	for (int i = 0;i < LJs.size();i++) {
+	for (int i = 0; i < LJs.size(); i++) {
 		pJog1 = LJs[i];
 		pJog1->restaurarVelocidade();
-		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
+		for (list<Obstaculo*>::iterator it = LOs.begin(); it != LOs.end(); it++) {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
@@ -167,9 +167,9 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 	Inimigo* pi = nullptr;
 	Jogador* pJog1 = nullptr;
 	int d = 0;
-	for (int i = 0;i < LJs.size();i++) {
+	for (int i = 0; i < LJs.size(); i++) {
 		pJog1 = LJs[i];
-		for (vector<Inimigo*>::iterator it = LIs.begin();it != LIs.end();it++) {
+		for (vector<Inimigo*>::iterator it = LIs.begin(); it != LIs.end(); it++) {
 			pi = *it;
 			d = verificarDirecao(pJog1, pi);
 			if (d != 0) {
@@ -181,7 +181,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 					);
 					pi->setVida(0);
 					pJog1->operator++();
-					
+
 				}
 				else {
 					pi->danificar(pJog1, d);
@@ -200,10 +200,10 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 	Projetil* pj = nullptr;
 	Jogador* pJog1 = nullptr;
 	int d = 0;
-	for (int i = 0;i < LJs.size();i++) {
+	for (int i = 0; i < LJs.size(); i++) {
 		pJog1 = LJs[i];
 
-		for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
+		for (set<Projetil*>::iterator it = LPs.begin(); it != LPs.end(); it++) {
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
 			if (d != 0) {
@@ -224,14 +224,14 @@ void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
 	Obstaculo* po = NULL;
 	Inimigo* pJog1 = NULL;
 	int d = 0;
-	for (int i = 0;i < LIs.size();i++) {
+	for (int i = 0; i < LIs.size(); i++) {
 		pJog1 = LIs[i];
 		pJog1->restaurarVelocidade();
-		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
+		for (list<Obstaculo*>::iterator it = LOs.begin(); it != LOs.end(); it++) {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-				po->obstacular(pJog1,d);
+				po->obstacular(pJog1, d);
 			}
 		}
 
@@ -243,10 +243,10 @@ void Gerenciador_Colisoes::tratarColisoesInimgsProjeteis()
 	Projetil* pj = NULL;
 	Inimigo* pJog1 = NULL;
 	int d = 0;
-	for (int i = 0;i < LIs.size();i++) {
+	for (int i = 0; i < LIs.size(); i++) {
 		pJog1 = LIs[i];
 
-		for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
+		for (set<Projetil*>::iterator it = LPs.begin(); it != LPs.end(); it++) {
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
 			if (d != 0) {
@@ -261,11 +261,11 @@ void Gerenciador_Colisoes::tratarColisoesInimgsProjeteis()
 void Gerenciador_Colisoes::tratarColisoesInimgsInimgs()
 {
 	int d = 0;
-	for (int i = 0;i < LIs.size();i++) {
-		for (int j = 1;j < LIs.size();j++) {
+	for (int i = 0; i < LIs.size(); i++) {
+		for (int j = 1; j < LIs.size(); j++) {
 			if (i != j && LIs[i] && LIs[j]) {
 				d = verificarDirecao(LIs[i], LIs[j]);
-				if(d!=0)
+				if (d != 0)
 					LIs[i]->colidirInim(LIs[j], d);
 			}
 		}
@@ -278,9 +278,9 @@ void Gerenciador_Colisoes::tratarColisoesProjeteisObstacs()
 	Obstaculo* po = NULL;
 	Projetil* pj = NULL;
 	int d = 0;
-	for (set<Projetil*>::iterator it = LPs.begin();it != LPs.end();it++) {
+	for (set<Projetil*>::iterator it = LPs.begin(); it != LPs.end(); it++) {
 		pj = *it;
-		for (list<Obstaculo*>::iterator it = LOs.begin();it != LOs.end();it++) {
+		for (list<Obstaculo*>::iterator it = LOs.begin(); it != LOs.end(); it++) {
 			po = *it;
 			d = verificarDirecao(pj, po);
 			if (d != 0) {
@@ -359,4 +359,10 @@ void Gerenciador_Colisoes::removerEntidade(Entidade* pE) {
 set<Projetil*>& Gerenciador_Colisoes::getProjeteis()
 {
 	return LPs;
+}
+void Gerenciador_Colisoes::limpaLista() {
+	LIs.clear();
+	LOs.clear();
+	LPs.clear();
+	LJs.clear();
 }

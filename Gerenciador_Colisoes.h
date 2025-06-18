@@ -54,6 +54,6 @@ public:
 	void removerEntidade(Entidade* pE);
 
 	set<Projetil*>& getProjeteis();
+
+	void limpaLista();
 };
-
-

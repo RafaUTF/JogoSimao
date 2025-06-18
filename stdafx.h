@@ -12,6 +12,7 @@ using std::endl;
 #define CHAO 640.f
 #define DIREITA 960.f
 #define TAMANHOTOTALLATERAL 3200.f
+#define FINALFASE 3100.f
 
 #define ESQUERDA 50.f
 
@@ -51,4 +52,3 @@ using std::endl;
 #define CHAO_CHEFE 785.f
 
 #define MAX_CHEFES 5
-

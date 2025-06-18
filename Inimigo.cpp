@@ -2,7 +2,7 @@
 
 Inimigo::Inimigo(Vector2f pos) :
     Personagem(pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
-    nivel_maldade(NIVEL_MALDADE_BASICO),chefao(false)
+    nivel_maldade(NIVEL_MALDADE_BASICO), chefao(false)
 {
     agilidade = 1.f;
 
@@ -178,7 +178,7 @@ void Inimigo::perseguir()
         }
     }
     */
-    
+
     //////
 
     //atrito do ar em y
