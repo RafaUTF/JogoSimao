@@ -29,5 +29,9 @@ public:
 	void setVel(Vector2f v = (Vector2f(0.f, 0.f)));
 
 	Vector2f& getVel();
+
+	virtual const int getVidas();
+
+	virtual std::string getTipo() const = 0;
 };
 

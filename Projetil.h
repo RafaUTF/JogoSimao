@@ -1,18 +1,26 @@
 #pragma once
-#include "Entidade.h"
+//#include "Personagem.h"
 #include "ListaEntidades.h"
-
-class Projetil: public Entidade
+class Jogador;
+class Personagem;
+class Projetil : public Entidade
 {
 protected:
 	bool ativo;
 	ListaEntidades* lista;
+	unsigned long long duracao;
+
+	Jogador* pDono;
 public:
-	Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio=0.f,ListaEntidades* pl=NULL);
+	Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f, ListaEntidades* pl = NULL,
+		Jogador* pdono = nullptr);
 	~Projetil();
 	void executar();
 	void salvar();
 
-	void explodir(Entidade* pe = NULL);
-};
+	const bool getAtivo();
 
+	void explodir(Personagem* pp = nullptr);
+
+	std::string getTipo() const { return "Projetil"; }
+};

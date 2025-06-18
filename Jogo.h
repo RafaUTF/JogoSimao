@@ -9,20 +9,15 @@
 #include "Plataforma.h"
 #include "Ente.h"
 #include "Menu.h"
+#include "Fase1.h"
+#include "Fase2.h"
 
 class Jogo {
 private:
-	//Fase1* pF1;
-	//Fase2* pF2;
-	Jogador* pJog1;
-	Jogador* pJog2;
-	Inimigo* pInim;
-	Inimigo* pBoss;
+	Fase1* pF1;
+	Fase2* pF2;
 
-	Plataforma* pPlat1;
-	Plataforma* pPlat2;
-
-	ListaEntidades lista;
+	//Fase* pFase;
 
 	Gerenciador_Grafico* GG;
 	Gerenciador_Colisoes* GC;
@@ -34,5 +29,7 @@ public:
 	Jogo(int numPlayers_, int fase_);
 	~Jogo();
 	void executar();
+
+	Fase* getFase();
 	//void //executar as fases();
 };

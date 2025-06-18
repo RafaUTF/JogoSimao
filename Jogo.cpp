@@ -1,198 +1,48 @@
+// Jogo.cpp
 #include "Jogo.h"
+#include "Fase1.h"  // Inclua a Fase1 aqui
+#include "Fase2.h"
 
-Jogo::Jogo(int numPlayers_, int fase_):
-    pJog1(new Jogador( Vector2f(150.f,150.f) ) ),
-    pJog2(new Jogador(Vector2f(500.f, 150.f))),
-    //pJog2(NULL),
-    //pInim(new Inimigo(pJog1,pJog2, (Vector2f(800.f, 300.f)) )),
-    pInim(NULL),
-    pPlat1(new Plataforma(Vector2f(800.f, 550.f))),
-    pPlat2(new Plataforma(Vector2f(600.f, 650.f))),
-    GC(Gerenciador_Colisoes::getInstancia()),
+Jogo::Jogo(int numPlayers_, int fase_)
+    : GC(Gerenciador_Colisoes::getInstancia()),
     GG(Gerenciador_Grafico::getInstancia()),
     numPlayers(numPlayers_),
     fase(fase_),
-    pBoss(new Chefao(pJog1, pJog2, (Vector2f(800.f, 500.f))))
-    //pBoss(NULL)
+    pF1(nullptr), pF2(nullptr)
 {
-    
-    Ente::setpGG(Gerenciador_Grafico::getInstancia());
+    Ente::setpGG(GG);  // define ponteiro para o gerenciador gráfico na classe base
 
-    lista.incluir(pJog1);
-    if (numPlayers == 2)
-        lista.incluir(pJog2);
-    lista.incluir(pInim);
-    lista.incluir(pPlat1);
-    lista.incluir(pPlat2);
-
-    lista.incluir(pBoss);
-    cout << "c" << endl;
-    GC->incluirJogador(pJog1);
-    GC->incluirJogador(pJog2);
-    GC->incluirObstaculo(pPlat1);
-    GC->incluirObstaculo(pPlat2);
-    GC->incluirInimigo(pInim);
-    cout << "b" << endl;
-    GC->incluirInimigo(pBoss);
-    cout << "a" << endl;
-    executar();
+    // Cria a fase correta, mas não executa ainda
+    if (fase == 1) {
+        pF1 = new Fase1(GC, GG, numPlayers);
+    }
+    else {
+        pF2 = new Fase2(GC, GG, numPlayers);
+    }
 }
 
 Jogo::~Jogo()
 {
-    //lista já deleta tudo;
-    /*
-	delete pJog1;
-	delete pJog2;
-    delete pInim;
-    */
-
-    //delete GC;
-
-    //delete GG;
+    if (pF1)
+        delete pF1;
+    if (pF2)
+        delete pF2;
+    std::cout << "destrutora jogo" << std::endl;
 }
 
 void Jogo::executar()
 {
-    //cout << 'exec' << endl;
-    int i = 0,d=0,da=0;
-    //Vector2f v(0.f, 0.f);
-    // Loop principal
-    while (GG->aberta())
-    {
-        sf::Event event;
-        while (GG->getWindow().pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                GG->fechar();
-        }
-    
-        lista.percorrer();//executa tudo menos projeteis
-        //projeteis sao executados dentro do executar dos personagens
+    // Inicia loop da fase criada
+    if (pF1)
+        pF1->executar();
+    else if (pF2)
+        pF2->executar();
+}
 
-        /*
-        v = GC->verificarDirecao(pJog1, pJog2);
-        if (v != Vector2f(0.f, 0.f)) {
-            cout <<"X: " << v.x << "      Y: " << v.y  << "  " << i++ << endl;
-            if (i > 200)
-                i = 0;
-            if (v.x == 0.f) {
-                pJog2->setChao(true);
-            }
-            else {
-                pJog2->setChao(false);
-            }
-        }
-        */
-        //GC->executar();
-
-        //GC->tratarColisoesJogs();
-        //GC->tratarColisoesJogsObstacs();
-        GC->executar();
-        
-        ListaEntidades* l = pJog1->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            GC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-        }
-
-        ListaEntidades* l2 = pJog2->getTiros();
-        for (l2->primeiro();!l2->fim();l2->operator++()) {
-            GC->incluirProjetil(static_cast<Projetil*>(l2->getAtual()));
-        }
-
-        if (pBoss) {
-            ListaEntidades* lb = pBoss->getTiros();
-            if (lb) {
-                for (lb->primeiro();!lb->fim();lb->operator++()) {
-                    GC->incluirProjetil(static_cast<Projetil*>(lb->getAtual()));
-                }
-            }
-        }
-        
-
-        /*
-        da = d;
-        d = GC->verificarDirecao(pJog1, pJog2);
-        cout << d << "    " << i++ << endl;
-        if (i > 200)
-            i = 0;
-        GC->tratarColisoesJogs();
-        if (d != 0) {
-            if (d==1) {
-                pJog2->setChao(true);
-                pJog2->getCorpo().setPosition(
-                    pJog2->getcm().x,
-                    pJog1->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-                );
-            }
-            if (d == 4) {
-                pJog1->setChao(true);
-                pJog1->getCorpo().setPosition(
-                    pJog1->getcm().x,
-                    pJog2->getcm().y - pJog1->getRaio().y - pJog2->getRaio().y
-                );
-            }
-            if (d == 2) {
-                pJog1->getCorpo().setPosition(
-                    pJog2->getcm().x + pJog1->getRaio().x + pJog2->getRaio().x,
-                    pJog1->getcm().y
-                );
-                pJog2->getCorpo().setPosition(
-                    pJog1->getcm().x - pJog1->getRaio().x - pJog2->getRaio().x,
-                    pJog2->getcm().y
-                );
-            }
-            if (d == 3) {
-                pJog1->getCorpo().setPosition(
-                    pJog2->getcm().x - pJog1->getRaio().x - pJog2->getRaio().x,
-                    pJog1->getcm().y
-                );
-                pJog2->getCorpo().setPosition(
-                    pJog1->getcm().x + pJog1->getRaio().x + pJog2->getRaio().x,
-                    pJog2->getcm().y
-                );
-            }
-          
-        }
-        if (da != d) {
-            pJog2->setChao(false);
-            pJog1->setChao(false);
-        }
-        /*
-        if (v.x == 0.f) {
-            //compara as massas...
-            //if(M>>m)
-            pJog2->getCorpo().setPosition(
-                pJog2->getCorpo().getPosition().x,
-                pJog1->getcm().y- pJog2->getRaio().y - pJog1->getRaio().y-1.f
-                );
-
-        }*/
-       
-        /*//colisao elastica
-            Vector2f v2(-v);
-            if (pJog1->getcm().y + pJog1->getRaio().y + v.y / 10.f > CHAO)
-                v.y = 0.f;
-            pJog1->getCorpo().move(v.x / 10.f, v.y / 10.f);
-
-            if (pJog2->getcm().y + pJog2->getRaio().y + v2.y / 10.f > CHAO)
-                v2.y = 0.f;
-            pJog2->getCorpo().move(v2.x / 10.f, v2.y / 10.f);
-        */
-        GG->moverCamera(pJog1, pJog2);
-
-
-        // Atualiza a tela
-        GG->clear();
-        GG->desenhaFundo();
-
-
-
-        lista.desenhar();
-        pJog1->getTiros()->desenhar();
-        pJog2->getTiros()->desenhar();
-        pBoss->getTiros()->desenhar();
-        GG->mostrar();
-    }
-
+Fase* Jogo::getFase()
+{
+    if(pF1)
+        return pF1;
+    else if(pF2)
+		return pF2;
 }

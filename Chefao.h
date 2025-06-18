@@ -1,6 +1,6 @@
 #pragma once
 #include "Inimigo.h"
-class Chefao: public Inimigo
+class Chefao : public Inimigo
 {
 private:
 	short int forca;
@@ -9,5 +9,8 @@ public:
 	~Chefao();
 	void executar();
 	void salvar();
-};
+	void mover();
 
+	std::string getTipo() const { return "Chefao"; }
+
+};

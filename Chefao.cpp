@@ -2,28 +2,70 @@
 
 
 
-Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos):
-	Inimigo(pp1,pp2,pos), forca(100)
+Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
+    Inimigo(pos), forca(100)
 {
-	agilidade = 0.7f;
+    chefao = true;
 
-	criarTiros();
+    num_vidas = VIDA_CHEFE;
 
-	corpo.setSize(Vector2f(150.f, 200.f));
-	centralizarEntidade();
-	corpo.setFillColor(Color::Magenta);
+    nivel_maldade = DANO_ALTO;
+
+    agilidade = 0.7f;
+    p1 = pp1;
+    p2 = pp2;
+    criarTiros();
+
+    corpo.setSize(Vector2f(150.f, 150.f));
+    centralizarEntidade();
+    if (!textura.loadFromFile("boss.png")) {
+        std::cerr << "Erro ao carregar a textura boss!" << std::endl;
+    }
+    else {
+        corpo.setTexture(&textura);
+    }
 }
 Chefao::~Chefao()
 {
+    cout << "destrutora chefao" << endl;
 }
 
 void Chefao::executar()
 {
-	mover();//mover inimigo
-	atirar();
-	tiros->percorrer();
+    escolherAlvo();
+    mover();//mover inimigo
+    if (pAlvo) {
+        atirar();
+    }
+    tiros->percorrer();
 }
 
 void Chefao::salvar()
 {
+}
+
+void Chefao::mover() {
+
+    //GRAVIDADE ANTES!
+    if (getcm().y + getRaio().y < CHAO && !comChao) {
+        vel.y += GRAVIDADE;
+    }
+    else {//chao // comChao == true
+        vel.y = 0;
+        comChao = true;//tem q ter!
+    }
+    /*
+    if (getcm().y + getRaio().y < CHAO) {
+        vel.y += GRAVIDADE;
+    }
+    else {//chao
+        vel.y = 0;
+    }*/
+
+    if (pAlvo)
+        perseguir();
+
+    corpo.move(vel);
+
+
 }
