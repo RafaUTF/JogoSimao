@@ -546,9 +546,34 @@
             "y": 160.0
         },
         {
-            "type": "InimigoPequeno",
-            "x": 2751.0,
-            "y": 144.0
+            "type": "Plataforma",
+            "x": 384.0,
+            "y": 160.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 416.0,
+            "y": 160.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 448.0,
+            "y": 160.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 480.0,
+            "y": 160.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 512.0,
+            "y": 160.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 544.0,
+            "y": 160.0
         },
         {
             "type": "Plataforma",
@@ -561,31 +586,6 @@
             "y": 192.0
         },
         {
-            "type": "InimigoPequeno",
-            "x": 1490.0,
-            "y": 176.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2656.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2688.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2720.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2752.0,
-            "y": 192.0
-        },
-        {
             "type": "Plataforma",
             "x": 3168.0,
             "y": 192.0
@@ -597,47 +597,32 @@
         },
         {
             "type": "Plataforma",
-            "x": 416.0,
+            "x": 1024.0,
             "y": 224.0
         },
         {
             "type": "Plataforma",
-            "x": 448.0,
+            "x": 1056.0,
             "y": 224.0
         },
         {
             "type": "Plataforma",
-            "x": 480.0,
+            "x": 1088.0,
             "y": 224.0
         },
         {
             "type": "Plataforma",
-            "x": 512.0,
+            "x": 1120.0,
             "y": 224.0
         },
         {
             "type": "Plataforma",
-            "x": 544.0,
+            "x": 1152.0,
             "y": 224.0
         },
         {
             "type": "Plataforma",
-            "x": 576.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1376.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1408.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1440.0,
+            "x": 1184.0,
             "y": 224.0
         },
         {
@@ -657,6 +642,51 @@
         },
         {
             "type": "Plataforma",
+            "x": 1568.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1600.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1632.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1920.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1952.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1984.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2016.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2048.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2080.0,
+            "y": 224.0
+        },
+        {
+            "type": "Plataforma",
             "x": 3168.0,
             "y": 224.0
         },
@@ -677,6 +707,36 @@
         },
         {
             "type": "Plataforma",
+            "x": 512.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 544.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 576.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 608.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 640.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 672.0,
+            "y": 288.0
+        },
+        {
+            "type": "Plataforma",
             "x": 3168.0,
             "y": 288.0
         },
@@ -696,9 +756,46 @@
             "y": 352.0
         },
         {
+            "type": "Espinho",
+            "x": 896.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1664.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1696.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1728.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1760.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1792.0,
+            "y": 352.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 1824.0,
+            "y": 352.0
+        },
+        {
             "type": "InimigoPequeno",
-            "x": 2578.0,
-            "y": 336.0
+            "x": 2138.0,
+            "xi": 2080.0,
+            "y": 336.0,
+            "yi": 352.0
         },
         {
             "type": "Plataforma",
@@ -712,17 +809,32 @@
         },
         {
             "type": "Plataforma",
-            "x": 672.0,
+            "x": 224.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 704.0,
+            "x": 256.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 736.0,
+            "x": 288.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 320.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 352.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 384.0,
             "y": 384.0
         },
         {
@@ -742,27 +854,17 @@
         },
         {
             "type": "Plataforma",
-            "x": 1088.0,
+            "x": 864.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 1120.0,
+            "x": 896.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 1152.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1184.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1216.0,
+            "x": 928.0,
             "y": 384.0
         },
         {
@@ -771,98 +873,128 @@
             "y": 384.0
         },
         {
-            "type": "InimigoAlto",
-            "x": 2239.0,
+            "type": "Plataforma",
+            "x": 1280.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 2432.0,
+            "x": 1312.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 2464.0,
+            "x": 1344.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 2496.0,
+            "x": 1376.0,
             "y": 384.0
         },
         {
             "type": "Plataforma",
-            "x": 2528.0,
+            "x": 1408.0,
             "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2560.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2592.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 416.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 416.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 448.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 448.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 480.0
         },
         {
             "type": "Plataforma",
             "x": 2080.0,
-            "y": 480.0
+            "y": 384.0
         },
         {
             "type": "Plataforma",
             "x": 2112.0,
-            "y": 480.0
+            "y": 384.0
         },
         {
             "type": "Plataforma",
             "x": 2144.0,
-            "y": 480.0
+            "y": 384.0
         },
         {
             "type": "Plataforma",
             "x": 2176.0,
-            "y": 480.0
+            "y": 384.0
         },
         {
             "type": "Plataforma",
             "x": 2208.0,
-            "y": 480.0
+            "y": 384.0
         },
         {
             "type": "Plataforma",
             "x": 2240.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 416.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 416.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 448.0
+        },
+        {
+            "type": "Chefao",
+            "x": 3035.0,
+            "y": 517.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 448.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2752.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2784.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2816.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2848.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2880.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2912.0,
+            "y": 480.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 2944.0,
             "y": 480.0
         },
         {
@@ -873,26 +1005,6 @@
         {
             "type": "Plataforma",
             "x": 0.0,
-            "y": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 831.0,
-            "y": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 831.0,
-            "y": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2591.0,
-            "y": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2591.0,
             "y": 512.0
         },
         {
@@ -916,19 +1028,55 @@
             "y": 576.0
         },
         {
-            "type": "InimigoPequeno",
-            "x": 1490.0,
-            "y": 560.0
+            "type": "Espinho",
+            "x": 480.0,
+            "y": 576.0
+        },
+        {
+            "type": "Chefao",
+            "x": 3259.0,
+            "y": 576.0
+        },
+        {
+            "type": "Espinho",
+            "x": 832.0,
+            "y": 576.0
         },
         {
             "type": "InimigoPequeno",
-            "x": 2226.0,
-            "y": 560.0
+            "x": 1001.0,
+            "xi": 928.0,
+            "y": 560.0,
+            "yi": 576.0
         },
         {
-            "type": "BandeiraChegada",
-            "x": 0.0,
-            "y": 0.0
+            "type": "Chefao",
+            "x": 3259.0,
+            "y": 576.0
+        },
+        {
+            "type": "Espinho",
+            "x": 1472.0,
+            "y": 576.0
+        },
+        {
+            "type": "InimigoPequeno",
+            "x": 1641.0,
+            "xi": 1568.0,
+            "y": 560.0,
+            "yi": 576.0
+        },
+        {
+            "type": "Chefao",
+            "x": 3259.0,
+            "y": 576.0
+        },
+        {
+            "type": "InimigoPequeno",
+            "x": 2121.0,
+            "xi": 2048.0,
+            "y": 560.0,
+            "yi": 576.0
         },
         {
             "type": "Plataforma",
@@ -971,27 +1119,27 @@
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 224.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 256.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 288.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 320.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 352.0,
             "y": 608.0
         },
@@ -1026,27 +1174,27 @@
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 576.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 608.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 640.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 672.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 704.0,
             "y": 608.0
         },
@@ -1091,27 +1239,27 @@
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 992.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1024.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1056.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1088.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1120.0,
             "y": 608.0
         },
@@ -1201,32 +1349,32 @@
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1696.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1728.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1760.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1792.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1824.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 1856.0,
             "y": 608.0
         },
@@ -1351,27 +1499,27 @@
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 2656.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 2688.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 2720.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 2752.0,
             "y": 608.0
         },
         {
-            "type": "TeiaAranha",
+            "type": "Plataforma",
             "x": 2784.0,
             "y": 608.0
         },
@@ -1436,9 +1584,14 @@
             "y": 608.0
         }
     ],
+    "fase": 2,
     "jogador1": {
-        "x": 797.1000366210938,
+        "x": 279.40020751953125,
         "y": 336.0
     },
-    "numPlayers": 1
+    "jogador2": {
+        "x": 64.0,
+        "y": 560.0
+    },
+    "numPlayers": 2
 }

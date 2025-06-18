@@ -11,7 +11,7 @@ private:
 	//static Gerenciador_Grafico* pgg;
 
 
-	sf::RenderWindow janela;
+	sf::RenderWindow* janela;
 	Sprite fundo;
 	Texture textura;
 
@@ -20,7 +20,7 @@ private:
 	Gerenciador_Grafico();//tem que ser privada
 public:
 	~Gerenciador_Grafico();
-	sf::RenderWindow& getWindow();
+	sf::RenderWindow* getWindow();
 	const bool aberta() const;
 	void clear();
 	void desenhar(Ente* pE = NULL);
@@ -32,4 +32,6 @@ public:
 	void moverCamera(Entidade* p1 = NULL, Entidade* p2 = NULL);
 
 	static Gerenciador_Grafico* getInstancia();
+
+	void setJanelaExterna(sf::RenderWindow* j);
 };

@@ -25,21 +25,30 @@ using std::endl;
 
 #define TEMPO_PROJETIL 60
 
-#define VISAO_INIMIGO2 80000.f//distancia que o inimigo enxerga ao quadrado
+#define VISAO_INIMIGO2 800000.f//distancia que o inimigo enxerga ao quadrado
 
-#define CHAO_CHEFE 585.f
-
+//DANO FISICO INIMIGOS
 #define	NIVEL_MALDADE_BASICO 1
-#define	DANO_CHEFE 3
-#define	DANO_ALTO 2
-#define	DANO_BAIXO 1
-
-#define	ELASTICIDADE_INIMIGO 20.f//usado no danificar do inimigo
-
+#define	DANO_CHEFE 5
+#define	DANO_ALTO 3
+#define	DANO_BAIXO 2
+//VIDAS
 #define VIDA_BASE 1
-#define VIDA_JOGADOR 10
-#define VIDA_CHEFE 50
-#define VIDA_ALTO 4
-#define VIDA_BAIXO 12
+#define VIDA_JOGADOR 600
+#define VIDA_CHEFE 5
+#define VIDA_ALTO 3
+#define VIDA_BAIXO 2
 
+//ELASTICIDADES
+#define	ELASTICIDADE_INIMIGO 20.f//usado no danificar do inimigo
 #define	ELASTICIDADE_ESPINHO 10.f
+
+//VELOCIDADE PROJETEIS
+#define FORCA_CHEFE 20
+#define FORCA_JOG 10
+
+
+#define CHAO_CHEFE 785.f
+
+#define MAX_CHEFES 5
+

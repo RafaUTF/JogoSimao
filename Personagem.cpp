@@ -11,7 +11,7 @@ Personagem::Personagem(Vector2f pos) :
 
 Personagem::~Personagem()
 {
-    
+
     if (tiros) {
         cout << "destrutora personagem apagando a lista de tiros" << endl;
         delete tiros;
@@ -36,7 +36,7 @@ ListaEntidades* Personagem::getTiros()
 
 
 
-void Personagem::atirar()
+void Personagem::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         cout << "CHEFAO ATIROU" << endl;
@@ -77,6 +77,11 @@ const int Personagem::getVidas()
     return num_vidas;
 }
 
+void Personagem::setVida(int v)
+{
+	num_vidas = v;
+}
+
 void Personagem::colidir(Entidade* pe, int d)
 {
     if (d == 1) {
@@ -86,7 +91,7 @@ void Personagem::colidir(Entidade* pe, int d)
             pe->getcm().y + getRaio().y + pe->getRaio().y
         );
     }
-   
+
     else if (d == 2) {
         getVel().x = 0.f;
         getCorpo().setPosition(
@@ -102,7 +107,6 @@ void Personagem::colidir(Entidade* pe, int d)
         );
     }
     else {//d==4
-        comChao = true;
         getVel().y = 0.f;
         getVel().y = pe->getVel().y;
         getCorpo().setPosition(

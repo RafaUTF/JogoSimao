@@ -15,8 +15,8 @@ using namespace std;
 class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
 
 private:
-	//bool chao1;
-	//bool chao2;
+	bool chao1;
+	bool chao2;
 
 
 	vector<Inimigo*> LIs;
@@ -36,6 +36,8 @@ private:
 
 	void tratarColisoesInimgsObstacs();
 	void tratarColisoesInimgsProjeteis();
+	void tratarColisoesInimgsInimgs();
+
 	void tratarColisoesProjeteisObstacs();
 public:
 	static Gerenciador_Colisoes* getInstancia();
@@ -50,6 +52,8 @@ public:
 	void incluirJogador(Jogador* pjog = NULL);
 
 	void removerEntidade(Entidade* pE);
+
+	set<Projetil*>& getProjeteis();
 };
 
 

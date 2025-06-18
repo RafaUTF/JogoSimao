@@ -4,7 +4,7 @@
 class Fase1 : public Fase {
 
 private: 
-   
+    
 public:
     Fase1(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
     ~Fase1();

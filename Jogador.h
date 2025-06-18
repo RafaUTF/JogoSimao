@@ -15,15 +15,15 @@ public:
 
 	void executar();
 
-	void colidir0(Jogador* p = NULL);
+	void colidirJog(Jogador* p = nullptr,int d=0);
 
-	void atirar();
+	void atirar(short int f = 1);
 
 	std::string getTipo() const { return "Jogador"; }
 
 	const int getPontos() const;
 
 	void operator+=(const int n);
-	
+
 	void operator++();
 };

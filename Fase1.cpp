@@ -1,14 +1,15 @@
-#include "Fase1.h"
+Ôªø#include "Fase1.h"
 #include <fstream>
 #include "json.hpp"
 #include "BandeiraChegada.h"
+#include "MenuPause.h"
 
 using json = nlohmann::json;
 
 Fase1::Fase1(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
-	: Fase(gc, gg, numPlayers)
+    : Fase(gc, gg,numPlayers)
 {
-   
+    
 }
 
 Fase1::~Fase1() {
@@ -18,25 +19,62 @@ Fase1::~Fase1() {
 void Fase1::executar() {
     while (pGG->aberta()) {
         sf::Event event;
-        while (pGG->getWindow().pollEvent(event)) {
+        while (pGG->getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 pGG->fechar();
 
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
-                salvarJogo("save.json");
-                std::cout << "Jogo salvo!" << std::endl;
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Escape) {
+                    // ABRIR MENU DE PAUSE
+                    MenuPause menuPause;
+                    int escolha = menuPause.mostrar(*pGG->getWindow());
+
+                    if (escolha == 1) { // Salvar Jogo
+                        salvarJogo("save.json");
+                        std::cout << "Jogo salvo.\n";
+                    }
+                    else if (escolha == 2) { // Sair para Menu
+                        return; // sai da fase e volta ao menu inicial
+                    }
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
+                    salvarJogo("save.json");
+                    std::cout << "Jogo salvo!" << std::endl;
+                }
+
             }
         }
-
-        LE.percorrer();
+        //cout << "a" << endl;
+        LE.percorrer();//executa tudo menos projeteis
+        //cout << "b" << endl;
+        incluirProjeteisGC();//////////////////////////////////
+        //cout << "c" << endl;
         pGC->executar();
-
-        pGG->moverCamera(pJog1, pJog2); 
-
+        //cout << "d" << endl;
+        pGG->moverCamera(pJog1, pJog2);
+        //cout << "e" << endl;
         pGG->clear();
+        //cout << "f" << endl;
         pGG->desenhaFundo();
+        //cout << "g" << endl;
         LE.desenhar();
+        //cout << "h" << endl;
+        desenharProjeteis();
+        //cout << "i" << endl;
         pGG->mostrar();
+        //cout << "j" << endl;
+        destruirProjeteis();
+        //cout << "k" << endl;
+        destruirNeutralizados();
+        //cout << "l" << endl;
+
+
+        if (pJog1 == nullptr && pJog2 == nullptr) {
+            cout << "todos os jogadores foram neutralizados, fim do programa!" << endl;
+            cout << "PONTUACAO1: " << pontos1 << endl;
+            cout << "PONTUACAO2: " << pontos2 << endl;
+            pGG->fechar();
+        }
     }
 }
 
@@ -93,7 +131,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
         float x = coluna * larguraTiles;
         float y = linha * alturaTiles;
 
-        //teia de aranha aleatÛria
+        //teia de aranha aleat√≥ria
         if (id == 16) {
             bloco_teia.emplace_back(x, y);
             if (bloco_teia.size() == 5) {
@@ -119,7 +157,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
         }
 
 
-        //plataforma aleatÛria
+        //plataforma aleat√≥ria
         if (id == 12) {
             bloco_plataforma.emplace_back(x, y);
             if (bloco_plataforma.size() == 6) {
@@ -139,7 +177,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
                 bloco_plataforma.clear();
             }
         
-        //Inimigo Alto aleatÛrio
+        //Inimigo Alto aleat√≥rio
         if(id == 11){
             int chance = rand() % 2;
             if (chance == 0) {
@@ -168,7 +206,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
                     pJog2->getCorpo().setPosition({ x, y });
             }
 
-        // Ex: id 2 = ch„o, id 781 = plataforma, etc.
+        // Ex: id 2 = ch√£o, id 781 = plataforma, etc.
         if (id == 2 || id == 781 || id == 34 || id == 28) {
                 auto* plataforma = new Plataforma({ x, y });
                 LE.incluir(plataforma);
@@ -207,8 +245,8 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
         if (id == 17) {
             std::cout << "Criando bandeira em: " << x << ", " << y << std::endl;
             BandeiraChegada* bandeiraChegada = new BandeiraChegada({ x, y });
-            LE.incluir(bandeiraChegada); // Garante que ser· desenhada
-            pGC->incluirObstaculo(bandeiraChegada); // Para colis„o, se necess·rio
+            LE.incluir(bandeiraChegada); // Garante que ser√° desenhada
+            pGC->incluirObstaculo(bandeiraChegada); // Para colis√£o, se necess√°rio
         }
 
     }
@@ -217,6 +255,8 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
 
 void Fase1::salvarJogo(const std::string& caminho) {
     json estado;
+
+    estado["fase"] = 1;
     estado["numPlayers"] = (pJog2 ? 2 : 1);
     estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
     if (pJog2)
@@ -228,9 +268,28 @@ void Fase1::salvarJogo(const std::string& caminho) {
         if (e == pJog1 || e == pJog2) continue;
         json je;
         je["type"] = e->getTipo();
-        auto p = e->getcm();
-        je["x"] = p.x;
-        je["y"] = p.y;
+        
+        sf::Vector2f atual = e->getcm();
+        je["x"] = atual.x;
+        je["y"] = atual.y;
+
+        if (e->getTipo() == "InimigoPequeno") {
+            auto* ip = dynamic_cast<InimigoPequeno*>(e);
+            if (ip) {
+                sf::Vector2f ini = ip->getPosicaoInicial();
+                je["xi"] = ini.x;
+                je["yi"] = ini.y;
+            }
+        }
+        else if (e->getTipo() == "InimigoAlto") {
+            auto* ia = dynamic_cast<InimigoAlto*>(e);
+            if (ia) {
+                sf::Vector2f ini = ia->getPosicaoInicial();
+                je["xi"] = ini.x;
+                je["yi"] = ini.y;
+            }
+        }
+
         estado["entities"].push_back(je);
     }
 
@@ -266,14 +325,25 @@ void Fase1::carregarJogo(const std::string& caminho) {
         sf::Vector2f pos(je["x"], je["y"]);
         std::string tipo = je["type"];
 
-
         if (tipo == "TeiaAranha") no = new TeiaAranha(pos);
         else if (tipo == "Plataforma") no = new Plataforma(pos);
-        else if (tipo == "InimigoPequeno") ne = new InimigoPequeno(pos);
-        else if (tipo == "InimigoAlto") ne = new InimigoAlto(pos);
-        else if (tipo == "Espinho") no = new Espinho(pos);
-        else if (tipo == "Chefao") ne = new Chefao(pJog1, pJog2, pos);
-        else if (tipo == "BandeiraChegada") ne = new BandeiraChegada(pos);
+        else if (tipo == "BandeiraChegada") no = new BandeiraChegada(pos);
+
+        sf::Vector2f posAtual(je["x"], je["y"]);
+        sf::Vector2f posIni = posAtual;
+        if (je.contains("xi") && je.contains("yi"))
+            posIni = sf::Vector2f(je["xi"], je["yi"]);
+
+        if (tipo == "InimigoPequeno") {
+            InimigoPequeno* ip = new InimigoPequeno(posIni); // posi√ß√£o inicial de patrulha
+            ip->getCorpo().setPosition(posAtual);            // posi√ß√£o atual real
+            ne = ip;
+        }
+        else if (tipo == "InimigoAlto") {
+            InimigoAlto* ia = new InimigoAlto(posIni);
+            ia->getCorpo().setPosition(posAtual);
+            ne = ia;
+        }
 
         if (ne) {
             LE.incluir(ne);

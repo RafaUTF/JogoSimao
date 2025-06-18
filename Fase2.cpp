@@ -2,13 +2,15 @@
 #include <fstream>
 #include "json.hpp"
 #include "BandeiraChegada.h"
+#include "MenuPause.h"
 
 using json = nlohmann::json;
 
 Fase2::Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers)
-    : Fase(gc, gg, numPlayers)
+    : Fase(gc, gg,numPlayers),maxChefoes(MAX_CHEFES)
 {
-    
+	criarInimigos();
+	
 }
 
 Fase2::~Fase2() {
@@ -18,39 +20,54 @@ Fase2::~Fase2() {
 void Fase2::executar() {
     while (pGG->aberta()) {
         sf::Event event;
-        while (pGG->getWindow().pollEvent(event)) {
+        while (pGG->getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 pGG->fechar();
 
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
-                salvarJogo("save.json");
-                std::cout << "Jogo salvo!" << std::endl;
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Escape) {
+                    // ABRIR MENU DE PAUSE
+                    MenuPause menuPause;
+                    int escolha = menuPause.mostrar(*pGG->getWindow());
+
+                    if (escolha == 1) { // Salvar Jogo
+                        salvarJogo("save.json");
+                        std::cout << "Jogo salvo.\n";
+                    }
+                    else if (escolha == 2) { // Sair para Menu
+                        return; // sai da fase e volta ao menu inicial
+                    }
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
+                    salvarJogo("save.json");
+                    std::cout << "Jogo salvo!" << std::endl;
+                }
             }
         }
-
-        cout << "a" << endl;
+        //cout << "a" << endl;
         LE.percorrer();//executa tudo menos projeteis
-        cout << "b" << endl;
+        //cout << "b" << endl;
         incluirProjeteisGC();//////////////////////////////////
-        cout << "c" << endl;
+        //cout << "c" << endl;
         pGC->executar();
-        cout << "d" << endl;
+        //cout << "d" << endl;
         pGG->moverCamera(pJog1, pJog2);
-        cout << "e" << endl;
+        //cout << "e" << endl;
         pGG->clear();
-        cout << "f" << endl;
+        //cout << "f" << endl;
         pGG->desenhaFundo();
-        cout << "g" << endl;
+        //cout << "g" << endl;
         LE.desenhar();
-        cout << "h" << endl;
+        //cout << "h" << endl;
         desenharProjeteis();
-        cout << "i" << endl;
+        //cout << "i" << endl;
         pGG->mostrar();
-        cout << "j" << endl;
+        //cout << "j" << endl;
         destruirProjeteis();
-        cout << "k" << endl;
+        //cout << "k" << endl;
         destruirNeutralizados();
-        cout << "l" << endl;
+        //cout << "l" << endl;
+
 
         if (pJog1 == nullptr && pJog2 == nullptr) {
             cout << "todos os jogadores foram neutralizados, fim do programa!" << endl;
@@ -69,6 +86,11 @@ void Fase2::criarChefe(Vector2f pos) {
     Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
+}
+
+void Fase2::criarChefes()
+{
+	
 }
 
 void Fase2::criarInimigos()
@@ -209,6 +231,7 @@ void Fase2::criarMapa(const std::string& caminhoJson) {
 
 void Fase2::salvarJogo(const std::string& caminho) {
     json estado;
+    estado["fase"] = 2;
     estado["numPlayers"] = (pJog2 ? 2 : 1);
     estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y} };
     if (pJog2)
@@ -223,6 +246,16 @@ void Fase2::salvarJogo(const std::string& caminho) {
         auto p = e->getcm();
         je["x"] = p.x;
         je["y"] = p.y;
+
+        if (e->getTipo() == "InimigoPequeno") {
+            auto* ip = dynamic_cast<InimigoPequeno*>(e);
+            if (ip) {
+                sf::Vector2f ini = ip->getPosicaoInicial();
+                je["xi"] = ini.x;
+                je["yi"] = ini.y;
+            }
+        }
+
         estado["entities"].push_back(je);
     }
 
@@ -241,16 +274,6 @@ void Fase2::carregarJogo(const std::string& caminho) {
     if (estado["numPlayers"] == 2 && pJog2)
         pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
 
-    std::vector<Entidade*> remover;
-    for (LE.primeiro(); !LE.fim(); ++LE) {
-        Entidade* e = LE.getAtual();
-        if (e != pJog1 && e != pJog2) remover.push_back(e);
-    }
-    for (auto* e : remover) {
-        LE.retirar(e);
-        Gerenciador_Colisoes::getInstancia()->removerEntidade(e);
-        delete e;
-    }
 
     for (auto& je : estado["entities"]) {
         Entidade* ne = nullptr;
@@ -259,13 +282,22 @@ void Fase2::carregarJogo(const std::string& caminho) {
         std::string tipo = je["type"];
 
 
-        if (tipo == "TeiaAranha") no = new TeiaAranha(pos);
-        else if (tipo == "Plataforma") no = new Plataforma(pos);
-        else if (tipo == "InimigoPequeno") ne = new InimigoPequeno(pos);
-        else if (tipo == "InimigoAlto") ne = new InimigoAlto(pos);
+        if (tipo == "Plataforma") no = new Plataforma(pos);
         else if (tipo == "Espinho") no = new Espinho(pos);
         else if (tipo == "Chefao") ne = new Chefao(pJog1, pJog2, pos);
-        else if (tipo == "BandeiraChegada") ne = new BandeiraChegada(pos);
+
+        sf::Vector2f posAtual(je["x"], je["y"]);
+        sf::Vector2f posIni = posAtual;
+        if (je.contains("xi") && je.contains("yi"))
+            posIni = sf::Vector2f(je["xi"], je["yi"]);
+
+        if (tipo == "InimigoPequeno") {
+            InimigoPequeno* ip = new InimigoPequeno(posIni); // posição inicial de patrulha
+            ip->getCorpo().setPosition(posAtual);            // posição atual real
+            ne = ip;
+        }
+
+        std::cout << "Tipo encontrado: [" << tipo << "]" << std::endl;
 
         if (ne) {
             LE.incluir(ne);
@@ -276,6 +308,9 @@ void Fase2::carregarJogo(const std::string& caminho) {
         if (no) {
             LE.incluir(no);
             pGC->incluirObstaculo(no);
+            if(no->getTipo() == "Espinho"){
+				cout << "Espinho criado em: " << pos.x << ", " << pos.y << endl;
+			}
         }
 
     }

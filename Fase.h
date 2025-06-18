@@ -15,9 +15,7 @@
 class Fase : public Ente {
 protected:
     int pontos1;
-	int pontos2;
-
-
+    int pontos2;
 
     Jogador* pJog1;
     Jogador* pJog2;

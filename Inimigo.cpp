@@ -2,7 +2,7 @@
 
 Inimigo::Inimigo(Vector2f pos) :
     Personagem(pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
-    nivel_maldade(NIVEL_MALDADE_BASICO)
+    nivel_maldade(NIVEL_MALDADE_BASICO),chefao(false)
 {
     agilidade = 1.f;
 
@@ -84,7 +84,55 @@ void Inimigo::escolherAlvo()
 
 void Inimigo::perseguir()
 {
-    if (getcm().y + getRaio().y < CHAO) {//NO AR
+    if (!comChao) {//NO AR
+
+        if (pAlvo->getcm().x < getcm().x)
+            vel.x += -agilidade / 5;
+        if (pAlvo->getcm().x > getcm().x)
+            vel.x += agilidade / 5;
+
+        //ATRITO AR(VISCOSO)
+        if (vel.x > 0) {
+            vel.x -= VISCOSO;
+            if (vel.x < 0)
+                vel.x = 0.f;
+        }
+        else if (vel.x < 0) {
+            vel.x += VISCOSO;
+            if (vel.x > 0)
+                vel.x = 0.f;
+        }
+        if (pAlvo->getcm().y > getcm().y)
+            vel.y += agilidade;
+    }
+    else if (getcm().y - getRaio().y < CHAO) {//CHAO
+
+        if (pAlvo->getcm().x < getcm().x)
+            vel.x += -agilidade;
+        if (pAlvo->getcm().x > getcm().x)
+            vel.x += agilidade;
+
+        //ATRITO CHAO
+        if (vel.x > 0) {
+            vel.x -= ATRITO;
+            if (vel.x < 0)
+                vel.x = 0.f;
+        }
+        else if (vel.x < 0) {
+            vel.x += ATRITO;
+            if (vel.x > 0)
+                vel.x = 0.f;
+        }
+        if (pAlvo->getcm().y < getcm().y) {
+            //cout << "pulo unico 2!" << endl;
+            vel.y += -PULO * 2 * agilidade;
+            comChao = false;
+        }
+    }
+
+    //
+    /*
+    if (getcm().y + getRaio().y < CHAO_CHEFE) {//NO AR
 
         if (pAlvo->getcm().x < getcm().x)
             vel.x += -agilidade / 5;
@@ -105,7 +153,7 @@ void Inimigo::perseguir()
         if (pAlvo->getcm().y > getcm().y)
             vel.y += agilidade / 5;
     }
-    else if (getcm().y - getRaio().y < CHAO) {//chao
+    else if (getcm().y - getRaio().y < CHAO_CHEFE) {//chao
 
         if (pAlvo->getcm().x < getcm().x)
             vel.x += -agilidade;
@@ -129,6 +177,9 @@ void Inimigo::perseguir()
             vel.y += -PULO * agilidade;
         }
     }
+    */
+    
+    //////
 
     //atrito do ar em y
     if (vel.y > 0) {
@@ -142,14 +193,60 @@ void Inimigo::perseguir()
             vel.y = 0.f;
     }
 
+    //paredes invisiveis
+    //if (getcm().x - getRaio().x < ESQUERDA && vel.x<0
+    //   || getcm().x + getRaio().x > DIREITA && vel.x>0) {
+    //    vel.x = 0.f;
+    //}
+
     if (vel.x > MAX_VEL)
         vel.x = MAX_VEL;
     else if (vel.x < -MAX_VEL)
         vel.x = -MAX_VEL;
 
-
     if (vel.x > 0)
         olhandoDir = true;
     else if (vel.x < 0)
         olhandoDir = false;
+}
+float modulo(float x);
+void Inimigo::colidirInim(Inimigo* p, int d)
+{
+    float dx = p->getcm().x - getcm().x,//+ -> colisao dir do pe1
+        dy = p->getcm().y - getcm().y,//+ -> colisao em baixo do pe1
+        drx = getRaio().x + p->getRaio().x,
+        dry = getRaio().y + p->getRaio().y,
+        x = drx - modulo(dx), y = dry - modulo(dy);
+
+    if (d == 1) {
+        //chao2 = true;
+        p->setChao(true);
+        p->getVel().y = getVel().y;
+        getCorpo().move(0.f, y / 2);
+        p->getCorpo().move(0.f, -y / 2);
+
+    }
+    if (d == 4) {
+        //chao1 = true;
+        setChao(true);
+        getVel().y = p->getVel().y;
+        getCorpo().move(0.f, -y / 2);
+        p->getCorpo().move(0.f, y / 2);
+
+    }
+    if (d == 2) {
+        getVel().x = 0.f;
+        p->getVel().x = 0.f;
+        getCorpo().move(x / 2, 0.f);
+        p->getCorpo().move(-x / 2, 0.f);
+
+    }
+    if (d == 3) {
+        getVel().x = 0.f;
+        p->getVel().x = 0.f;
+
+        getCorpo().move(-x / 2, 0.f);
+        p->getCorpo().move(x / 2, 0.f);
+
+    }
 }

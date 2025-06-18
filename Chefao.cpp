@@ -2,10 +2,13 @@
 
 
 
+
 Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
-    Inimigo(pos), forca(100)
+    Inimigo(pos), forca(FORCA_CHEFE)
 {
-	num_vidas = VIDA_CHEFE;
+    chefao = true;
+
+    num_vidas = VIDA_CHEFE;
 
     nivel_maldade = DANO_ALTO;
 
@@ -33,7 +36,7 @@ void Chefao::executar()
     escolherAlvo();
     mover();//mover inimigo
     if (pAlvo) {
-        atirar();
+        atirar(forca);
     }
     tiros->percorrer();
 }
@@ -43,7 +46,7 @@ void Chefao::salvar()
 }
 
 void Chefao::mover() {
-
+    
     //GRAVIDADE ANTES!
     if (getcm().y + getRaio().y < CHAO && !comChao) {
         vel.y += GRAVIDADE;

@@ -36,7 +36,7 @@ void InimigoPequeno::executar()
 
 void InimigoPequeno::mover()
 {
-	
+
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
 

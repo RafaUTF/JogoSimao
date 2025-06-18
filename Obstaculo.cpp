@@ -10,3 +10,7 @@ Obstaculo::~Obstaculo()
 }
 
 bool Obstaculo::isDanoso() const { return danoso;}
+
+void Obstaculo::causarDano(Personagem* pJog)
+{
+}

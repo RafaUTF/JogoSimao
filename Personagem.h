@@ -17,7 +17,7 @@ protected:
 
 	bool olhandoDir;
 
-	
+
 
 public:
 	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
@@ -28,7 +28,7 @@ public:
 
 	void setChao(bool b);
 
-	virtual void atirar();
+	virtual void atirar(short int f=1);
 
 	ListaEntidades* getTiros();
 
@@ -42,6 +42,7 @@ public:
 	void operator--();
 
 	const int getVidas();
+	void setVida(int v);
 
 	void colidir(Entidade* pe = NULL, int d = 0);
 
