@@ -2,14 +2,17 @@
 bool Jogador::jogador1(true);
 
 
-Jogador::Jogador(Vector2f pos) : Personagem(pos)
+Jogador::Jogador(Vector2f pos) : Personagem(pos), pontos(0)
 {
+    num_vidas = VIDA_JOGADOR;
+
     agilidade = 1.f;
 
     criarTiros();
 
+
     if (jogador1) {
-        
+
         if (!textura.loadFromFile("j1.png")) {
             std::cerr << "Erro ao carregar a textura JOGADOR1!" << std::endl;
         }
@@ -23,19 +26,19 @@ Jogador::Jogador(Vector2f pos) : Personagem(pos)
         j1 = true;
     }
     else {
-        
+
         if (!textura.loadFromFile("j2.png")) {
             std::cerr << "Erro ao carregar a textura JOGADOR2!" << std::endl;
         }
         else {
             corpo.setTexture(&textura);
         }
-       
+
         cout << "JOGADOR 2 CRIADO" << endl;
         corpo.setSize(Vector2f(64.f, 64.f));
         centralizarEntidade();
 
-     
+
         j1 = false;
     }
 
@@ -43,6 +46,7 @@ Jogador::Jogador(Vector2f pos) : Personagem(pos)
 Jogador::~Jogador()
 {
     cout << "destrutora jogador" << endl;
+
 }
 
 void Jogador::executar() {
@@ -54,59 +58,17 @@ float modulo2(float x) {
     return x < 0 ? (-1.f) * x : x;
 }
 
-void Jogador::colidir(Jogador* p)//bom para o inimigo
-{
-    float dx = p->getcm().x - getcm().x,//+ -> colisao dir do pe1
-        dy = p->getcm().y - getcm().y,//+ -> colisao em baixo do pe1
-        drx = getRaio().x + p->getRaio().x,
-        dry = getRaio().y + p->getRaio().y;
-
-    if (modulo2(dx) < drx && modulo2(dy) < dry) {
-        if (drx - modulo2(dx) < dry - modulo2(dy)) {//colisao lado
-            if (dx > 0) {//dir pe1  3
-                corpo.setPosition(
-                    p->getcm().x - getRaio().x - p->getRaio().x,
-                    getcm().y
-                );
-            }
-            else {//esq pe1  2
-                corpo.setPosition(
-                    p->getcm().x + getRaio().x + p->getRaio().x,
-                    getcm().y
-                );
-            }
-        }
-        else {//colisao vertical
-            if (dy > 0) {//baixo pe1  4
-                setChao(true);
-                corpo.setPosition(
-                    getcm().x,
-                    p->getcm().y - getRaio().y - p->getRaio().y
-                );
-
-            }
-            else {//cima pe1    1
-                //p->setChao(true);//////////////
-                corpo.setPosition(
-                    getcm().x,
-                    p->getcm().y + getRaio().y + p->getRaio().y
-                );
-            }
-        }
-    }
-}
-
-void Jogador::atirar()
+void Jogador::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         if (j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
             cout << "p1 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(),olhandoDir,getRaio().x,tiros));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this, FORCA_JOG));
             recarga = 0;
         }
-        else if (!j1&&sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+        else if (!j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
             cout << "p2 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x,tiros));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this, FORCA_JOG));
             recarga = 0;
         }
     }
@@ -115,9 +77,26 @@ void Jogador::atirar()
 
 }
 
+const int Jogador::getPontos() const
+{
+    return pontos;
+}
+
+void Jogador::operator+=(const int n)
+{
+    pontos += n;
+}
+
+void Jogador::operator++()
+{
+    pontos++;
+}
+
+
+
 void Jogador::mover()
 {
-    
+
     //GRAVIDADE ANTES!
     if (getcm().y + getRaio().y < CHAO && !comChao) {
         vel.y += GRAVIDADE;
@@ -168,7 +147,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * 2*agilidade;
+                vel.y += -PULO * 2 * agilidade;
                 comChao = false;
             }
         }
@@ -215,7 +194,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * 2* agilidade;
+                vel.y += -PULO * 2 * agilidade;
                 comChao = false;
             }
         }
@@ -250,5 +229,3 @@ void Jogador::mover()
     else if (vel.x < 0)
         olhandoDir = false;
 }
-
-

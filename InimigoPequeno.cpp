@@ -3,6 +3,10 @@
 InimigoPequeno::InimigoPequeno(Vector2f pos) :
 	Inimigo(pos)
 {
+
+	num_vidas = VIDA_BAIXO;
+
+	nivel_maldade = DANO_BAIXO;
 	agilidade = 1.f;
 	direcao = 1;
 
@@ -21,7 +25,7 @@ InimigoPequeno::InimigoPequeno(Vector2f pos) :
 }
 InimigoPequeno::~InimigoPequeno()
 {
-	cout << "destrutora inimigo pequeno" << endl;
+	cout << "destrutora InimigoPequeno" << endl;
 }
 
 void InimigoPequeno::executar()
@@ -32,7 +36,7 @@ void InimigoPequeno::executar()
 
 void InimigoPequeno::mover()
 {
-	
+
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
 
