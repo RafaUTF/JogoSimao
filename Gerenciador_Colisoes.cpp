@@ -1,5 +1,8 @@
 #include "Gerenciador_Colisoes.h"
 
+float modulo(float x) {
+	return x < 0 ? (-1.f) * x : x;
+}
 Gerenciador_Colisoes* Gerenciador_Colisoes::getInstancia()
 {
 	static Gerenciador_Colisoes instancia;
@@ -66,36 +69,34 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
 }
 
 void Gerenciador_Colisoes::executar() {
-
-	LJs[0]->setChao(false);
-	chao1 = false;
-
-	if (LJs.size() > 1) {
-		LJs[1]->setChao(false);
-		chao2 = false;
-		tratarColisoesJogs();
+	
+	for (vector<Jogador*>::iterator it = LJs.begin();it != LJs.end(); it++) {
+		if (*it)
+			(*it)->setChao(false);
 	}
-	//inimigos
-	tratarColisoesInimgsObstacs();
-	tratarColisoesInimgsProjeteis();
+	for (vector<Inimigo*>::iterator it = LIs.begin();it != LIs.end(); it++) {
+		if (*it)
+			(*it)->setChao(false);
+	}
 
 	tratarColisoesProjeteisObstacs();
 
+	//inimigos
+	tratarColisoesInimgsProjeteis();
+	tratarColisoesInimgsInimgs();
+	tratarColisoesInimgsObstacs();
+
 	//jogadores
+	if (LJs.size() > 1) {
+		tratarColisoesJogs();
+	}
 	tratarColisoesJogsProjeteis();
 	tratarColisoesJogsInimgs();
 	tratarColisoesJogsObstacs();
 
-	LJs[0]->setChao(chao1);
-
-	if (LJs.size() > 1) {
-		LJs[1]->setChao(chao2);
-	}
-
 }
-float modulo(float x) {
-	return x < 0 ? (-1.f) * x : x;
-}
+
+
 
 const int Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) const
 {
@@ -136,58 +137,8 @@ void Gerenciador_Colisoes::tratarColisoesJogs() {
 	Jogador* p2 = LJs[1];
 	int d = verificarDirecao(p1, p2);
 	if (d != 0) {
-		float dx = p2->getcm().x - p1->getcm().x,//+ -> colisao dir do pe1
-			dy = p2->getcm().y - p1->getcm().y,//+ -> colisao em baixo do pe1
-			drx = p1->getRaio().x + p2->getRaio().x,
-			dry = p1->getRaio().y + p2->getRaio().y,
-			x = drx - modulo(dx), y = dry - modulo(dy);
-
-		if (d == 1) {
-			chao2 = true;
-			p2->getVel().y = p1->getVel().y;
-			p1->getCorpo().move(0.f, y / 2);
-			p2->getCorpo().move(0.f, -y / 2);
-			/*
-			p2->getCorpo().setPosition(
-				p2->getcm().x,
-				p1->getcm().y - p1->getRaio().y - p2->getRaio().y
-			);*/
-		}
-		if (d == 4) {
-			chao1 = true;
-			p1->getVel().y = p2->getVel().y;
-			p1->getCorpo().move(0.f, -y / 2);
-			p2->getCorpo().move(0.f, y / 2);
-			/*
-			p1->getCorpo().setPosition(
-				p1->getcm().x,
-				p2->getcm().y - p1->getRaio().y - p2->getRaio().y
-			);*/
-		}
-
-		if (d == 2) {
-			p1->getVel().x = 0.f;
-			p2->getVel().x = 0.f;
-			p1->getCorpo().move(x / 2, 0.f);
-			p2->getCorpo().move(-x / 2, 0.f);
-			/*
-			p1->getCorpo().setPosition(
-				p1->getcm().x + p1->getRaio().x + p2->getRaio().x,
-				p1->getcm().y
-			);*/
-		}
-		if (d == 3) {
-			p1->getVel().x = 0.f;
-			p2->getVel().x = 0.f;
-
-			p1->getCorpo().move(-x / 2, 0.f);
-			p2->getCorpo().move(x / 2, 0.f);
-			/*
-			p1->getCorpo().setPosition(
-				p2->getcm().x - p1->getRaio().x - p2->getRaio().x,
-				p1->getcm().y
-			);*/
-		}
+		p1->colidirJog(p2, d);
+		
 	}
 }
 
@@ -204,40 +155,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-
-				po->obstacular(pJog1);
-
-
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y + pJog1->getRaio().y + po->getRaio().y
-					);
-				}
-				if (d == 4) {
-					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y - pJog1->getRaio().y - po->getRaio().y
-					);
-				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x + pJog1->getRaio().x + po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x - pJog1->getRaio().x - po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-
+				po->obstacular(pJog1, d);//4 -> setChao(true);
 			}
 		}
 
@@ -246,8 +164,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 }
 
 void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
-	Inimigo* pi = NULL;
-	Jogador* pJog1 = NULL;
+	Inimigo* pi = nullptr;
+	Jogador* pJog1 = nullptr;
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
@@ -257,7 +175,6 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 			if (d != 0) {
 				if (d == 4) {
 					pJog1->getVel().y = 0.f;
-					//i == 0 ? chao1 = true : chao2 = true;
 					pJog1->getCorpo().setPosition(
 						pJog1->getcm().x,
 						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
@@ -280,8 +197,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 
 
 void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
-	Projetil* pj = NULL;
-	Jogador* pJog1 = NULL;
+	Projetil* pj = nullptr;
+	Jogador* pJog1 = nullptr;
 	int d = 0;
 	for (int i = 0;i < LJs.size();i++) {
 		pJog1 = LJs[i];
@@ -290,36 +207,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis() {
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
 			if (d != 0) {
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pj->getcm().y + pJog1->getRaio().y + pj->getRaio().y
-					);
-				}
-				if (d == 4) {
-					pJog1->getVel().y = 0.f;
-					i == 0 ? chao1 = true : chao2 = true;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pj->getcm().y - pJog1->getRaio().y - pj->getRaio().y
-					);
-				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pj->getcm().x + pJog1->getRaio().x + pj->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pj->getcm().x - pJog1->getRaio().x - pj->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
 				pj->explodir(pJog1);
+				pJog1->colidir(pj, d);
 
 			}
 		}
@@ -342,39 +231,7 @@ void Gerenciador_Colisoes::tratarColisoesInimgsObstacs()
 			po = *it;
 			d = verificarDirecao(pJog1, po);
 			if (d != 0) {
-
-				//po->obstacular(pJog1);
-
-
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y + pJog1->getRaio().y + po->getRaio().y
-					);
-				}
-				if (d == 4) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						po->getcm().y - pJog1->getRaio().y - po->getRaio().y
-					);
-				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x + pJog1->getRaio().x + po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						po->getcm().x - pJog1->getRaio().x - po->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-
+				po->obstacular(pJog1,d);
 			}
 		}
 
@@ -393,39 +250,25 @@ void Gerenciador_Colisoes::tratarColisoesInimgsProjeteis()
 			pj = *it;
 			d = verificarDirecao(pJog1, pj);
 			if (d != 0) {
-				if (d == 1) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pj->getcm().y + pJog1->getRaio().y + pj->getRaio().y
-					);
-				}
-				if (d == 4) {
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pj->getcm().y - pJog1->getRaio().y - pj->getRaio().y
-					);
-				}
-				if (d == 2) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pj->getcm().x + pJog1->getRaio().x + pj->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
-				if (d == 3) {
-					pJog1->getVel().x = 0.f;
-					pJog1->getCorpo().setPosition(
-						pj->getcm().x - pJog1->getRaio().x - pj->getRaio().x,
-						pJog1->getcm().y
-					);
-				}
 				pj->explodir(pJog1);
-
+				pJog1->colidir(pj, d);
 			}
 		}
 
+	}
+}
+
+void Gerenciador_Colisoes::tratarColisoesInimgsInimgs()
+{
+	int d = 0;
+	for (int i = 0;i < LIs.size();i++) {
+		for (int j = 1;j < LIs.size();j++) {
+			if (i != j && LIs[i] && LIs[j]) {
+				d = verificarDirecao(LIs[i], LIs[j]);
+				if(d!=0)
+					LIs[i]->colidirInim(LIs[j], d);
+			}
+		}
 	}
 }
 

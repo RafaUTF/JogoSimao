@@ -36,7 +36,7 @@ ListaEntidades* Personagem::getTiros()
 
 
 
-void Personagem::atirar()
+void Personagem::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         cout << "CHEFAO ATIROU" << endl;
@@ -107,7 +107,6 @@ void Personagem::colidir(Entidade* pe, int d)
         );
     }
     else {//d==4
-        comChao = true;
         getVel().y = 0.f;
         getVel().y = pe->getVel().y;
         getCorpo().setPosition(
@@ -116,15 +115,6 @@ void Personagem::colidir(Entidade* pe, int d)
         );
     }
 
-}
-
-void Personagem::incluirTiros(Projetil* p)
-{
-    if (tiros == NULL) {
-        cout << "criando lista de tiros" << endl;
-        criarTiros();
-    }
-	tiros->incluir(p);
 }
 
 /*

@@ -23,12 +23,36 @@ void Plataforma::executar()
     //?
 }
 
-void Plataforma::obstacular(Jogador* p)
+void Plataforma::obstacular(Personagem* p,int d)
 {
-
+	if (d == 1) {
+		p->getVel().y = 0.f;
+		p->getCorpo().setPosition(
+			p->getcm().x,
+			getcm().y + p->getRaio().y + getRaio().y
+		);
+	}
+	if (d == 4) {
+		p->setChao(true);
+		p->getVel().y = 0.f;
+		p->getCorpo().setPosition(
+			p->getcm().x,
+			getcm().y - p->getRaio().y - getRaio().y
+		);
+	}
+	if (d == 2) {
+		p->getVel().x = 0.f;
+		p->getCorpo().setPosition(
+			getcm().x + p->getRaio().x + getRaio().x,
+			p->getcm().y
+		);
+	}
+	if (d == 3) {
+		p->getVel().x = 0.f;
+		p->getCorpo().setPosition(
+			getcm().x - p->getRaio().x - getRaio().x,
+			p->getcm().y
+		);
+	}
 }
 
-void Plataforma::causarDano(Jogador* p)
-{
-    // Plataformas n�o causam dano
-}

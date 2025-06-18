@@ -30,8 +30,7 @@ int main()
             in >> estado;
 
             int fase = estado.value("fase", 1); // valor padrão 1, caso não exista
-			int nJog = estado.value("numPlayers", 1); // valor padrão 1, caso não exista
-
+            
             Jogo jogo(nJog, fase);
 
             jogo.getFase()->carregarJogo("save.json");

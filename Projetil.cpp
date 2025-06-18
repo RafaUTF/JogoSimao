@@ -2,7 +2,8 @@
 
 #include "Jogador.h"
 
-Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogador* pdono) :
+Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogador* pdono,
+    short int f) :
     Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
 {
     /*
@@ -13,17 +14,18 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogad
         corpo.setTexture(textura);
     }
     */
+
     corpo.setSize(Vector2f(50.f, 50.f));
     centralizarEntidade();
     corpo.setFillColor(Color::White);
 
-
+    float v = -1.f*static_cast<float>(f);
     if (dir) {
-        vel = (Vector2f(10.f, -10.f));
+        vel = (Vector2f(-1.f*v, v));
         corpo.move(raio * 1.5f, 0.f);
     }
     else {
-        vel = (Vector2f(-10.f, -10.f));
+        vel = (Vector2f(v, v));
         corpo.move(-raio * 1.5f, 0.f);
     }
 
@@ -65,26 +67,4 @@ void Projetil::explodir(Personagem* pp)
             pDono->operator+=(100);
         }
     }
-
 }
-
-Vector2f Projetil::getVelocidade()
-{
-    return vel;
-}
-
-void Projetil::setVelocidade(Vector2f v)
-{
-    vel = v; 
-}
-
-Jogador* Projetil::getDono()
-{
-    return pDono;
-}
-
-void Projetil::setDono(Jogador* pdono)
-{
-    pDono = pdono;
-}
-

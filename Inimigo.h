@@ -26,5 +26,7 @@ public:
 	void escolherAlvo();
 
 	void perseguir();
+
+	void colidirInim(Inimigo* p = nullptr, int d = 0);
 };
 

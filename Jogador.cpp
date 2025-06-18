@@ -54,21 +54,60 @@ void Jogador::executar() {
     atirar();
     tiros->percorrer();
 }
-float modulo2(float x) {
-    return x < 0 ? (-1.f) * x : x;
+float modulo(float x);
+void Jogador::colidirJog(Jogador* p, int d)
+{
+    float dx = p->getcm().x - getcm().x,//+ -> colisao dir do pe1
+        dy = p->getcm().y - getcm().y,//+ -> colisao em baixo do pe1
+        drx = getRaio().x + p->getRaio().x,
+        dry = getRaio().y + p->getRaio().y,
+        x = drx - modulo(dx), y = dry - modulo(dy);
+
+    if (d == 1) {
+        //chao2 = true;
+        p->setChao(true);
+        p->getVel().y = getVel().y;
+        getCorpo().move(0.f, y / 2);
+        p->getCorpo().move(0.f, -y / 2);
+
+    }
+    if (d == 4) {
+        //chao1 = true;
+        setChao(true);
+        getVel().y = p->getVel().y;
+        getCorpo().move(0.f, -y / 2);
+        p->getCorpo().move(0.f, y / 2);
+
+    }
+    if (d == 2) {
+        getVel().x = 0.f;
+        p->getVel().x = 0.f;
+        getCorpo().move(x / 2, 0.f);
+        p->getCorpo().move(-x / 2, 0.f);
+
+    }
+    if (d == 3) {
+        getVel().x = 0.f;
+        p->getVel().x = 0.f;
+
+        getCorpo().move(-x / 2, 0.f);
+        p->getCorpo().move(x / 2, 0.f);
+
+    }
 }
 
-void Jogador::atirar()
+
+void Jogador::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         if (j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
             cout << "p1 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this, FORCA_JOG));
             recarga = 0;
         }
         else if (!j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
             cout << "p2 ATIROU" << endl;
-            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this));
+            tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, this, FORCA_JOG));
             recarga = 0;
         }
     }
