@@ -1,8 +1,16 @@
 #include "TeiaAranha.h"
 
-TeiaAranha::TeiaAranha(Vector2f pos) : Obstaculo(pos), dano(1)
+TeiaAranha::TeiaAranha(Vector2f pos, float redux) : Obstaculo(pos)
 {
 	danoso = false;
+
+	if (reducao == 0)
+		reducao = 0.05 + rand() % 10 / 100.f; 
+	else
+		reducao = redux;
+
+	cout << "teia com reducao: " << reducao << endl;
+
 	corpo.setSize(sf::Vector2f(32.f, 32.f));
 	centralizarEntidade();
 	if (!textura.loadFromFile("teiaaranha.png")) {
@@ -23,7 +31,7 @@ TeiaAranha::~TeiaAranha()
 void TeiaAranha::obstacular(Personagem* p, int d)
 {
 	if (p) {
-		p->reduzVelocidade(0.55f); // 
+		p->reduzVelocidade(reducao); // 
 		if (d == 1) {
 			p->getVel().y = 0.f;
 			p->getCorpo().setPosition(

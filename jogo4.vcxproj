@@ -22,7 +22,6 @@
     <Font Include="arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BandeiraChegada.cpp" />
     <ClCompile Include="Chefao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -41,6 +40,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuBase.cpp" />
     <ClCompile Include="MenuInicial.cpp" />
+    <ClCompile Include="MenuLeaderboard.cpp" />
     <ClCompile Include="MenuPause.cpp" />
     <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
@@ -49,7 +49,6 @@
     <ClCompile Include="TeiaAranha.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BandeiraChegada.h" />
     <ClInclude Include="Chefao.h" />
     <ClInclude Include="Ente.h" />
     <ClInclude Include="Entidade.h" />
@@ -69,6 +68,7 @@
     <ClInclude Include="ListaEntidades.h" />
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuInicial.h" />
+    <ClInclude Include="MenuLeaderboard.h" />
     <ClInclude Include="MenuPause.h" />
     <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />

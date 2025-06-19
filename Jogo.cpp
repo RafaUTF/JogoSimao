@@ -86,22 +86,20 @@ void Jogo::mudarParaFase2(const std::string& caminho)
     if (estado["numPlayers"] == 2)
         pF2->getJogador2()->setVida(0);
 
-    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
+
 
     // Atualiza apenas vidas (sem reinserir ponteiros)
     if (pF2->getJogador1())
         pF2->getJogador1()->setVida(estado["jogador1"]["numvidas"]);
 
 
-    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
+
 
     if (estado["numPlayers"] == 2 && pF2->getJogador2() && estado["jogador2"]["numvidas"] > 0)
         pF2->getJogador2()->setVida(estado["jogador2"]["numvidas"]);
 
-    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
 
     pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
-
 
     executar();
 }

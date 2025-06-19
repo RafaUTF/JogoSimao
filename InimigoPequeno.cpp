@@ -1,14 +1,23 @@
 #include "InimigoPequeno.h"
 
-InimigoPequeno::InimigoPequeno(Vector2f pos) :
+InimigoPequeno::InimigoPequeno(Vector2f pos, float acelex) :
 	Inimigo(nullptr, pos)
 {
 
 	num_vidas = VIDA_BAIXO;
 
+	if(acelex == 0)
+		aceleracaoextra = (rand() %50);
+	else
+		aceleracaoextra = acelex;
+
 	nivel_maldade = DANO_BAIXO;
-	aceleracao = ACELERACAO_BAIXO;
+	aceleracao = ACELERACAO_BAIXO * aceleracaoextra;
+
+	cout << "InimigoPequeno criado com aceleracao: " << aceleracao << endl;
 	direcao = 1;
+	
+
 
 	posinicial = pos;
 

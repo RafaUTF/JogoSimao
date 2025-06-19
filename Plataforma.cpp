@@ -1,6 +1,6 @@
 ﻿#include "Plataforma.h"
 
-Plataforma::Plataforma(Vector2f pos) : Obstaculo(pos)
+Plataforma::Plataforma(Vector2f pos, float desloc) : Obstaculo(Vector2f(pos.x, pos.y + desloc)), deslocamento(desloc)
 {
 	corpo.setSize(Vector2f(32.f, 32.f));
 	centralizarEntidade();

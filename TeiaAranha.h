@@ -5,14 +5,16 @@
 class TeiaAranha : public Obstaculo
 {
 private:
-	int dano;
+	float reducao;
 
 public:
-	TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)));
+	TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)), float redux = 0);
 	~TeiaAranha();
 	void obstacular(Personagem* p = NULL, int d = 0);
 	void executar();
 
 	std::string getTipo() const { return "TeiaAranha"; }
+	
+	float getReducao() const { return reducao; }
 
 };

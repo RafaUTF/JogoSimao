@@ -127,6 +127,36 @@ void Fase::gravarNome(sf::RenderWindow* window) {
     out << lb.dump(4);
 }
 
+void Fase::finalFase()
+{
+    if (numPlayers == 1) {
+        if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+            gravarNome(pGG->getWindow());
+            pGG->fechar();
+        }
+    }
+    else if (numPlayers == 2) {
+        if (pJog1 && pJog2) {
+            if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else if (pJog1) {
+            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+        }
+        else
+            if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
+                gravarNome(pGG->getWindow());
+                pGG->fechar();
+            }
+
+    }
+}
+
 void Fase::desenharProjeteis()//mostra os projeteis na tela
 {
 	tiros->desenhar();

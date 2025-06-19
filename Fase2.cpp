@@ -84,34 +84,12 @@ void Fase2::executar() {
             return;
             
         }
-    }
 
-    if (numPlayers == 1) {
-        if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-            gravarNome(pGG->getWindow());
-            pGG->fechar();
-        }
-    }
-    else if (numPlayers == 2) {
-        if (pJog1 && pJog2) {
-            if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
-        }
-        else if (pJog1) {
-            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
-        }
-        else
-            if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
+        finalFase();
 
     }
+
+    
 }
 
 void Fase2::criarEntidades() {
@@ -287,6 +265,7 @@ void Fase2::salvarJogo(const std::string& caminho) {
     estado["entities"] = json::array();
     for (LE.primeiro(); !LE.fim(); ++LE) {
         Entidade* e = LE.getAtual();
+
         if (e == pJog1 || e == pJog2) continue;
         json je;
         je["type"] = e->getTipo();
@@ -294,9 +273,13 @@ void Fase2::salvarJogo(const std::string& caminho) {
         je["x"] = p.x;
         je["y"] = p.y;
 
+        if (e->getTipo() == "Plataforma")
+            je["deslocamento"] = static_cast<Plataforma*>(e)->getDeslocamento();
+
         if (e->getTipo() == "InimigoPequeno") {
             auto* ip = dynamic_cast<InimigoPequeno*>(e);
             if (ip) {
+                je["aceleracaoextra"] = ip->getAceleracaoExtra();
                 sf::Vector2f ini = ip->getPosicaoInicial();
                 je["xi"] = ini.x;
                 je["yi"] = ini.y;
@@ -317,6 +300,16 @@ void Fase2::carregarJogo(const std::string& caminho) {
     json estado;
     in >> estado;
 
+    if (!pJog1) {
+        pJog1 = new Jogador(&LE);
+        pGC->incluirJogador(pJog1);
+    }
+    if (estado["numPlayers"] == 2 && !pJog2) {
+        pJog2 = new Jogador(&LE);
+        pGC->incluirJogador(pJog2);
+    }
+
+
     if (estado["jogador1"]["numvidas"] > 0) {
 
         pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
@@ -327,7 +320,7 @@ void Fase2::carregarJogo(const std::string& caminho) {
         pontos1 = estado["jogador1"]["pontos1"];
         pJog1->setVida(0);
     }
-    destruirNeutralizados();
+
     if (estado["numPlayers"] == 2) {
         if (estado["jogador2"]["numvidas"] > 0) {
             pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
@@ -341,7 +334,6 @@ void Fase2::carregarJogo(const std::string& caminho) {
         }
     }
 
-    destruirNeutralizados();
 
 
     for (auto& je : estado["entities"]) {
@@ -351,7 +343,10 @@ void Fase2::carregarJogo(const std::string& caminho) {
         std::string tipo = je["type"];
 
 
-        if (tipo == "Plataforma") no = new Plataforma(pos);
+        if (tipo == "Plataforma") {
+			float deslocamento = je["deslocamento"];
+            no = new Plataforma(pos, deslocamento);
+        }
         else if (tipo == "Espinho") no = new Espinho(pos);
         else if (tipo == "Chefao") ne = new Chefao(tiros, pJog1, pJog2, pos);
 
@@ -361,7 +356,8 @@ void Fase2::carregarJogo(const std::string& caminho) {
             posIni = sf::Vector2f(je["xi"], je["yi"]);
 
         if (tipo == "InimigoPequeno") {
-            InimigoPequeno* ip = new InimigoPequeno(posIni); // posição inicial de patrulha
+			float acelex = je["aceleracaoextra"];
+            InimigoPequeno* ip = new InimigoPequeno(posIni, acelex); // posição inicial de patrulha
             ip->getCorpo().setPosition(posAtual);            // posição atual real
             ne = ip;
         }
@@ -442,3 +438,4 @@ void Fase2::destruirNeutralizados()
         }
     }
 }
+

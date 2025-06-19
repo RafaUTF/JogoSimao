@@ -18,9 +18,6 @@
     <Font Include="arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BandeiraChegada.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="Chefao.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
@@ -93,11 +90,11 @@
     <ClCompile Include="MenuPause.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="MenuLeaderboard.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BandeiraChegada.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="Chefao.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -174,6 +171,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="MenuPause.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuLeaderboard.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

@@ -215,9 +215,10 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
             bloco_plataforma.emplace_back(x, y);
             if (bloco_plataforma.size() == 6) {
                 int chance = rand() % 2;
+                float deslocamento = rand() % 50;
                 for (auto& pos : bloco_plataforma) {
                     if (chance == 0) {
-                        Plataforma* plataforma = new Plataforma({ pos.first, pos.second });
+                        Plataforma* plataforma = new Plataforma({ pos.first, pos.second }, deslocamento);
                         LE.incluir(plataforma);
                         pGC->incluirObstaculo(plataforma);
                     }
@@ -345,9 +346,17 @@ void Fase1::salvarJogo(const std::string& caminho) {
         je["x"] = atual.x;
         je["y"] = atual.y;
 
+        if(e->getTipo() == "Plataforma")
+			je["deslocamento"] = static_cast<Plataforma*>(e)->getDeslocamento();
+
+        if(e->getTipo() == "TeiaAranha")
+			je["reducao"] = static_cast<TeiaAranha*>(e)->getReducao();
+
         if (e->getTipo() == "InimigoPequeno") {
             auto* ip = dynamic_cast<InimigoPequeno*>(e);
             if (ip) {
+
+				je["aceleracaoextra"] = ip->getAceleracaoExtra();
                 sf::Vector2f ini = ip->getPosicaoInicial();
                 je["xi"] = ini.x;
                 je["yi"] = ini.y;
@@ -356,6 +365,7 @@ void Fase1::salvarJogo(const std::string& caminho) {
         else if (e->getTipo() == "InimigoAlto") {
             auto* ia = dynamic_cast<InimigoAlto*>(e);
             if (ia) {
+				je["distanciapadrao"] = ia->getDistanciaPadrao();
                 sf::Vector2f ini = ia->getPosicaoInicial();
                 je["xi"] = ini.x;
                 je["yi"] = ini.y;
@@ -429,8 +439,14 @@ void Fase1::carregarJogo(const std::string& caminho) {
         sf::Vector2f pos(je["x"], je["y"]);
         std::string tipo = je["type"];
 
-        if (tipo == "TeiaAranha") no = new TeiaAranha(pos);
-        else if (tipo == "Plataforma") no = new Plataforma(pos);
+        if (tipo == "TeiaAranha") {
+            float reducao = je["reducao"];
+            no = new TeiaAranha(pos, reducao);
+        }
+        else if (tipo == "Plataforma") {
+			float deslocamento = je["deslocamento"];
+            no = new Plataforma(pos, deslocamento);
+        }
 
         sf::Vector2f posAtual(je["x"], je["y"]);
         sf::Vector2f posIni = posAtual;
@@ -438,12 +454,16 @@ void Fase1::carregarJogo(const std::string& caminho) {
             posIni = sf::Vector2f(je["xi"], je["yi"]);
 
         if (tipo == "InimigoPequeno") {
-            InimigoPequeno* ip = new InimigoPequeno(posIni); // posição inicial de patrulha
+            float acelex = je["aceleracaoextra"];
+            
+            InimigoPequeno* ip = new InimigoPequeno(posIni, acelex); // posição inicial de patrulha
             ip->getCorpo().setPosition(posAtual);            // posição atual real
             ne = ip;
         }
         else if (tipo == "InimigoAlto") {
-            InimigoAlto* ia = new InimigoAlto(posIni);
+			float distPadrao = je["distanciapadrao"];
+            
+            InimigoAlto* ia = new InimigoAlto(posIni, distPadrao);
             ia->getCorpo().setPosition(posAtual);
             ne = ia;
         }

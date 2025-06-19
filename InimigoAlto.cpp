@@ -1,6 +1,6 @@
 #include "InimigoAlto.h"
 
-InimigoAlto::InimigoAlto(Vector2f pos) :
+InimigoAlto::InimigoAlto(Vector2f pos, int distpad) :
 	Inimigo(nullptr, pos)
 {
 	num_vidas = VIDA_BAIXO;
@@ -10,6 +10,11 @@ InimigoAlto::InimigoAlto(Vector2f pos) :
 	direcao = 1;
 
 	posinicial = pos;
+
+	if(distpad == 0)
+		distanciapadrao = rand() % 64 + 32; // Distância aleatória entre 32 e 96 pixels
+	else 
+		distanciapadrao = distpad;
 
 
 	if (!textura.loadFromFile("inimigoalto.png")) {
@@ -41,7 +46,7 @@ void InimigoAlto::mover()
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
 
-	if (direcao == 1 && distancia >= 96.f) {
+	if (direcao == 1 && distancia >= distanciapadrao) {
 		direcao = -1;
 	}
 	else if (direcao == -1 && distancia <= 0.f) {

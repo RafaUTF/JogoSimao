@@ -66,5 +66,5 @@ public:
 	Jogador* getJogador2() const { return pJog2; }
 
     void gravarNome(sf::RenderWindow* window);
-    
+    void finalFase();
 };
