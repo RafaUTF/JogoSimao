@@ -2,28 +2,28 @@
 
 Plataforma::Plataforma(Vector2f pos) : Obstaculo(pos)
 {
-    corpo.setSize(Vector2f(32.f, 32.f));
-    centralizarEntidade();
-    if (!textura.loadFromFile("plataforma.png")) {
-        std::cerr << "Erro ao carregar a textura plataforma!" << std::endl;
-    }
-    else {
-        corpo.setTexture(&textura);
-    }
-    //corpo.setFillColor(sf::Color::Transparent);
+	corpo.setSize(Vector2f(32.f, 32.f));
+	centralizarEntidade();
+	if (!textura.loadFromFile("plataforma.png")) {
+		std::cerr << "Erro ao carregar a textura plataforma!" << std::endl;
+	}
+	else {
+		corpo.setTexture(&textura);
+	}
+	//corpo.setFillColor(sf::Color::Transparent);
 }
 
 
 Plataforma::~Plataforma() {
-    //cout << "destrutora plataforma" << endl;
+	//cout << "destrutora plataforma" << endl;
 }
 
 void Plataforma::executar()
 {
-    //?
+	//?
 }
 
-void Plataforma::obstacular(Personagem* p,int d)
+void Plataforma::obstacular(Personagem* p, int d)
 {
 	if (d == 1) {
 		p->getVel().y = 0.f;
@@ -33,6 +33,7 @@ void Plataforma::obstacular(Personagem* p,int d)
 		);
 	}
 	if (d == 4) {
+		p->setChao(true);
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
 			p->getcm().x,
@@ -54,4 +55,3 @@ void Plataforma::obstacular(Personagem* p,int d)
 		);
 	}
 }
-

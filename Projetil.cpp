@@ -19,13 +19,13 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogad
     centralizarEntidade();
     corpo.setFillColor(Color::White);
 
-    float v = -1.f*static_cast<float>(f);
+    float v = static_cast<float>(f);
     if (dir) {
-        vel = (Vector2f(-1.f*v, v));
+        vel = (Vector2f(v , VY0));
         corpo.move(raio * 1.5f, 0.f);
     }
     else {
-        vel = (Vector2f(v, v));
+        vel = (Vector2f(-1.f * v, VY0));
         corpo.move(-raio * 1.5f, 0.f);
     }
 
@@ -64,7 +64,23 @@ void Projetil::explodir(Personagem* pp)
         pp->operator--();
         if (pp && pp != nullptr && pp->getVidas() == 0) {
             cout << "personagem neutralizado por projetil" << endl;
-            pDono->operator+=(100);
+            if(pDono)
+                pDono->operator+=(100);
         }
     }
+}
+
+Vector2f Projetil::getVelocidade()
+{
+    return vel;
+}
+
+void Projetil::setVelocidade(Vector2f v)
+{
+    vel = v;
+}
+
+void Projetil::setDono(Jogador* pdono)
+{
+    pDono = pdono;
 }

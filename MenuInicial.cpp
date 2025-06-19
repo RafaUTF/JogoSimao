@@ -1,4 +1,5 @@
 #include "MenuInicial.h"
+#include "MenuLeaderboard.h"
 
 MenuInicial::MenuInicial() : etapa(0), nJogadores(1), fase(1) {
     
@@ -72,9 +73,17 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
                         if (opcaoSelecionada + 1 < (int)opcoes.size()) opcaoSelecionada++;
                         break;
                     case sf::Keyboard::Enter:
-                        if (opcaoSelecionada == 1) etapa = 1;
-                        else return opcaoSelecionada; // 0 ou 2
-                        break;
+                        if (opcaoSelecionada == 1) {
+                            etapa = 1; // Configurar novo jogo
+                        }
+                        else if (opcaoSelecionada == 2) {
+                            MenuLeaderboard leaderboard;
+                            leaderboard.mostrar(window);
+                            continue; // volta ao menu inicial
+                        }
+                        else {
+                            return opcaoSelecionada; // Carregar jogo, etc.
+                        }
                     default: break;
                     }
                     

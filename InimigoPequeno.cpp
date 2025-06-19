@@ -7,7 +7,7 @@ InimigoPequeno::InimigoPequeno(Vector2f pos) :
 	num_vidas = VIDA_BAIXO;
 
 	nivel_maldade = DANO_BAIXO;
-	agilidade = 1.f;
+	aceleracao = ACELERACAO_BAIXO;
 	direcao = 1;
 
 	posinicial = pos;
@@ -47,7 +47,7 @@ void InimigoPequeno::mover()
 		direcao = 1;
 	}
 
-	corpo.setPosition(posAtual.x + agilidade * direcao, posAtual.y);
+	corpo.setPosition(posAtual.x + aceleracao * direcao, posAtual.y);
 }
 
 void InimigoPequeno::salvar()

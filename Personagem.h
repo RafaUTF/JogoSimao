@@ -7,7 +7,7 @@ class Personagem : public Entidade
 {
 protected:
 	int num_vidas;
-	float agilidade;
+	float aceleracao;
 
 	ListaEntidades* tiros;
 
@@ -28,7 +28,7 @@ public:
 
 	void setChao(bool b);
 
-	virtual void atirar(short int f=1);
+	virtual void atirar(short int f = 1);
 
 	ListaEntidades* getTiros();
 
@@ -45,6 +45,8 @@ public:
 	void setVida(int v);
 
 	void colidir(Entidade* pe = NULL, int d = 0);
+
+	void incluirTiros(Projetil* p);
 
 
 };

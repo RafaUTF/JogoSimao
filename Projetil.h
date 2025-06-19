@@ -13,7 +13,7 @@ protected:
 	Jogador* pDono;
 public:
 	Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f, ListaEntidades* pl = NULL,
-		Jogador* pdono = nullptr, short int f=0);
+		Jogador* pdono = nullptr, short int f = 0);
 	~Projetil();
 	void executar();
 	void salvar();
@@ -23,4 +23,8 @@ public:
 	void explodir(Personagem* pp = nullptr);
 
 	std::string getTipo() const { return "Projetil"; }
+
+	Vector2f getVelocidade();
+	void setVelocidade(Vector2f v);
+	void setDono(Jogador* pdono);
 };

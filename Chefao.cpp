@@ -12,7 +12,8 @@ Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
 
     nivel_maldade = DANO_ALTO;
 
-    agilidade = 0.7f;
+    aceleracao = ACELERACAO_CHEFE;
+
     p1 = pp1;
     p2 = pp2;
     criarTiros();
@@ -55,14 +56,7 @@ void Chefao::mover() {
         vel.y = 0;
         comChao = true;//tem q ter!
     }
-    /*
-    if (getcm().y + getRaio().y < CHAO) {
-        vel.y += GRAVIDADE;
-    }
-    else {//chao
-        vel.y = 0;
-    }*/
-
+   
     if (pAlvo)
         perseguir();
 

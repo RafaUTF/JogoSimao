@@ -36,6 +36,8 @@ private:
 
 	void tratarColisoesInimgsObstacs();
 	void tratarColisoesInimgsProjeteis();
+	void tratarColisoesInimgsInimgs();
+
 	void tratarColisoesProjeteisObstacs();
 public:
 	static Gerenciador_Colisoes* getInstancia();
@@ -52,6 +54,6 @@ public:
 	void removerEntidade(Entidade* pE);
 
 	set<Projetil*>& getProjeteis();
+
+	void limpaLista();
 };
-
-

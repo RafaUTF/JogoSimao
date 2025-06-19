@@ -31,5 +31,5 @@ public:
 	void executar();
 
 	Fase* getFase();
-	//void //executar as fases();
+	void mudarParaFase2(const std::string& caminho);
 };

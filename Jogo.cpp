@@ -2,6 +2,9 @@
 #include "Jogo.h"
 #include "Fase1.h"  // Inclua a Fase1 aqui
 #include "Fase2.h"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 Jogo::Jogo(int numPlayers_, int fase_)
     : GC(Gerenciador_Colisoes::getInstancia()),
@@ -30,19 +33,62 @@ Jogo::~Jogo()
     std::cout << "destrutora jogo" << std::endl;
 }
 
-void Jogo::executar()
-{
-    // Inicia loop da fase criada
-    if (pF1)
-        pF1->executar();
-    else if (pF2)
-        pF2->executar();
+void Jogo::executar() {
+    while (true) {
+        if (pF1) {
+            pF1->executar();
+            if (pF1->deveTrocarFase()) {
+                mudarParaFase2("save.json"); // define e executa Fase2
+                break;
+            }
+            else break; // terminou normalmente
+        }
+        else if (pF2) {
+            pF2->executar();
+            break; // jogo terminou aqui
+        }
+    }
 }
-
 Fase* Jogo::getFase()
 {
     if(pF1)
         return pF1;
     else if(pF2)
 		return pF2;
+}
+
+void Jogo::mudarParaFase2(const std::string& caminho)
+{
+    json estado;
+
+    std::ifstream in(caminho);
+    if (in.is_open()) {
+        in >> estado;
+    }
+
+    int pontos1 = pF1->getPontos1();
+    int pontos2 = pF1->getPontos2();
+
+    if (pF1) {
+        delete pF1;
+        pF1 = nullptr;
+    }
+
+    Jogador::jogador1 = true;
+
+    pF2 = new Fase2(GC, GG, numPlayers);
+    pF2->criarMapa("mapa2.json");
+
+    pF2->setPontos1(pontos1);
+    pF2->setPontos2(pontos2);
+
+    // Atualiza apenas vidas (sem reinserir ponteiros)
+    if (pF2->getJogador1())
+        pF2->getJogador1()->setVida(estado["jogador1"]["numvidas"]);
+
+    if (estado["numplayers"] == 2 && pF2->getJogador2())
+        pF2->getJogador2()->setVida(estado["jogador2"]["numvidas"]);
+
+
+    executar();
 }
