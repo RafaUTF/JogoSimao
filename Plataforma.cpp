@@ -26,7 +26,6 @@ void Plataforma::executar()
 void Plataforma::obstacular(Personagem* p, int d)
 {
 	if (!p) return;
-	p->zerarPulo();
 
 	if (d == 1) {
 		p->getVel().y = 0.f;
@@ -37,6 +36,8 @@ void Plataforma::obstacular(Personagem* p, int d)
 	}
 	if (d == 4) {
 		p->setChao(true);
+		p->zerarPulo();
+
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
 			p->getcm().x,

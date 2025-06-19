@@ -32,7 +32,7 @@ void TeiaAranha::obstacular(Personagem* p, int d)
 	if (!p) return;
 
 	p->reduzVelocidade(reducao);
-	p->reduzPulo(reducao);
+	p->reduzPulo();//reducao
 	if (d == 1) {
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
