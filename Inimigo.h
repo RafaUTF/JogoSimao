@@ -12,7 +12,7 @@ protected:
 	bool chefao;
 	Jogador* pAlvo;
 public:
-	Inimigo(Vector2f pos = (Vector2f(100.f, 100.f)));
+	Inimigo(ListaEntidades* t=nullptr, Vector2f pos = (Vector2f(100.f, 100.f)));
 	~Inimigo();
 	virtual void mover() = 0;
 

@@ -1,8 +1,8 @@
 #include "Personagem.h"
 
-Personagem::Personagem(Vector2f pos) :
+Personagem::Personagem(ListaEntidades* t, Vector2f pos) :
     Entidade(pos), num_vidas(VIDA_BASE),
-    agilidade(5.f), comChao(false), tiros(NULL),
+    aceleracao(ACELERACAO_BASE), comChao(false), tiros(t),
     recarga(TEMPO_RECARGA), olhandoDir(true)
 {
 
@@ -11,12 +11,14 @@ Personagem::Personagem(Vector2f pos) :
 
 Personagem::~Personagem()
 {
-
+    tiros = nullptr;
+    /*
     if (tiros) {
         cout << "destrutora personagem apagando a lista de tiros" << endl;
         delete tiros;
         tiros = NULL;
     }
+    */
 }
 
 void Personagem::mover()
@@ -40,7 +42,7 @@ void Personagem::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         cout << "CHEFAO ATIROU" << endl;
-        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr));
+        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr, f));
         recarga = 0;
     }
     else
@@ -55,12 +57,12 @@ void Personagem::criarTiros()
 
 void Personagem::reduzVelocidade(float fator)
 {
-    agilidade *= fator;
+    aceleracao *= fator;
 
 }
 
 void Personagem::restaurarVelocidade() {
-    agilidade = 1.f;
+    aceleracao = 1.f;
 }
 
 void Personagem::sofrerGravidade()

@@ -1,12 +1,12 @@
 #include "InimigoAlto.h"
 
 InimigoAlto::InimigoAlto(Vector2f pos) :
-	Inimigo(pos)
+	Inimigo(nullptr, pos)
 {
 	num_vidas = VIDA_BAIXO;
 
 	nivel_maldade = DANO_ALTO;
-	agilidade = 1.f;
+	aceleracao = ACELERACAO_ALTO;
 	direcao = 1;
 
 	posinicial = pos;
@@ -48,7 +48,7 @@ void InimigoAlto::mover()
 		direcao = 1;
 	}
 
-	corpo.setPosition(posAtual.x + agilidade * direcao, posAtual.y);
+	corpo.setPosition(posAtual.x + aceleracao * direcao, posAtual.y);
 }
 
 void InimigoAlto::salvar()

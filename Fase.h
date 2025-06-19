@@ -22,6 +22,8 @@ protected:
     Jogador* pJog2;
 
     ListaEntidades LE;
+    ListaEntidades* tiros;
+
     Gerenciador_Colisoes* pGC;
     Gerenciador_Grafico* pGG;
 

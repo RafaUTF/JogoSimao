@@ -5,7 +5,7 @@ class Fase2 : public Fase {
 
 private:
 
-    vector<Inimigo*> LIs;//lista de chefes
+    vector<Chefao*> LCs;//lista de chefes
 
 
     void criarInimigos();

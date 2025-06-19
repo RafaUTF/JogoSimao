@@ -45,6 +45,9 @@ void Fase1::executar() {
         }
         //cout << "a" << endl;
         LE.percorrer();//executa tudo menos projeteis
+
+		tiros->percorrer(); // percorre os projeteis
+
         //cout << "b" << endl;
         incluirProjeteisGC();//////////////////////////////////
         //cout << "c" << endl;
@@ -78,7 +81,7 @@ void Fase1::executar() {
 
 
             pGG->fechar();
-
+            
             return;
 
 
@@ -132,7 +135,7 @@ void Fase1::criarEntidades() {
 
 
 void Fase1::criarChefe(Vector2f pos) {
-    Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
+    Inimigo* chefe = new Chefao(tiros, pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
 }

@@ -45,6 +45,9 @@ void Fase2::executar() {
         //cout << "a" << endl;
         LE.percorrer();//executa tudo menos projeteis
         //cout << "b" << endl;
+
+        tiros->percorrer(); // percorre os projeteis
+
         incluirProjeteisGC();//////////////////////////////////
         //cout << "c" << endl;
         pGC->executar();
@@ -115,9 +118,10 @@ void Fase2::criarEntidades() {
 
 
 void Fase2::criarChefe(Vector2f pos) {
-    Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
+    Chefao* chefe = new Chefao(tiros, pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
+	LCs.push_back(chefe);////
 }
 
 void Fase2::criarInimigos()
@@ -348,7 +352,7 @@ void Fase2::carregarJogo(const std::string& caminho) {
 
         if (tipo == "Plataforma") no = new Plataforma(pos);
         else if (tipo == "Espinho") no = new Espinho(pos);
-        else if (tipo == "Chefao") ne = new Chefao(pJog1, pJog2, pos);
+        else if (tipo == "Chefao") ne = new Chefao(tiros, pJog1, pJog2, pos);
 
         sf::Vector2f posAtual(je["x"], je["y"]);
         sf::Vector2f posIni = posAtual;
@@ -404,9 +408,9 @@ void Fase2::desenharProjeteis()//mostra os projeteis na tela
         pJog1->getTiros()->desenhar();
     if (pJog2 && pJog2->getTiros())
         pJog2->getTiros()->desenhar();
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i] && LIs[i]->getTiros()) {
-            LIs[i]->getTiros()->desenhar();
+    for (int i = 0;i < LCs.size();i++) {
+        if (LCs[i] && LCs[i]->getTiros()) {
+            LCs[i]->getTiros()->desenhar();
         }
         else {
             cout << "ponteiro inimigo nulo em criar projeteis fase2" << endl;
@@ -436,10 +440,10 @@ void Fase2::incluirProjeteisGC()
         }
     }
 
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i] && LIs[i]->getTiros()) {
+    for (int i = 0;i < LCs.size();i++) {
+        if (LCs[i] && LCs[i]->getTiros()) {
             //cout << "3" << endl;
-            l = LIs[i]->getTiros();
+            l = LCs[i]->getTiros();
             j = 0;
             for (l->primeiro();!l->fim();l->operator++()) {
                 //cout << "c " << j++ << endl;
@@ -479,9 +483,9 @@ void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e 
         }
     }
 
-    for (int i = 0;i < LIs.size();i++) {
-        if (LIs[i] && LIs[i]->getTiros()) {
-            l = LIs[i]->getTiros();
+    for (int i = 0;i < LCs.size();i++) {
+        if (LCs[i] && LCs[i]->getTiros()) {
+            l = LCs[i]->getTiros();
             for (l->primeiro();!l->fim();l->operator++()) {
                 Projetil* pj = static_cast<Projetil*>(l->getAtual());
                 if (pj->getAtivo() == false) {
@@ -516,12 +520,17 @@ void Fase2::destruirNeutralizados()
                 pJog2 = nullptr;
             }
             else {
-                Chefao* pi = static_cast<Chefao*>(pe);
-                for (int i = 0;i < LIs.size();i++) {
-                    if (pi == LIs[i]) {
+                Chefao* pc = dynamic_cast<Chefao*>(pe);
+                bool eliminou = false;
+                vector<Chefao*>::iterator it = LCs.begin();
+                while (!eliminou && it != LCs.end()) {
+                    if (pc && pc == *it) {
                         cout << "chefe morreu" << endl;
-                        LIs[i] = nullptr;
+                        LCs.erase(it);
+                        eliminou = true;
                     }
+                    else
+                        it++;
                 }
             }
             LE.retirar(pe);

@@ -2,13 +2,13 @@
 bool Jogador::jogador1(true);
 
 
-Jogador::Jogador(Vector2f pos) : Personagem(pos), pontos(0)
+Jogador::Jogador(ListaEntidades* t, Vector2f pos) : Personagem(t, pos), pontos(0)
 {
     num_vidas = VIDA_JOGADOR;
 
-    agilidade = 1.f;
+    aceleracao = ACELERACAO_JOG;
 
-    criarTiros();
+    //criarTiros();
 
 
     if (jogador1) {
@@ -52,7 +52,7 @@ Jogador::~Jogador()
 void Jogador::executar() {
     mover();
     atirar();
-    tiros->percorrer();
+    //tiros->percorrer();
 }
 float modulo(float x);
 void Jogador::colidirJog(Jogador* p, int d)
@@ -148,9 +148,9 @@ void Jogador::mover()
         if (!comChao) {//NO AR
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                vel.x += -agilidade / 5;
+                vel.x += -aceleracao / 5.f;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                vel.x += agilidade / 5;
+                vel.x += aceleracao / 5.f;
 
             //ATRITO AR(VISCOSO)
             if (vel.x > 0) {
@@ -164,14 +164,14 @@ void Jogador::mover()
                     vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-                vel.y += agilidade;
+                vel.y += aceleracao;
         }
         else if (getcm().y - getRaio().y < CHAO) {//CHAO
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                vel.x += -agilidade;
+                vel.x += -aceleracao;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-                vel.x += agilidade;
+                vel.x += aceleracao;
 
             //ATRITO CHAO
             if (vel.x > 0) {
@@ -186,7 +186,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * 2 * agilidade;
+                vel.y += -PULO * aceleracao;
                 comChao = false;
             }
         }
@@ -195,9 +195,9 @@ void Jogador::mover()
         if (!comChao) {//NO AR
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                vel.x += -agilidade / 5;
+                vel.x += -aceleracao / 5;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                vel.x += agilidade / 5;
+                vel.x += aceleracao / 5;
 
             //ATRITO AR(VISCOSO)
             if (vel.x > 0) {
@@ -211,14 +211,14 @@ void Jogador::mover()
                     vel.x = 0.f;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                vel.y += agilidade;
+                vel.y += aceleracao;
         }
         else if (getcm().y - getRaio().y < CHAO) {//CHAO
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                vel.x += -agilidade;
+                vel.x += -aceleracao;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                vel.x += agilidade;
+                vel.x += aceleracao;
 
             //ATRITO CHAO
             if (vel.x > 0) {
@@ -233,7 +233,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * 2 * agilidade;
+                vel.y += -PULO * aceleracao;
                 comChao = false;
             }
         }

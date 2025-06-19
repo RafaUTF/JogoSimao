@@ -1,4 +1,5 @@
 #include "Espinho.h"
+#include "Chefao.h"
 
 Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
 {
@@ -21,7 +22,8 @@ Espinho::~Espinho()
 
 void Espinho::causarDano(Personagem* p)
 {
-	if (p != NULL) {
+	
+	if (p != nullptr) {
 		p->operator--();
 		cout << "Jogador atingido por espinho" << endl;
 	}
@@ -29,19 +31,32 @@ void Espinho::causarDano(Personagem* p)
 
 void Espinho::obstacular(Personagem* p, int d)
 {
+	Chefao* chefe = dynamic_cast<Chefao*>(p);
+	if (chefe) {
+		if (d == 4) {
+			p->getVel().y = 0.f;
+			p->getCorpo().setPosition(
+				p->getcm().x,
+				getcm().y - p->getRaio().y - getRaio().y
+			);
+		}
+	}
+	else {//nao é chefe
+		causarDano(p);
 
+		if (d == 4) {
+			p->getVel().y = 0.f;
+			p->getCorpo().setPosition(
+				p->getcm().x,
+				getcm().y - p->getRaio().y - getRaio().y - ELASTICIDADE_ESPINHO
+			);
+		}
+	}
 	if (d == 1) {
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
 			p->getcm().x,
 			getcm().y + p->getRaio().y + getRaio().y + ELASTICIDADE_ESPINHO
-		);
-	}
-	if (d == 4) {
-		p->getVel().y = 0.f;
-		p->getCorpo().setPosition(
-			p->getcm().x,
-			getcm().y - p->getRaio().y - getRaio().y - ELASTICIDADE_ESPINHO
 		);
 	}
 	if (d == 2) {
@@ -58,8 +73,6 @@ void Espinho::obstacular(Personagem* p, int d)
 			p->getcm().y
 		);
 	}
-
-	causarDano(p);
 }
 
 void Espinho::executar() {

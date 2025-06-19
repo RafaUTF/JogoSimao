@@ -1,10 +1,10 @@
 #include "Inimigo.h"
 
-Inimigo::Inimigo(Vector2f pos) :
-    Personagem(pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
+Inimigo::Inimigo(ListaEntidades* t, Vector2f pos) :
+    Personagem(t, pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
     nivel_maldade(NIVEL_MALDADE_BASICO), chefao(false)
 {
-    agilidade = 1.f;
+    aceleracao = ACELERACAO_CHEFE;
 
     corpo.setSize(Vector2f(150.f, 70.f));
     centralizarEntidade();
@@ -29,11 +29,15 @@ void Inimigo::danificar(Jogador* p, int d)
             p->operator--();
         }
         if (d == 1) {
+            p->setVida(0);
+			cout << "jogador morreu esmagado!!!" << endl;
+            /*
             p->getVel().y = 0.f;
             p->getCorpo().setPosition(
                 p->getcm().x,
                 getcm().y + p->getRaio().y + getRaio().y
             );
+            */
         }
         if (d == 2) {
             p->getVel().x = 0.f;
@@ -87,9 +91,9 @@ void Inimigo::perseguir()
     if (!comChao) {//NO AR
 
         if (pAlvo->getcm().x < getcm().x)
-            vel.x += -agilidade / 5;
+            vel.x += -aceleracao / 5;
         if (pAlvo->getcm().x > getcm().x)
-            vel.x += agilidade / 5;
+            vel.x += aceleracao / 5;
 
         //ATRITO AR(VISCOSO)
         if (vel.x > 0) {
@@ -103,14 +107,14 @@ void Inimigo::perseguir()
                 vel.x = 0.f;
         }
         if (pAlvo->getcm().y > getcm().y)
-            vel.y += agilidade;
+            vel.y += aceleracao;
     }
     else if (getcm().y - getRaio().y < CHAO) {//CHAO
 
         if (pAlvo->getcm().x < getcm().x)
-            vel.x += -agilidade;
+            vel.x += -aceleracao;
         if (pAlvo->getcm().x > getcm().x)
-            vel.x += agilidade;
+            vel.x += aceleracao;
 
         //ATRITO CHAO
         if (vel.x > 0) {
@@ -125,62 +129,12 @@ void Inimigo::perseguir()
         }
         if (pAlvo->getcm().y < getcm().y) {
             //cout << "pulo unico 2!" << endl;
-            vel.y += -PULO * 2 * agilidade;
+            vel.y += -PULO * aceleracao;
             comChao = false;
         }
     }
 
-    //
-    /*
-    if (getcm().y + getRaio().y < CHAO_CHEFE) {//NO AR
-
-        if (pAlvo->getcm().x < getcm().x)
-            vel.x += -agilidade / 5;
-        if (pAlvo->getcm().x > getcm().x)
-            vel.x += agilidade / 5;
-
-        //ATRITO AR(VISCOSO)
-        if (vel.x > 0) {
-            vel.x -= VISCOSO;
-            if (vel.x < 0)
-                vel.x = 0.f;
-        }
-        else if (vel.x < 0) {
-            vel.x += VISCOSO;
-            if (vel.x > 0)
-                vel.x = 0.f;
-        }
-        if (pAlvo->getcm().y > getcm().y)
-            vel.y += agilidade / 5;
-    }
-    else if (getcm().y - getRaio().y < CHAO_CHEFE) {//chao
-
-        if (pAlvo->getcm().x < getcm().x)
-            vel.x += -agilidade;
-        if (pAlvo->getcm().x > getcm().x)
-            vel.x += agilidade;
-
-        //ATRITO CHAO
-        if (vel.x > 0) {
-            vel.x -= ATRITO;
-            if (vel.x < 0)
-                vel.x = 0.f;
-        }
-        else if (vel.x < 0) {
-            vel.x += ATRITO;
-            if (vel.x > 0)
-                vel.x = 0.f;
-        }
-
-        if (pAlvo->getcm().y < getcm().y) {
-            //cout << "pulo unico inimigo!" << endl;
-            vel.y += -PULO * agilidade;
-        }
-    }
-    */
-
-    //////
-
+    
     //atrito do ar em y
     if (vel.y > 0) {
         vel.y -= VISCOSO;
@@ -199,10 +153,10 @@ void Inimigo::perseguir()
     //    vel.x = 0.f;
     //}
 
-    if (vel.x > MAX_VEL)
-        vel.x = MAX_VEL;
-    else if (vel.x < -MAX_VEL)
-        vel.x = -MAX_VEL;
+    if (vel.x > MAX_VEL* aceleracao)
+        vel.x = MAX_VEL * aceleracao;
+    else if (vel.x < -MAX_VEL * aceleracao)
+        vel.x = -MAX_VEL * aceleracao;
 
     if (vel.x > 0)
         olhandoDir = true;
@@ -210,6 +164,7 @@ void Inimigo::perseguir()
         olhandoDir = false;
 }
 float modulo(float x);
+
 void Inimigo::colidirInim(Inimigo* p, int d)
 {
     float dx = p->getcm().x - getcm().x,//+ -> colisao dir do pe1

@@ -1,6 +1,7 @@
 #pragma once
 #include "Personagem.h" 
 
+class ListaEntidades;
 class Jogador : public Personagem
 {
 protected:
@@ -11,7 +12,7 @@ protected:
 public:
 	static bool jogador1;
 
-	Jogador(Vector2f pos = (Vector2f(0.f, 0.f)));
+	Jogador(ListaEntidades* t=nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Jogador();
 	void mover();
 

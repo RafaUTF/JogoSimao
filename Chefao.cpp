@@ -3,8 +3,8 @@
 
 
 
-Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
-    Inimigo(pos), forca(FORCA_CHEFE)
+Chefao::Chefao(ListaEntidades* t, Jogador* pp1, Jogador* pp2, Vector2f pos) :
+    Inimigo(t, pos), forca(FORCA_CHEFE)
 {
     chefao = true;
 
@@ -12,10 +12,11 @@ Chefao::Chefao(Jogador* pp1, Jogador* pp2, Vector2f pos) :
 
     nivel_maldade = DANO_ALTO;
 
-    agilidade = 0.7f;
+    aceleracao = ACELERACAO_CHEFE;
+
     p1 = pp1;
     p2 = pp2;
-    criarTiros();
+    //criarTiros();
 
     corpo.setSize(Vector2f(150.f, 150.f));
     centralizarEntidade();
@@ -38,7 +39,7 @@ void Chefao::executar()
     if (pAlvo) {
         atirar(forca);
     }
-    tiros->percorrer();
+    //tiros->percorrer();
 }
 
 void Chefao::salvar()
@@ -55,14 +56,7 @@ void Chefao::mover() {
         vel.y = 0;
         comChao = true;//tem q ter!
     }
-    /*
-    if (getcm().y + getRaio().y < CHAO) {
-        vel.y += GRAVIDADE;
-    }
-    else {//chao
-        vel.y = 0;
-    }*/
-
+   
     if (pAlvo)
         perseguir();
 

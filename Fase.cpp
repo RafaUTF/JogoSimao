@@ -11,16 +11,17 @@ void Fase::criarCenario()
 Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_) :
     pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
 {
+	tiros = new ListaEntidades();
 
     Ente::setpGG(gg); // define o gerenciador gr�fico no Ente base
 
     numPlayers = numPlayers_;
 
-    pJog1 = new Jogador();
+    pJog1 = new Jogador(tiros);
     LE.incluir(pJog1);
     pGC->incluirJogador(pJog1);
     if (numPlayers == 2) {
-        pJog2 = new Jogador();
+        pJog2 = new Jogador(tiros);
         LE.incluir(pJog2);
         pGC->incluirJogador(pJog2);
     }
@@ -31,6 +32,9 @@ Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_) :
 
 Fase::~Fase() {
     // A lista deve deletar todas as entidades automaticamente.
+	cout << "destrutora fase apagando a lista de projeteis(tiros)" << endl;
+    delete tiros;
+    tiros = nullptr;
 }
 
 void Fase::executar()

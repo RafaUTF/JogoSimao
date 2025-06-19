@@ -173,7 +173,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 			pi = *it;
 			d = verificarDirecao(pJog1, pi);
 			if (d != 0) {
-				if (d == 4) {
+				if (d == 4) {//neutraliza o inimigo
 					pJog1->getVel().y = 0.f;
 					pJog1->getCorpo().setPosition(
 						pJog1->getcm().x,

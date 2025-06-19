@@ -7,7 +7,7 @@ class Personagem : public Entidade
 {
 protected:
 	int num_vidas;
-	float agilidade;
+	float aceleracao;
 
 	ListaEntidades* tiros;
 
@@ -20,7 +20,7 @@ protected:
 
 
 public:
-	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
+	Personagem(ListaEntidades* t= nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Personagem();
 	virtual void mover();
 
