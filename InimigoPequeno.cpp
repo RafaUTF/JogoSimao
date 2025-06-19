@@ -45,6 +45,7 @@ void InimigoPequeno::executar()
 
 void InimigoPequeno::mover()
 {
+	sofrerGravidade();
 
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
@@ -56,7 +57,7 @@ void InimigoPequeno::mover()
 		direcao = 1;
 	}
 
-	corpo.setPosition(posAtual.x + aceleracao * direcao, posAtual.y);
+	corpo.move(aceleracao * direcao, 0.f);
 }
 
 void InimigoPequeno::salvar()

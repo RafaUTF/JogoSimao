@@ -48,14 +48,7 @@ void Chefao::salvar()
 
 void Chefao::mover() {
 
-    //GRAVIDADE ANTES!
-    if (getcm().y + getRaio().y < CHAO && !comChao) {
-        vel.y += GRAVIDADE;
-    }
-    else {//chao // comChao == true
-        vel.y = 0;
-        comChao = true;//tem q ter!
-    }
+	sofrerGravidade();
    
     if (pAlvo)
         perseguir();
@@ -64,3 +57,4 @@ void Chefao::mover() {
 
 
 }
+

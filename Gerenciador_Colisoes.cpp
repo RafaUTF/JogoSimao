@@ -180,6 +180,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 					pi->setVida(0);
 					pJog->operator++();
 					pJog->setChao(true);
+					pJog->reduzPulo();
 
 				}
 				else {

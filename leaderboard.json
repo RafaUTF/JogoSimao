@@ -1,5 +1,9 @@
 [
     {
+        "nome": "q",
+        "pontuacao": 400
+    },
+    {
         "nome": "rafa",
         "pontuacao": 103
     },
@@ -34,9 +38,5 @@
     {
         "nome": "e",
         "pontuacao": 2
-    },
-    {
-        "nome": "aa",
-        "pontuacao": 1
     }
 ]

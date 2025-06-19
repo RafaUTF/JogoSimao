@@ -655,9 +655,9 @@
             "y": 160.0
         },
         {
-            "aceleracaoextra": 16.0,
+            "aceleracaoextra": 36.0,
             "type": "InimigoPequeno",
-            "x": 2749.0,
+            "x": 2713.0,
             "xi": 2656.0,
             "y": 144.0,
             "yi": 160.0
@@ -673,14 +673,6 @@
             "type": "Plataforma",
             "x": 0.0,
             "y": 192.0
-        },
-        {
-            "aceleracaoextra": 32.0,
-            "type": "InimigoPequeno",
-            "x": 1469.0,
-            "xi": 1408.0,
-            "y": 176.0,
-            "yi": 192.0
         },
         {
             "deslocamento": 0.0,
@@ -717,42 +709,6 @@
             "type": "Plataforma",
             "x": 0.0,
             "y": 224.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 416.0,
-            "y": 241.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 448.0,
-            "y": 241.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 480.0,
-            "y": 241.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 512.0,
-            "y": 241.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 544.0,
-            "y": 241.0
-        },
-        {
-            "deslocamento": 17.0,
-            "type": "Plataforma",
-            "x": 576.0,
-            "y": 241.0
         },
         {
             "deslocamento": 0.0,
@@ -839,14 +795,6 @@
             "y": 352.0
         },
         {
-            "aceleracaoextra": 42.0,
-            "type": "InimigoPequeno",
-            "x": 2537.0,
-            "xi": 2496.0,
-            "y": 336.0,
-            "yi": 352.0
-        },
-        {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
@@ -859,40 +807,40 @@
             "y": 384.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 672.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 704.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 736.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 768.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 800.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
-            "deslocamento": 36.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 832.0,
-            "y": 420.0
+            "y": 415.0
         },
         {
             "deslocamento": 0.0,
@@ -931,48 +879,40 @@
             "y": 384.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1696.0,
-            "y": 421.0
+            "y": 423.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1728.0,
-            "y": 421.0
+            "y": 423.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1760.0,
-            "y": 421.0
+            "y": 423.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1792.0,
-            "y": 421.0
+            "y": 423.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1824.0,
-            "y": 421.0
+            "y": 423.0
         },
         {
-            "deslocamento": 37.0,
+            "deslocamento": 39.0,
             "type": "Plataforma",
             "x": 1856.0,
-            "y": 421.0
-        },
-        {
-            "distanciapadrao": 71,
-            "type": "InimigoAlto",
-            "x": 2168.0,
-            "xi": 2144.0,
-            "y": 384.0,
-            "yi": 384.0
+            "y": 423.0
         },
         {
             "deslocamento": 0.0,
@@ -1011,40 +951,40 @@
             "y": 384.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2816.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2848.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2880.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2912.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2944.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
-            "deslocamento": 12.0,
+            "deslocamento": 31.0,
             "type": "Plataforma",
             "x": 2976.0,
-            "y": 396.0
+            "y": 415.0
         },
         {
             "deslocamento": 0.0,
@@ -1131,25 +1071,17 @@
             "y": 512.0
         },
         {
-            "distanciapadrao": 92,
+            "distanciapadrao": 78,
             "type": "InimigoAlto",
-            "x": 492.0,
-            "xi": 416.0,
-            "y": 512.0,
-            "yi": 512.0
-        },
-        {
-            "distanciapadrao": 43,
-            "type": "InimigoAlto",
-            "x": 737.0,
+            "x": 812.0,
             "xi": 736.0,
             "y": 512.0,
             "yi": 512.0
         },
         {
-            "distanciapadrao": 57,
+            "distanciapadrao": 49,
             "type": "InimigoAlto",
-            "x": 2528.0,
+            "x": 2512.0,
             "xi": 2496.0,
             "y": 512.0,
             "yi": 512.0
@@ -1179,17 +1111,9 @@
             "y": 576.0
         },
         {
-            "aceleracaoextra": 37.0,
+            "aceleracaoextra": 35.0,
             "type": "InimigoPequeno",
-            "x": 1453.0,
-            "xi": 1408.0,
-            "y": 560.0,
-            "yi": 576.0
-        },
-        {
-            "aceleracaoextra": 8.0,
-            "type": "InimigoPequeno",
-            "x": 2227.0,
+            "x": 2201.0,
             "xi": 2144.0,
             "y": 560.0,
             "yi": 576.0
@@ -1699,32 +1623,32 @@
             "y": 608.0
         },
         {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
+            "reducao": 0.0,
+            "type": "TeiaAranha",
             "x": 2656.0,
             "y": 608.0
         },
         {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
+            "reducao": 0.0,
+            "type": "TeiaAranha",
             "x": 2688.0,
             "y": 608.0
         },
         {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
+            "reducao": 0.0,
+            "type": "TeiaAranha",
             "x": 2720.0,
             "y": 608.0
         },
         {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
+            "reducao": 0.0,
+            "type": "TeiaAranha",
             "x": 2752.0,
             "y": 608.0
         },
         {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
+            "reducao": 0.0,
+            "type": "TeiaAranha",
             "x": 2784.0,
             "y": 608.0
         },
@@ -1803,11 +1727,17 @@
     ],
     "fase": 1,
     "jogador1": {
-        "numvidas": 12,
-        "pontos1": 0,
-        "x": 289.6995849609375,
+        "numvidas": 6,
+        "pontos1": 103,
+        "x": 3073.05712890625,
         "y": 560.0
     },
-    "numPlayers": 1,
+    "jogador2": {
+        "numvidas": 0,
+        "pontos2": 3,
+        "x": 0,
+        "y": 0
+    },
+    "numPlayers": 2,
     "projeteis": []
 }

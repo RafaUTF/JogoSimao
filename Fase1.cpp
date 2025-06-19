@@ -45,7 +45,7 @@ void Fase1::executar() {
         }
         //cout << "a" << endl;
         LE.percorrer();//executa tudo menos projeteis
-
+        
 		tiros->percorrer(); // percorre os projeteis
 
         //cout << "b" << endl;

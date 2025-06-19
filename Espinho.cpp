@@ -31,6 +31,9 @@ void Espinho::causarDano(Personagem* p)
 
 void Espinho::obstacular(Personagem* p, int d)
 {
+	if (!p) return;
+	p->reduzPulo();
+
 	Chefao* chefe = dynamic_cast<Chefao*>(p);
 	if (chefe) {
 		if (d == 4) {

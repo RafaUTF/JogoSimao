@@ -1,13 +1,12 @@
 #include "TeiaAranha.h"
 
-TeiaAranha::TeiaAranha(Vector2f pos, float redux) : Obstaculo(pos)
+TeiaAranha::TeiaAranha(Vector2f pos, float redux) : 
+	Obstaculo(pos), reducao(redux)
 {
 	danoso = false;
 
 	if (reducao == 0)
-		reducao = 0.05 + rand() % 10 / 100.f; 
-	else
-		reducao = redux;
+		reducao = 0.05 + (rand() % 10) / 10.f; 
 
 	cout << "teia com reducao: " << reducao << endl;
 
@@ -30,37 +29,38 @@ TeiaAranha::~TeiaAranha()
 
 void TeiaAranha::obstacular(Personagem* p, int d)
 {
-	if (p) {
-		p->reduzVelocidade(reducao); // 
-		if (d == 1) {
-			p->getVel().y = 0.f;
-			p->getCorpo().setPosition(
-				p->getcm().x,
-				getcm().y + p->getRaio().y + getRaio().y
-			);
-		}
-		if (d == 4) {
-			p->setChao(true);
-			p->getVel().y = 0.f;
-			p->getCorpo().setPosition(
-				p->getcm().x,
-				getcm().y - p->getRaio().y - getRaio().y
-			);
-		}
-		if (d == 2) {
-			p->getVel().x = 0.f;
-			p->getCorpo().setPosition(
-				getcm().x + p->getRaio().x + getRaio().x,
-				p->getcm().y
-			);
-		}
-		if (d == 3) {
-			p->getVel().x = 0.f;
-			p->getCorpo().setPosition(
-				getcm().x - p->getRaio().x - getRaio().x,
-				p->getcm().y
-			);
-		}
+	if (!p) return;
+
+	p->reduzVelocidade(reducao);
+	p->reduzPulo(reducao);
+	if (d == 1) {
+		p->getVel().y = 0.f;
+		p->getCorpo().setPosition(
+			p->getcm().x,
+			getcm().y + p->getRaio().y + getRaio().y
+		);
+	}
+	if (d == 4) {
+		p->setChao(true);
+		p->getVel().y = 0.f;
+		p->getCorpo().setPosition(
+			p->getcm().x,
+			getcm().y - p->getRaio().y - getRaio().y
+		);
+	}
+	if (d == 2) {
+		p->getVel().x = 0.f;
+		p->getCorpo().setPosition(
+			getcm().x + p->getRaio().x + getRaio().x,
+			p->getcm().y
+		);
+	}
+	if (d == 3) {
+		p->getVel().x = 0.f;
+		p->getCorpo().setPosition(
+			getcm().x - p->getRaio().x - getRaio().x,
+			p->getcm().y
+		);
 	}
 }
 

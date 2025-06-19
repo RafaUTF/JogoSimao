@@ -17,7 +17,7 @@ protected:
 
 	bool olhandoDir;
 
-
+	float forca_pulo;
 
 public:
 	Personagem(ListaEntidades* t= nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
@@ -30,14 +30,12 @@ public:
 
 	virtual void atirar(short int f = 1);
 
-	ListaEntidades* getTiros();
-
 	void criarTiros();
 
 	void reduzVelocidade(float fator);
 	void restaurarVelocidade();
 
-	virtual void sofrerGravidade();
+	void sofrerGravidade();
 
 	void operator--();
 	void operator-=(int dano);
@@ -45,9 +43,13 @@ public:
 	const int getVidas();
 	void setVida(int v);
 
-	void colidir(Entidade* pe = NULL, int d = 0);
+	void colidir(Entidade* pe = nullptr, int d = 0);
 
 	void incluirTiros(Projetil* p);
+
+	virtual void zerarPulo();
+
+	void reduzPulo(float fator=0.5f);
 
 
 };

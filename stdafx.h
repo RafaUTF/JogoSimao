@@ -16,7 +16,6 @@ using std::endl;
 
 #define ESQUERDA 50.f
 
-#define PULO 20.f
 #define ATRITO 0.5f
 #define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
@@ -63,3 +62,7 @@ using std::endl;
 #define ACELERACAO_ALTO 1.f
 #define ACELERACAO_BAIXO 2.f
 
+//PULO
+#define PULO_JOG -18.f
+#define PULO_INIMIGO -12.f
+#define PULO_FRACO -10.f

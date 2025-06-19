@@ -4,6 +4,8 @@ Inimigo::Inimigo(ListaEntidades* t, Vector2f pos) :
     Personagem(t, pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
     nivel_maldade(NIVEL_MALDADE_BASICO), chefao(false)
 {
+	forca_pulo = PULO_INIMIGO;
+
     aceleracao = ACELERACAO_CHEFE;
 
     corpo.setSize(Vector2f(150.f, 70.f));
@@ -134,7 +136,7 @@ void Inimigo::perseguir()
         }
         if (pAlvo->getcm().y < getcm().y) {
             //cout << "pulo unico 2!" << endl;
-            vel.y += -PULO * aceleracao;
+            vel.y += forca_pulo;
             comChao = false;
         }
     }
@@ -209,4 +211,9 @@ void Inimigo::colidirInim(Inimigo* p, int d)
         p->getCorpo().move(x / 2, 0.f);
 
     }
+}
+
+void Inimigo::zerarPulo()
+{
+	forca_pulo = PULO_INIMIGO;
 }
