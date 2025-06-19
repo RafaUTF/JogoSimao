@@ -1,7 +1,6 @@
 ﻿#include "Fase1.h"
 #include <fstream>
 #include "json.hpp"
-#include "BandeiraChegada.h"
 #include "MenuPause.h"
 
 using json = nlohmann::json;
@@ -46,6 +45,9 @@ void Fase1::executar() {
         }
         //cout << "a" << endl;
         LE.percorrer();//executa tudo menos projeteis
+
+		tiros->percorrer(); // percorre os projeteis
+
         //cout << "b" << endl;
         incluirProjeteisGC();//////////////////////////////////
         //cout << "c" << endl;
@@ -79,7 +81,7 @@ void Fase1::executar() {
 
 
             pGG->fechar();
-
+            
             return;
 
 
@@ -133,7 +135,7 @@ void Fase1::criarEntidades() {
 
 
 void Fase1::criarChefe(Vector2f pos) {
-    Inimigo* chefe = new Chefao(pJog1, pJog2, pos);
+    Inimigo* chefe = new Chefao(tiros, pJog1, pJog2, pos);
     LE.incluir(chefe);
     pGC->incluirInimigo(chefe);
 }
@@ -228,7 +230,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
             }
         
         //Inimigo Alto aleatório
-        if(id == 11){
+        if(id == 6){
             int chance = rand() % 2;
             if (chance == 0) {
                 InimigoAlto* inimigoalto = new InimigoAlto({ x, y });
@@ -263,15 +265,6 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
                 pGC->incluirObstaculo(plataforma);
             }
 
-        if (id == 10) {
-                criarChefe({ x, y });
-            }
-
-        if (id == 14) {
-                Espinho* espinho = new Espinho({ x, y });
-                LE.incluir(espinho);
-                pGC->incluirObstaculo(espinho);
-            }
 
         if (id == 13) {
                 TeiaAranha* teiaaranha = new TeiaAranha({ x, y });
@@ -292,12 +285,7 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
             }
 
 
-        if (id == 17) {
-            std::cout << "Criando bandeira em: " << x << ", " << y << std::endl;
-            BandeiraChegada* bandeiraChegada = new BandeiraChegada({ x, y });
-            LE.incluir(bandeiraChegada); // Garante que será desenhada
-            pGC->incluirObstaculo(bandeiraChegada); // Para colisão, se necessário
-        }
+
 
     }
 
@@ -433,7 +421,6 @@ void Fase1::carregarJogo(const std::string& caminho) {
 
         if (tipo == "TeiaAranha") no = new TeiaAranha(pos);
         else if (tipo == "Plataforma") no = new Plataforma(pos);
-        else if (tipo == "BandeiraChegada") no = new BandeiraChegada(pos);
 
         sf::Vector2f posAtual(je["x"], je["y"]);
         sf::Vector2f posIni = posAtual;

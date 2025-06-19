@@ -1,8 +1,8 @@
 #include "Personagem.h"
 
-Personagem::Personagem(Vector2f pos) :
+Personagem::Personagem(ListaEntidades* t, Vector2f pos) :
     Entidade(pos), num_vidas(VIDA_BASE),
-    agilidade(5.f), comChao(false), tiros(NULL),
+    aceleracao(ACELERACAO_BASE), comChao(false), tiros(t),
     recarga(TEMPO_RECARGA), olhandoDir(true)
 {
 
@@ -11,12 +11,14 @@ Personagem::Personagem(Vector2f pos) :
 
 Personagem::~Personagem()
 {
-
+    tiros = nullptr;
+    /*
     if (tiros) {
         cout << "destrutora personagem apagando a lista de tiros" << endl;
         delete tiros;
         tiros = NULL;
     }
+    */
 }
 
 void Personagem::mover()
@@ -36,11 +38,11 @@ ListaEntidades* Personagem::getTiros()
 
 
 
-void Personagem::atirar()
+void Personagem::atirar(short int f)
 {
     if (recarga >= TEMPO_RECARGA) {
         cout << "CHEFAO ATIROU" << endl;
-        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr));
+        tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr, f));
         recarga = 0;
     }
     else
@@ -55,12 +57,12 @@ void Personagem::criarTiros()
 
 void Personagem::reduzVelocidade(float fator)
 {
-    agilidade *= fator;
+    aceleracao *= fator;
 
 }
 
 void Personagem::restaurarVelocidade() {
-    agilidade = 1.f;
+    aceleracao = 1.f;
 }
 
 void Personagem::sofrerGravidade()
@@ -79,7 +81,7 @@ const int Personagem::getVidas()
 
 void Personagem::setVida(int v)
 {
-	num_vidas = v;
+    num_vidas = v;
 }
 
 void Personagem::colidir(Entidade* pe, int d)
@@ -107,7 +109,6 @@ void Personagem::colidir(Entidade* pe, int d)
         );
     }
     else {//d==4
-        comChao = true;
         getVel().y = 0.f;
         getVel().y = pe->getVel().y;
         getCorpo().setPosition(
@@ -124,37 +125,5 @@ void Personagem::incluirTiros(Projetil* p)
         cout << "criando lista de tiros" << endl;
         criarTiros();
     }
-	tiros->incluir(p);
+    tiros->incluir(p);
 }
-
-/*
-if (d == 1) {
-    //chao2 = true;
-    p2->getVel().y = p1->getVel().y;
-    p1->getCorpo().move(0.f, y / 2);
-    p2->getCorpo().move(0.f, -y / 2);
-
-}
-if (d == 4) {
-    //chao1 = true;
-    p1->getVel().y = p2->getVel().y;
-    p1->getCorpo().move(0.f, -y / 2);
-    p2->getCorpo().move(0.f, y / 2);
-
-}
-
-if (d == 2) {
-    p1->getVel().x = 0.f;
-    p2->getVel().x = 0.f;
-    p1->getCorpo().move(x / 2, 0.f);
-    p2->getCorpo().move(-x / 2, 0.f);
-
-}
-if (d == 3) {
-    p1->getVel().x = 0.f;
-    p2->getVel().x = 0.f;
-
-    p1->getCorpo().move(-x / 2, 0.f);
-    p2->getCorpo().move(x / 2, 0.f);
-
-}*/

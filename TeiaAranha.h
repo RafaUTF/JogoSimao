@@ -10,11 +10,9 @@ private:
 public:
 	TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)));
 	~TeiaAranha();
-	void causarDano(Jogador* pJog);
-	void obstacular(Jogador* p = NULL);
+	void obstacular(Personagem* p = NULL, int d = 0);
 	void executar();
 
 	std::string getTipo() const { return "TeiaAranha"; }
 
 };
-

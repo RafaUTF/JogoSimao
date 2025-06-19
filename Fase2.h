@@ -5,7 +5,7 @@ class Fase2 : public Fase {
 
 private:
 
-    vector<Inimigo*> LIs;//lista de chefes
+    vector<Chefao*> LCs;//lista de chefes
 
 
     void criarInimigos();
@@ -16,9 +16,10 @@ private:
     void desenharProjeteis();
     void destruirProjeteis();
 
-    void destruirNeutralizados();
+    
 
 public:
+    void destruirNeutralizados();
     Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
     ~Fase2();
 

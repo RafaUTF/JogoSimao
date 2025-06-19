@@ -1,20 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Arquivos de Origem">
-      <UniqueIdentifier>{c5fdb04e-a89c-4ab0-a1e1-1b1622659edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Arquivos de Cabeçalho">
-      <UniqueIdentifier>{8f88685d-7bac-444b-9c79-d2c43016e5d1}</UniqueIdentifier>
+    <Filter Include="fds">
+      <UniqueIdentifier>{1ae0090f-5641-4034-a001-259e6c90892e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="upheavtt.ttf">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Font>
     <Font Include="arial.ttf">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>fds</Filter>
     </Font>
+    <Font Include="upheavtt.ttf">
+      <Filter>fds</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="boss.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundo.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="espinho.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundomenu.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="inimigopequeno.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="inimigoalto.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="j1.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="j2.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="q.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="plataforma.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="teiaaranha.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="teste.png">
+      <Filter>fds</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chefao.cpp" />
@@ -33,16 +68,16 @@
     <ClCompile Include="Jogo.cpp" />
     <ClCompile Include="ListaEntidades.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuBase.cpp" />
     <ClCompile Include="MenuInicial.cpp" />
+    <ClCompile Include="MenuLeaderboard.cpp" />
     <ClCompile Include="MenuPause.cpp" />
     <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
     <ClCompile Include="Plataforma.cpp" />
     <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="TeiaAranha.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuLeaderboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chefao.h" />
@@ -62,8 +97,10 @@
     <ClInclude Include="Jogo.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="ListaEntidades.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuInicial.h" />
+    <ClInclude Include="MenuLeaderboard.h" />
     <ClInclude Include="MenuPause.h" />
     <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />
@@ -71,60 +108,22 @@
     <ClInclude Include="Projetil.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TeiaAranha.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="json.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>fds</Filter>
     </ClInclude>
-    <ClInclude Include="MenuLeaderboard.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="boss.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="espinho.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="fundo.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="fundomenu.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="inimigoalto.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="j1.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="j2.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="inimigopequeno.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="q.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="teiaaranha.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="plataforma.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-    <Image Include="teste.png">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="mapa1.json">
-      <Filter>Arquivos de Cabeçalho</Filter>
+    <None Include="save.json">
+      <Filter>fds</Filter>
     </None>
     <None Include="mapa2.json">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>fds</Filter>
     </None>
-    <None Include="save.json">
-      <Filter>Arquivos de Cabeçalho</Filter>
+    <None Include="mapa1.json">
+      <Filter>fds</Filter>
     </None>
-    <None Include="leaderboard.json" />
+    <None Include="leaderboard.json">
+      <Filter>fds</Filter>
+    </None>
   </ItemGroup>
 </Project>

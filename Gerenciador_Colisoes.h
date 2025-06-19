@@ -36,6 +36,8 @@ private:
 
 	void tratarColisoesInimgsObstacs();
 	void tratarColisoesInimgsProjeteis();
+	void tratarColisoesInimgsInimgs();
+
 	void tratarColisoesProjeteisObstacs();
 public:
 	static Gerenciador_Colisoes* getInstancia();
@@ -55,5 +57,3 @@ public:
 
 	void limpaLista();
 };
-
-

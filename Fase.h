@@ -10,7 +10,6 @@
 #include "Chefao.h"
 #include "InimigoPequeno.h"
 #include "InimigoAlto.h"
-#include "BandeiraChegada.h"
 
 class Fase : public Ente {
 protected:
@@ -23,6 +22,8 @@ protected:
     Jogador* pJog2;
 
     ListaEntidades LE;
+    ListaEntidades* tiros;
+
     Gerenciador_Colisoes* pGC;
     Gerenciador_Grafico* pGG;
 
@@ -41,9 +42,10 @@ protected:
 
     virtual void destruirProjeteis();
 
-    virtual void destruirNeutralizados();
+    
 
 public:
+    virtual void destruirNeutralizados();
     virtual void criarMapa(const std::string& caminhoJson) = 0;
     Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_);
     virtual ~Fase();

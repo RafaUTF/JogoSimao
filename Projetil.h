@@ -13,7 +13,7 @@ protected:
 	Jogador* pDono;
 public:
 	Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f, ListaEntidades* pl = NULL,
-		Jogador* pdono = nullptr);
+		Jogador* pdono = nullptr, short int f = 0);
 	~Projetil();
 	void executar();
 	void salvar();
@@ -26,6 +26,5 @@ public:
 
 	Vector2f getVelocidade();
 	void setVelocidade(Vector2f v);
-	Jogador* getDono();
 	void setDono(Jogador* pdono);
 };

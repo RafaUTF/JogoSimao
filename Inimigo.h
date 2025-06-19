@@ -1,9 +1,6 @@
 #pragma once
 #include "Personagem.h"
 
-#pragma once
-#include "Personagem.h"
-
 #include "Jogador.h"
 
 class Inimigo : public Personagem
@@ -15,7 +12,7 @@ protected:
 	bool chefao;
 	Jogador* pAlvo;
 public:
-	Inimigo(Vector2f pos = (Vector2f(100.f, 100.f)));
+	Inimigo(ListaEntidades* t=nullptr, Vector2f pos = (Vector2f(100.f, 100.f)));
 	~Inimigo();
 	virtual void mover() = 0;
 
@@ -26,5 +23,6 @@ public:
 	void escolherAlvo();
 
 	void perseguir();
-};
 
+	void colidirInim(Inimigo* p = nullptr, int d = 0);
+};

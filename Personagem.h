@@ -7,7 +7,7 @@ class Personagem : public Entidade
 {
 protected:
 	int num_vidas;
-	float agilidade;
+	float aceleracao;
 
 	ListaEntidades* tiros;
 
@@ -20,7 +20,7 @@ protected:
 
 
 public:
-	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
+	Personagem(ListaEntidades* t= nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 	~Personagem();
 	virtual void mover();
 
@@ -28,7 +28,7 @@ public:
 
 	void setChao(bool b);
 
-	virtual void atirar();
+	virtual void atirar(short int f = 1);
 
 	ListaEntidades* getTiros();
 
@@ -45,6 +45,8 @@ public:
 	void setVida(int v);
 
 	void colidir(Entidade* pe = NULL, int d = 0);
+
 	void incluirTiros(Projetil* p);
+
 
 };

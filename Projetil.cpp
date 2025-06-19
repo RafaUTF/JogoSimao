@@ -2,7 +2,8 @@
 
 #include "Jogador.h"
 
-Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogador* pdono) :
+Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogador* pdono,
+    short int f) :
     Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
 {
     /*
@@ -13,17 +14,18 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogad
         corpo.setTexture(textura);
     }
     */
+
     corpo.setSize(Vector2f(50.f, 50.f));
     centralizarEntidade();
     corpo.setFillColor(Color::White);
 
-
+    float v = static_cast<float>(f);
     if (dir) {
-        vel = (Vector2f(10.f, -10.f));
+        vel = (Vector2f(v , VY0));
         corpo.move(raio * 1.5f, 0.f);
     }
     else {
-        vel = (Vector2f(-10.f, -10.f));
+        vel = (Vector2f(-1.f * v, VY0));
         corpo.move(-raio * 1.5f, 0.f);
     }
 
@@ -62,10 +64,10 @@ void Projetil::explodir(Personagem* pp)
         pp->operator--();
         if (pp && pp != nullptr && pp->getVidas() == 0) {
             cout << "personagem neutralizado por projetil" << endl;
-            pDono->operator+=(100);
+            if(pDono)
+                pDono->operator+=(100);
         }
     }
-
 }
 
 Vector2f Projetil::getVelocidade()
@@ -75,16 +77,10 @@ Vector2f Projetil::getVelocidade()
 
 void Projetil::setVelocidade(Vector2f v)
 {
-    vel = v; 
-}
-
-Jogador* Projetil::getDono()
-{
-    return pDono;
+    vel = v;
 }
 
 void Projetil::setDono(Jogador* pdono)
 {
     pDono = pdono;
 }
-

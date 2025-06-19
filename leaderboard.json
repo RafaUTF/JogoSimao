@@ -1,22 +1,42 @@
 [
     {
+        "nome": "",
+        "pontuacao": 303
+    },
+    {
+        "nome": "\u001b",
+        "pontuacao": 204
+    },
+    {
+        "nome": "rafa",
+        "pontuacao": 103
+    },
+    {
+        "nome": "a",
+        "pontuacao": 102
+    },
+    {
+        "nome": "f",
+        "pontuacao": 101
+    },
+    {
+        "nome": "b",
+        "pontuacao": 100
+    },
+    {
+        "nome": "c",
+        "pontuacao": 100
+    },
+    {
         "nome": "Deb2",
         "pontuacao": 4
     },
     {
-        "nome": "Teste",
+        "nome": "e",
         "pontuacao": 2
     },
     {
-        "nome": "Deborah",
-        "pontuacao": 0
-    },
-    {
-        "nome": "Deborah",
-        "pontuacao": 0
-    },
-    {
-        "nome": "",
-        "pontuacao": 0
+        "nome": "aa",
+        "pontuacao": 1
     }
 ]

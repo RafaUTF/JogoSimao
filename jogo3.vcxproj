@@ -23,6 +23,20 @@
     <Font Include="upheavtt.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="boss.png" />
+    <Image Include="espinho.png" />
+    <Image Include="fundo.png" />
+    <Image Include="fundomenu.png" />
+    <Image Include="inimigoalto.png" />
+    <Image Include="inimigopequeno.png" />
+    <Image Include="j1.png" />
+    <Image Include="j2.png" />
+    <Image Include="plataforma.png" />
+    <Image Include="q.png" />
+    <Image Include="teiaaranha.png" />
+    <Image Include="teste.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Chefao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -82,20 +96,6 @@
     <ClInclude Include="TeiaAranha.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="boss.png" />
-    <Image Include="espinho.png" />
-    <Image Include="fundo.png" />
-    <Image Include="fundomenu.png" />
-    <Image Include="inimigoalto.png" />
-    <Image Include="inimigopequeno.png" />
-    <Image Include="j1.png" />
-    <Image Include="j2.png" />
-    <Image Include="plataforma.png" />
-    <Image Include="q.png" />
-    <Image Include="teiaaranha.png" />
-    <Image Include="teste.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="leaderboard.json" />
     <None Include="mapa1.json" />
     <None Include="mapa2.json" />
@@ -104,8 +104,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{17054197-009c-4a9c-a778-00b9c7b8bded}</ProjectGuid>
-    <RootNamespace>jogo</RootNamespace>
+    <ProjectGuid>{6bca9600-567e-4d50-b43e-c8064029aa4e}</ProjectGuid>
+    <RootNamespace>jogo3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -159,7 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,7 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,7 +193,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -210,7 +210,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\libraries\SFML-2.6.2\include;C:\Users\Vaio\Desktop\sfmlVS\SFML-2.6.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

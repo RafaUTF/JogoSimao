@@ -16,11 +16,11 @@ using std::endl;
 
 #define ESQUERDA 50.f
 
-#define PULO 10
+#define PULO 20.f
 #define ATRITO 0.5f
 #define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
-#define MAX_VEL 10.f//velocidade maxima
+#define MAX_VEL 5.f//velocidade maxima
 
 #define TEMPO_RECARGA 30
 
@@ -28,19 +28,38 @@ using std::endl;
 
 #define VISAO_INIMIGO2 80000.f//distancia que o inimigo enxerga ao quadrado
 
-#define CHAO_CHEFE 585.f
-
+//DANO FISICO INIMIGOS
 #define	NIVEL_MALDADE_BASICO 1
-#define	DANO_CHEFE 3
-#define	DANO_ALTO 2
-#define	DANO_BAIXO 1
+#define	DANO_CHEFE 5
+#define	DANO_ALTO 3
+#define	DANO_BAIXO 2
 
-#define	ELASTICIDADE_INIMIGO 20.f//usado no danificar do inimigo
-
+//VIDAS
 #define VIDA_BASE 1
-#define VIDA_JOGADOR 6
-#define VIDA_CHEFE 50
-#define VIDA_ALTO 4
+#define VIDA_JOGADOR 5
+#define VIDA_CHEFE 5
+#define VIDA_ALTO 3
 #define VIDA_BAIXO 2
 
+//ELASTICIDADES
+#define	ELASTICIDADE_INIMIGO 20.f//usado no danificar do inimigo
 #define	ELASTICIDADE_ESPINHO 10.f
+
+//VELOCIDADE PROJETEIS
+#define  VY0 -2.f
+
+#define FORCA_CHEFE 20
+#define FORCA_JOG 10
+
+
+#define CHAO_CHEFE 785.f
+
+#define MAX_CHEFES 5
+
+//ACELERACAO PERSONAGENS
+#define ACELERACAO_BASE 5.f
+#define ACELERACAO_CHEFE 0.2f
+#define ACELERACAO_JOG 0.8f
+#define ACELERACAO_ALTO 1.f
+#define ACELERACAO_BAIXO 2.f
+
