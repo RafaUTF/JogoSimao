@@ -36,7 +36,7 @@ using std::endl;
 
 //VIDAS
 #define VIDA_BASE 1
-#define VIDA_JOGADOR 5
+#define VIDA_JOGADOR 12
 #define VIDA_CHEFE 5
 #define VIDA_ALTO 3
 #define VIDA_BAIXO 2

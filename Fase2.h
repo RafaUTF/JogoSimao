@@ -11,15 +11,11 @@ private:
     void criarInimigos();
     void criarObstaculos();
 
-    void incluirProjeteisGC();
-
-    void desenharProjeteis();
-    void destruirProjeteis();
-
-    
 
 public:
+
     void destruirNeutralizados();
+
     Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
     ~Fase2();
 

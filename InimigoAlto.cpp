@@ -14,6 +14,7 @@ InimigoAlto::InimigoAlto(Vector2f pos) :
 
 	if (!textura.loadFromFile("inimigoalto.png")) {
 		std::cerr << "Erro ao carregar textura: inimigoalto.png" << std::endl;
+		corpo.setFillColor(sf::Color::Red); // DEBUG VISUAL
 	}
 
 	else {

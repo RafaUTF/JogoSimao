@@ -40,6 +40,7 @@ public:
 	virtual void sofrerGravidade();
 
 	void operator--();
+	void operator-=(int dano);
 
 	const int getVidas();
 	void setVida(int v);

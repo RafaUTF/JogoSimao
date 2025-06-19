@@ -45,6 +45,8 @@ void Espinho::obstacular(Personagem* p, int d)
 		causarDano(p);
 
 		if (d == 4) {
+			p->setChao(true);
+
 			p->getVel().y = 0.f;
 			p->getCorpo().setPosition(
 				p->getcm().x,

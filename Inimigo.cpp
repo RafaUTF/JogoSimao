@@ -20,7 +20,6 @@ void Inimigo::executar()
 {
     mover();
 }
-
 void Inimigo::danificar(Jogador* p, int d)
 {
     cout << "atacou" << endl;
@@ -29,15 +28,17 @@ void Inimigo::danificar(Jogador* p, int d)
             p->operator--();
         }
         if (d == 1) {
-            p->setVida(0);
-			cout << "jogador morreu esmagado!!!" << endl;
-            /*
-            p->getVel().y = 0.f;
-            p->getCorpo().setPosition(
-                p->getcm().x,
-                getcm().y + p->getRaio().y + getRaio().y
-            );
-            */
+            if (chefao) {
+                p->setVida(0);
+                cout << "jogador morreu esmagado!!!" << endl;
+            }
+            else {
+                p->getVel().y = 0.f;
+                p->getCorpo().setPosition(
+                    p->getcm().x,
+                    getcm().y + p->getRaio().y + getRaio().y
+                );
+            }
         }
         if (d == 2) {
             p->getVel().x = 0.f;
@@ -58,6 +59,7 @@ void Inimigo::danificar(Jogador* p, int d)
         cout << "jogador nulo" << endl;
     }
 }
+
 
 void Inimigo::escolherAlvo()
 {

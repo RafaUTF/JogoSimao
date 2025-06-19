@@ -556,6 +556,13 @@
             "y": 192.0
         },
         {
+            "type": "InimigoPequeno",
+            "x": 1422.0,
+            "xi": 1408.0,
+            "y": 176.0,
+            "yi": 192.0
+        },
+        {
             "type": "Plataforma",
             "x": 2656.0,
             "y": 192.0
@@ -686,6 +693,20 @@
             "y": 352.0
         },
         {
+            "type": "InimigoPequeno",
+            "x": 1166.0,
+            "xi": 1152.0,
+            "y": 336.0,
+            "yi": 352.0
+        },
+        {
+            "type": "InimigoPequeno",
+            "x": 2510.0,
+            "xi": 2496.0,
+            "y": 336.0,
+            "yi": 352.0
+        },
+        {
             "type": "Plataforma",
             "x": 3168.0,
             "y": 352.0
@@ -693,6 +714,36 @@
         {
             "type": "Plataforma",
             "x": 0.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 192.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 224.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 256.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 288.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 320.0,
+            "y": 384.0
+        },
+        {
+            "type": "Plataforma",
+            "x": 352.0,
             "y": 384.0
         },
         {
@@ -756,38 +807,8 @@
             "y": 384.0
         },
         {
-            "type": "Plataforma",
-            "x": 1696.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1728.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1760.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1792.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1824.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1856.0,
-            "y": 384.0
-        },
-        {
             "type": "InimigoAlto",
-            "x": 2186.0,
+            "x": 2145.0,
             "xi": 2144.0,
             "y": 384.0,
             "yi": 384.0
@@ -820,36 +841,6 @@
         {
             "type": "Plataforma",
             "x": 2592.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2816.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2848.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2880.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2912.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2944.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2976.0,
             "y": 384.0
         },
         {
@@ -924,22 +915,22 @@
         },
         {
             "type": "InimigoAlto",
-            "x": 778.0,
+            "x": 417.0,
+            "xi": 416.0,
+            "y": 512.0,
+            "yi": 512.0
+        },
+        {
+            "type": "InimigoAlto",
+            "x": 737.0,
             "xi": 736.0,
             "y": 512.0,
             "yi": 512.0
         },
         {
             "type": "InimigoAlto",
-            "x": 2538.0,
+            "x": 2497.0,
             "xi": 2496.0,
-            "y": 512.0,
-            "yi": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2922.0,
-            "xi": 2880.0,
             "y": 512.0,
             "yi": 512.0
         },
@@ -965,14 +956,14 @@
         },
         {
             "type": "InimigoPequeno",
-            "x": 1435.0,
+            "x": 1422.0,
             "xi": 1408.0,
             "y": 560.0,
             "yi": 576.0
         },
         {
             "type": "InimigoPequeno",
-            "x": 2171.0,
+            "x": 2158.0,
             "xi": 2144.0,
             "y": 560.0,
             "yi": 576.0
@@ -1485,16 +1476,16 @@
     ],
     "fase": 1,
     "jogador1": {
-        "numvidas": 0,
+        "numvidas": 12,
         "pontos1": 0,
-        "x": 0,
-        "y": 0
+        "x": 243.79998779296875,
+        "y": 560.0
     },
     "jogador2": {
-        "numvidas": 5,
-        "pontos2": 1,
-        "x": 3072.400146484375,
-        "y": 354.0
+        "numvidas": 0,
+        "pontos2": 0,
+        "x": 0,
+        "y": 0
     },
     "numPlayers": 2,
     "projeteis": []

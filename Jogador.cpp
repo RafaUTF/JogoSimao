@@ -64,7 +64,9 @@ void Jogador::colidirJog(Jogador* p, int d)
         x = drx - modulo(dx), y = dry - modulo(dy);
 
     if (d == 1) {
-        //chao2 = true;
+        if(modulo(p->getVel().x)< modulo(getVel().x))
+            p->getVel().x = getVel().x;
+
         p->setChao(true);
         p->getVel().y = getVel().y;
         getCorpo().move(0.f, y / 2);
@@ -72,7 +74,9 @@ void Jogador::colidirJog(Jogador* p, int d)
 
     }
     if (d == 4) {
-        //chao1 = true;
+        if(modulo(getVel().x)< modulo(p->getVel().x))
+            getVel().x = p->getVel().x;
+
         setChao(true);
         getVel().y = p->getVel().y;
         getCorpo().move(0.f, -y / 2);

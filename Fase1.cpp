@@ -61,7 +61,8 @@ void Fase1::executar() {
         //cout << "g" << endl;
         LE.desenhar();
         //cout << "h" << endl;
-        desenharProjeteis();
+        //desenharProjeteis();
+        tiros->desenhar();
         //cout << "i" << endl;
         pGG->mostrar();
         //cout << "j" << endl;
@@ -265,6 +266,15 @@ void Fase1::criarMapa(const std::string& caminhoJson) {
                 pGC->incluirObstaculo(plataforma);
             }
 
+        if (id == 10) {
+                criarChefe({ x, y });
+            }
+
+        if (id == 14) {
+                Espinho* espinho = new Espinho({ x, y });
+                LE.incluir(espinho);
+                pGC->incluirObstaculo(espinho);
+            }
 
         if (id == 13) {
                 TeiaAranha* teiaaranha = new TeiaAranha({ x, y });
@@ -470,3 +480,31 @@ void Fase1::carregarJogo(const std::string& caminho) {
 
 }
 
+void Fase1::destruirNeutralizados()
+{
+    pGC->retirarPersonagens();
+
+    Entidade* pe = nullptr;
+    for (LE.primeiro();!LE.fim();LE.operator++()) {
+        pe = LE.getAtual();
+        if (pe && pe->getVidas() == 0) {
+            Jogador* pjog = static_cast<Jogador*>(pe);
+            if (pJog1 && pjog == pJog1) {
+                pontos1 = pJog1->getPontos();
+                cout << pJog1->getPontos() << endl;
+                cout << "j1 morreu" << endl;
+                cout << pontos1 << endl;
+                pJog1 = nullptr;
+            }
+            else if (pJog2 && pjog == pJog2) {
+                pontos2 = pJog2->getPontos();
+                cout << "j2 morreu" << endl;
+                pJog2 = nullptr;
+            }
+
+            LE.retirar(pe);
+            delete pe;
+            pe = nullptr;
+        }
+    }
+}

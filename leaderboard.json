@@ -1,13 +1,5 @@
 [
     {
-        "nome": "",
-        "pontuacao": 303
-    },
-    {
-        "nome": "\u001b",
-        "pontuacao": 204
-    },
-    {
         "nome": "rafa",
         "pontuacao": 103
     },
@@ -28,8 +20,16 @@
         "pontuacao": 100
     },
     {
+        "nome": "d",
+        "pontuacao": 100
+    },
+    {
         "nome": "Deb2",
         "pontuacao": 4
+    },
+    {
+        "nome": "",
+        "pontuacao": 3
     },
     {
         "nome": "e",

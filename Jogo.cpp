@@ -69,33 +69,38 @@ void Jogo::mudarParaFase2(const std::string& caminho)
     int pontos1 = pF1->getPontos1();
     int pontos2 = pF1->getPontos2();
 
-    if (pF1) {
-        delete pF1;
-        pF1 = nullptr;
-    }
-
     Jogador::jogador1 = true;
 
     pF2 = new Fase2(GC, GG, numPlayers);
     pF2->criarMapa("mapa2.json");
 
+    if (pF1) {
+        delete pF1;
+        pF1 = nullptr;
+    }
+
     pF2->setPontos1(pontos1);
     pF2->setPontos2(pontos2);
 
     pF2->getJogador1()->setVida(0);
-    if (estado["numplayers"] == 2)
+    if (estado["numPlayers"] == 2)
         pF2->getJogador2()->setVida(0);
+
+    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
 
     // Atualiza apenas vidas (sem reinserir ponteiros)
     if (pF2->getJogador1())
         pF2->getJogador1()->setVida(estado["jogador1"]["numvidas"]);
-		
 
-    if (estado["numplayers"] == 2 && pF2->getJogador2())
+
+    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
+
+    if (estado["numPlayers"] == 2 && pF2->getJogador2() && estado["jogador2"]["numvidas"] > 0)
         pF2->getJogador2()->setVida(estado["jogador2"]["numvidas"]);
-	
 
-	pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
+    cout << "VIdas2" << pF2->getJogador2()->getVidas() << endl;
+
+    pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
 
 
     executar();

@@ -97,7 +97,6 @@ void Gerenciador_Colisoes::executar() {
 }
 
 
-
 const int Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) const
 {
 	if (pe1 == NULL) {
@@ -128,7 +127,6 @@ const int Gerenciador_Colisoes::verificarDirecao(Entidade* pe1, Entidade* pe2) c
 	}
 	return 0;
 }
-
 
 //empurra
 void Gerenciador_Colisoes::tratarColisoesJogs() {
@@ -165,26 +163,27 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstacs() {
 
 void Gerenciador_Colisoes::tratarColisoesJogsInimgs() {
 	Inimigo* pi = nullptr;
-	Jogador* pJog1 = nullptr;
+	Jogador* pJog = nullptr;
 	int d = 0;
 	for (int i = 0; i < LJs.size(); i++) {
-		pJog1 = LJs[i];
+		pJog = LJs[i];
 		for (vector<Inimigo*>::iterator it = LIs.begin(); it != LIs.end(); it++) {
 			pi = *it;
-			d = verificarDirecao(pJog1, pi);
+			d = verificarDirecao(pJog, pi);
 			if (d != 0) {
 				if (d == 4) {//neutraliza o inimigo
-					pJog1->getVel().y = 0.f;
-					pJog1->getCorpo().setPosition(
-						pJog1->getcm().x,
-						pi->getcm().y - pJog1->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
+					pJog->getVel().y = 0.f;
+					pJog->getCorpo().setPosition(
+						pJog->getcm().x,
+						pi->getcm().y - pJog->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
 					);
 					pi->setVida(0);
-					pJog1->operator++();
+					pJog->operator++();
+					pJog->setChao(true);
 
 				}
 				else {
-					pi->danificar(pJog1, d);
+					pi->danificar(pJog, d);
 				}
 			}
 		}

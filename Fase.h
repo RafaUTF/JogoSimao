@@ -42,10 +42,11 @@ protected:
 
     virtual void destruirProjeteis();
 
-    
 
 public:
-    virtual void destruirNeutralizados();
+
+    virtual void destruirNeutralizados() = 0;
+
     virtual void criarMapa(const std::string& caminhoJson) = 0;
     Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_);
     virtual ~Fase();

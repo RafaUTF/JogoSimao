@@ -74,6 +74,11 @@ void Personagem::operator--() {
         num_vidas--;
 }
 
+void Personagem::operator-=(int dano)
+{
+    num_vidas -= dano;
+}
+
 const int Personagem::getVidas()
 {
     return num_vidas;
