@@ -25,4 +25,6 @@ public:
 	void perseguir();
 
 	void colidirInim(Inimigo* p = nullptr, int d = 0);
+
+	void zerarPulo();
 };

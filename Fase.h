@@ -42,9 +42,11 @@ protected:
 
     virtual void destruirProjeteis();
 
-    virtual void destruirNeutralizados();
 
 public:
+
+    virtual void destruirNeutralizados() = 0;
+
     virtual void criarMapa(const std::string& caminhoJson) = 0;
     Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_);
     virtual ~Fase();
@@ -64,5 +66,5 @@ public:
 	Jogador* getJogador2() const { return pJog2; }
 
     void gravarNome(sf::RenderWindow* window);
-    
+    void finalFase();
 };

@@ -46,3 +46,10 @@ RectangleShape& Ente::getCorpo()
 {
 	return corpo;
 }
+
+void Ente::carregarTextura(const std::string& caminho)
+{
+	if (!textura.loadFromFile(caminho)) {
+		throw std::runtime_error("Erro ao carregar a imagem: " + caminho);
+	}
+}

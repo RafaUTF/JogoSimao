@@ -1,14 +1,16 @@
 ﻿#include "Plataforma.h"
 
-Plataforma::Plataforma(Vector2f pos) : Obstaculo(pos)
+Plataforma::Plataforma(Vector2f pos, float desloc) : Obstaculo(Vector2f(pos.x, pos.y + desloc)), deslocamento(desloc)
 {
 	corpo.setSize(Vector2f(32.f, 32.f));
 	centralizarEntidade();
-	if (!textura.loadFromFile("plataforma.png")) {
-		std::cerr << "Erro ao carregar a textura plataforma!" << std::endl;
-	}
-	else {
+	try {
+		carregarTextura("Plataforma.png");
 		corpo.setTexture(&textura);
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		corpo.setFillColor(sf::Color::Yellow); // fallback color
 	}
 	//corpo.setFillColor(sf::Color::Transparent);
 }
@@ -25,6 +27,8 @@ void Plataforma::executar()
 
 void Plataforma::obstacular(Personagem* p, int d)
 {
+	if (!p) return;
+
 	if (d == 1) {
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
@@ -34,6 +38,8 @@ void Plataforma::obstacular(Personagem* p, int d)
 	}
 	if (d == 4) {
 		p->setChao(true);
+		p->zerarPulo();
+
 		p->getVel().y = 0.f;
 		p->getCorpo().setPosition(
 			p->getcm().x,

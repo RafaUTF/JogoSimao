@@ -6,8 +6,9 @@ class Fase1 : public Fase {
 private: 
     bool proximaFase;
 
-
 public:
+    void destruirNeutralizados();
+
     Fase1(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
     ~Fase1();
 

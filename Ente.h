@@ -27,4 +27,6 @@ public:
 
 	RectangleShape& getCorpo();
 
+	void carregarTextura(const std::string& caminho);
+
 };

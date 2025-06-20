@@ -1,5 +1,9 @@
 [
     {
+        "nome": "q",
+        "pontuacao": 400
+    },
+    {
         "nome": "rafa",
         "pontuacao": 103
     },
@@ -20,23 +24,19 @@
         "pontuacao": 100
     },
     {
+        "nome": "d",
+        "pontuacao": 100
+    },
+    {
+        "nome": "a",
+        "pontuacao": 100
+    },
+    {
         "nome": "Deb2",
         "pontuacao": 4
     },
     {
-        "nome": "e",
-        "pontuacao": 2
-    },
-    {
-        "nome": "aa",
-        "pontuacao": 1
-    },
-    {
-        "nome": "Deborah",
-        "pontuacao": 1
-    },
-    {
-        "nome": "ruim",
-        "pontuacao": 1
+        "nome": "",
+        "pontuacao": 3
     }
 ]

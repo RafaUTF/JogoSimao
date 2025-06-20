@@ -1,6 +1,6 @@
 #include "InimigoAlto.h"
 
-InimigoAlto::InimigoAlto(Vector2f pos) :
+InimigoAlto::InimigoAlto(Vector2f pos, int distpad) :
 	Inimigo(nullptr, pos)
 {
 	num_vidas = VIDA_BAIXO;
@@ -11,14 +11,19 @@ InimigoAlto::InimigoAlto(Vector2f pos) :
 
 	posinicial = pos;
 
+	if(distpad == 0)
+		distanciapadrao = rand() % 64 + 32; // Distância aleatória entre 32 e 96 pixels
+	else 
+		distanciapadrao = distpad;
 
-	if (!textura.loadFromFile("inimigoalto.png")) {
-		std::cerr << "Erro ao carregar textura: inimigoalto.png" << std::endl;
-		corpo.setFillColor(sf::Color::Red); // DEBUG VISUAL
-	}
 
-	else {
+	try {
+		carregarTextura("inimigoalto.png");
 		corpo.setTexture(&textura);
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		corpo.setFillColor(sf::Color::Red); // fallback color
 	}
 	cout << "INIMIGOALTO CRIADO" << endl;
 	corpo.setSize(Vector2f(64.f, 160.f));
@@ -37,18 +42,19 @@ void InimigoAlto::executar()
 
 void InimigoAlto::mover()
 {
+	sofrerGravidade();
 
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
 
-	if (direcao == 1 && distancia >= 96.f) {
+	if (direcao == 1 && distancia >= distanciapadrao) {
 		direcao = -1;
 	}
 	else if (direcao == -1 && distancia <= 0.f) {
 		direcao = 1;
 	}
 
-	corpo.setPosition(posAtual.x + aceleracao * direcao, posAtual.y);
+	corpo.move(aceleracao * direcao, 0.f);
 }
 
 void InimigoAlto::salvar()

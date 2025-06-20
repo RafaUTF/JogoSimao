@@ -4,6 +4,8 @@ Inimigo::Inimigo(ListaEntidades* t, Vector2f pos) :
     Personagem(t, pos), pAlvo(nullptr), p1(nullptr), p2(nullptr),
     nivel_maldade(NIVEL_MALDADE_BASICO), chefao(false)
 {
+	forca_pulo = PULO_INIMIGO;
+
     aceleracao = ACELERACAO_CHEFE;
 
     corpo.setSize(Vector2f(150.f, 70.f));
@@ -20,7 +22,6 @@ void Inimigo::executar()
 {
     mover();
 }
-
 void Inimigo::danificar(Jogador* p, int d)
 {
     cout << "atacou" << endl;
@@ -29,15 +30,17 @@ void Inimigo::danificar(Jogador* p, int d)
             p->operator--();
         }
         if (d == 1) {
-            p->setVida(0);
-			cout << "jogador morreu esmagado!!!" << endl;
-            /*
-            p->getVel().y = 0.f;
-            p->getCorpo().setPosition(
-                p->getcm().x,
-                getcm().y + p->getRaio().y + getRaio().y
-            );
-            */
+            if (chefao) {
+                p->setVida(0);
+                cout << "jogador morreu esmagado!!!" << endl;
+            }
+            else {
+                p->getVel().y = 0.f;
+                p->getCorpo().setPosition(
+                    p->getcm().x,
+                    getcm().y + p->getRaio().y + getRaio().y
+                );
+            }
         }
         if (d == 2) {
             p->getVel().x = 0.f;
@@ -59,30 +62,34 @@ void Inimigo::danificar(Jogador* p, int d)
     }
 }
 
+
 void Inimigo::escolherAlvo()
 {
     pAlvo = nullptr;
-    float dx1 = p1->getcm().x - getcm().x,
-        dy1 = p1->getcm().y - getcm().y,
-        dquadrado1 = dx1 * dx1 + dy1 * dy1;
-    if (p2) {
-        float dx2 = p2->getcm().x - getcm().x,
-            dy2 = p2->getcm().y - getcm().y,
-            dquadrado2 = dx2 * dx2 + dy2 * dy2;
 
-        if (dquadrado1 > dquadrado2) {
-            if (dquadrado2 < VISAO_INIMIGO2)
-                pAlvo = p2;
-            else
-                pAlvo = nullptr;
-        }
-        else if (dquadrado1 < VISAO_INIMIGO2) {
-            pAlvo = p1;
-        }
+    float dquadrado1 = std::numeric_limits<float>::max();
+    float dquadrado2 = std::numeric_limits<float>::max();
+
+    if (p1) {
+        float dx1 = p1->getcm().x - getcm().x;
+        float dy1 = p1->getcm().y - getcm().y;
+        dquadrado1 = dx1 * dx1 + dy1 * dy1;
     }
-    else {//so tem o jogador1
-        if (dquadrado1 < VISAO_INIMIGO2)
-            pAlvo = p1;
+
+    if (p2) {
+        float dx2 = p2->getcm().x - getcm().x;
+        float dy2 = p2->getcm().y - getcm().y;
+        dquadrado2 = dx2 * dx2 + dy2 * dy2;
+    }
+
+    if (dquadrado1 < dquadrado2 && dquadrado1 < VISAO_INIMIGO2) {
+        pAlvo = p1;
+    }
+    else if (dquadrado2 < dquadrado1 && dquadrado2 < VISAO_INIMIGO2) {
+        pAlvo = p2;
+    }
+    else if (dquadrado1 == dquadrado2 && dquadrado1 < VISAO_INIMIGO2) {
+        pAlvo = (rand() % 2 == 0) ? p1 : p2;  // ambos à mesma distância
     }
 }
 
@@ -129,7 +136,7 @@ void Inimigo::perseguir()
         }
         if (pAlvo->getcm().y < getcm().y) {
             //cout << "pulo unico 2!" << endl;
-            vel.y += -PULO * aceleracao;
+            vel.y += forca_pulo;
             comChao = false;
         }
     }
@@ -204,4 +211,9 @@ void Inimigo::colidirInim(Inimigo* p, int d)
         p->getCorpo().move(x / 2, 0.f);
 
     }
+}
+
+void Inimigo::zerarPulo()
+{
+	forca_pulo = PULO_INIMIGO;
 }

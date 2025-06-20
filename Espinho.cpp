@@ -6,12 +6,13 @@ Espinho::Espinho(Vector2f pos) : Obstaculo(pos), dano(1)
 	danoso = true;
 	corpo.setSize(sf::Vector2f(32.f, 32.f));
 	centralizarEntidade();
-	if (!textura.loadFromFile("espinho.png")) {
-		std::cerr << "Erro ao carregar a textura espinho!" << std::endl;
-	}
-	else {
+	try {
+		carregarTextura("espinho.png");
 		corpo.setTexture(&textura);
-		cout << "construtora espinho" << endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		corpo.setFillColor(sf::Color::White); // fallback color
 	}
 }
 
@@ -31,6 +32,9 @@ void Espinho::causarDano(Personagem* p)
 
 void Espinho::obstacular(Personagem* p, int d)
 {
+	if (!p) return;
+	p->reduzPulo();
+
 	Chefao* chefe = dynamic_cast<Chefao*>(p);
 	if (chefe) {
 		if (d == 4) {
@@ -45,6 +49,8 @@ void Espinho::obstacular(Personagem* p, int d)
 		causarDano(p);
 
 		if (d == 4) {
+			p->setChao(true);
+
 			p->getVel().y = 0.f;
 			p->getCorpo().setPosition(
 				p->getcm().x,

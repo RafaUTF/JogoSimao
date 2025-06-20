@@ -20,11 +20,13 @@ Chefao::Chefao(ListaEntidades* t, Jogador* pp1, Jogador* pp2, Vector2f pos) :
 
     corpo.setSize(Vector2f(150.f, 150.f));
     centralizarEntidade();
-    if (!textura.loadFromFile("boss.png")) {
-        std::cerr << "Erro ao carregar a textura boss!" << std::endl;
-    }
-    else {
+    try {
+        carregarTextura("boss.png");
         corpo.setTexture(&textura);
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        corpo.setFillColor(sf::Color::Red); // fallback color
     }
 }
 Chefao::~Chefao()
@@ -48,14 +50,7 @@ void Chefao::salvar()
 
 void Chefao::mover() {
 
-    //GRAVIDADE ANTES!
-    if (getcm().y + getRaio().y < CHAO && !comChao) {
-        vel.y += GRAVIDADE;
-    }
-    else {//chao // comChao == true
-        vel.y = 0;
-        comChao = true;//tem q ter!
-    }
+	sofrerGravidade();
    
     if (pAlvo)
         perseguir();
@@ -64,3 +59,4 @@ void Chefao::mover() {
 
 
 }
+

@@ -9,12 +9,17 @@ Gerenciador_Grafico::Gerenciador_Grafico() :
 	cout << "Gerenciador_Grafico criado" << endl;
 	janela->setFramerateLimit(FPS);
 
-	if (!textura.loadFromFile("fundo.png")) {
-		std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
-	}
-	else {
+
+	try {
+		if (!textura.loadFromFile("fundo.png")) {
+			throw std::runtime_error("Erro ao carregar a textura FUNDO!");
+		}
 		fundo.setTexture(textura);
 	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	fundo.setPosition(0.f, 0.f);
 	fundo.scale(1.5f, 1.5f);
 }

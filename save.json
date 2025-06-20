@@ -1,1444 +1,1697 @@
 {
     "entities": [
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 32.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 64.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 96.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 128.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 160.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 192.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 224.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 256.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 288.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 320.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 352.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 384.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 416.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 448.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 480.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 512.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 544.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 576.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 608.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 640.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 672.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 704.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 736.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 768.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 800.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 832.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 864.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 896.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 928.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 960.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 992.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1024.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1056.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1088.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1120.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1152.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1184.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1216.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1248.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1280.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1312.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1344.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1376.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1408.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1440.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1472.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1504.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1536.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1568.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1600.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1632.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1664.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1696.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1728.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1760.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1792.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1824.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1856.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1888.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1920.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1952.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1984.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2016.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2048.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2080.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2112.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2144.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2176.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2208.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2240.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2272.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2304.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2336.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2368.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2400.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2432.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2464.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2496.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2528.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2560.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2592.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2624.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2656.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2688.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2720.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2752.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2784.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2816.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2848.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2880.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2912.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2944.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2976.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3008.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3040.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3072.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3104.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3136.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 0.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 32.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 32.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 64.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 64.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 96.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 96.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 128.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 128.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 160.0
         },
         {
+            "aceleracaoextra": 12.0,
+            "type": "InimigoPequeno",
+            "x": 2733.0,
+            "xi": 2656.0,
+            "y": 144.0,
+            "yi": 160.0
+        },
+        {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 160.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 192.0
         },
         {
-            "type": "Plataforma",
-            "x": 2656.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2688.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2720.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2752.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 192.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1376.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1408.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1440.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1472.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1504.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1536.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 224.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 256.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 256.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 288.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 288.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 320.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 320.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 352.0
-        },
-        {
+            "aceleracaoextra": 23.0,
             "type": "InimigoPequeno",
-            "x": 1188.0,
-            "xi": 1152.0,
-            "y": 336.0,
-            "yi": 352.0
-        },
-        {
-            "type": "InimigoPequeno",
-            "x": 2532.0,
-            "xi": 2496.0,
-            "y": 336.0,
-            "yi": 352.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 352.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 672.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 704.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 736.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 768.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 800.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 832.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1088.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1120.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1152.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1184.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1216.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 1248.0,
-            "y": 384.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2240.0,
-            "xi": 2144.0,
-            "y": 384.0,
-            "yi": 384.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2176.0,
-            "xi": 2144.0,
-            "y": 384.0,
-            "yi": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2432.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2464.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2496.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2528.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2560.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2592.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2816.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2848.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2880.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2912.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2944.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2976.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 384.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 416.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 416.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 448.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 448.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2080.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2112.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2144.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2176.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2208.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 2240.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 480.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 832.0,
-            "xi": 736.0,
-            "y": 512.0,
-            "yi": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 768.0,
-            "xi": 736.0,
-            "y": 512.0,
-            "yi": 512.0
-        },
-        {
-            "type": "InimigoAlto",
-            "x": 2517.0,
-            "xi": 2496.0,
-            "y": 512.0,
-            "yi": 512.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 512.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 544.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 3168.0,
-            "y": 544.0
-        },
-        {
-            "type": "Plataforma",
-            "x": 0.0,
-            "y": 576.0
-        },
-        {
-            "type": "InimigoPequeno",
-            "x": 1444.0,
+            "x": 1487.0,
             "xi": 1408.0,
-            "y": 560.0,
-            "yi": 576.0
+            "y": 176.0,
+            "yi": 192.0
         },
         {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2656.0,
+            "y": 192.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2688.0,
+            "y": 192.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2720.0,
+            "y": 192.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2752.0,
+            "y": 192.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 192.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1376.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1408.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1440.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1472.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1504.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1536.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 1984.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 2016.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 2048.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 2080.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 2112.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 39.0,
+            "type": "Plataforma",
+            "x": 2144.0,
+            "y": 302.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 224.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 256.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 256.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 288.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 288.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 320.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 320.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 352.0
+        },
+        {
+            "aceleracaoextra": 29.0,
             "type": "InimigoPequeno",
-            "x": 2180.0,
-            "xi": 2144.0,
-            "y": 560.0,
-            "yi": 576.0
+            "x": 2553.0,
+            "xi": 2496.0,
+            "y": 336.0,
+            "yi": 352.0
         },
         {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 352.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 672.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 704.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 736.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 768.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 800.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 46.0,
+            "type": "Plataforma",
+            "x": 832.0,
+            "y": 476.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1088.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1120.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1152.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1184.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1216.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 1248.0,
+            "y": 384.0
+        },
+        {
+            "distanciapadrao": 49,
+            "type": "InimigoAlto",
+            "x": 2192.0,
+            "xi": 2144.0,
+            "y": 384.0,
+            "yi": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2432.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2464.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2496.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2528.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2560.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2592.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 384.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 416.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 416.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 448.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 448.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2080.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2112.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2144.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2176.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2208.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 2240.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 480.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 512.0
+        },
+        {
+            "distanciapadrao": 82,
+            "type": "InimigoAlto",
+            "x": 880.0,
+            "xi": 736.0,
+            "y": 512.0,
+            "yi": 512.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 512.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 544.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 3168.0,
+            "y": 544.0
+        },
+        {
+            "deslocamento": 0.0,
+            "type": "Plataforma",
+            "x": 0.0,
+            "y": 576.0
+        },
+        {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 576.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 32.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 64.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 96.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 128.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 160.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 192.0,
             "y": 608.0
         },
         {
+            "reducao": 0.949999988079071,
             "type": "TeiaAranha",
             "x": 224.0,
             "y": 608.0
         },
         {
+            "reducao": 0.3500000238418579,
             "type": "TeiaAranha",
             "x": 256.0,
             "y": 608.0
         },
         {
+            "reducao": 0.15000000596046448,
             "type": "TeiaAranha",
             "x": 288.0,
             "y": 608.0
         },
         {
+            "reducao": 0.75,
             "type": "TeiaAranha",
             "x": 320.0,
             "y": 608.0
         },
         {
+            "reducao": 0.550000011920929,
             "type": "TeiaAranha",
             "x": 352.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 384.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 416.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 448.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 480.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 512.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 544.0,
             "y": 608.0
         },
         {
+            "reducao": 0.15000000596046448,
             "type": "TeiaAranha",
             "x": 576.0,
             "y": 608.0
         },
         {
+            "reducao": 0.25,
             "type": "TeiaAranha",
             "x": 608.0,
             "y": 608.0
         },
         {
+            "reducao": 0.75,
             "type": "TeiaAranha",
             "x": 640.0,
             "y": 608.0
         },
         {
+            "reducao": 0.75,
             "type": "TeiaAranha",
             "x": 672.0,
             "y": 608.0
         },
         {
+            "reducao": 0.05000000074505806,
             "type": "TeiaAranha",
             "x": 704.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 736.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 768.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 800.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 832.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 864.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 896.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 928.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 960.0,
             "y": 608.0
         },
         {
+            "reducao": 0.45000001788139343,
             "type": "TeiaAranha",
             "x": 992.0,
             "y": 608.0
         },
         {
+            "reducao": 0.45000001788139343,
             "type": "TeiaAranha",
             "x": 1024.0,
             "y": 608.0
         },
         {
+            "reducao": 0.949999988079071,
             "type": "TeiaAranha",
             "x": 1056.0,
             "y": 608.0
         },
         {
+            "reducao": 0.15000000596046448,
             "type": "TeiaAranha",
             "x": 1088.0,
             "y": 608.0
         },
         {
+            "reducao": 0.8500000238418579,
             "type": "TeiaAranha",
             "x": 1120.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1152.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1184.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1216.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1248.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1280.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1312.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1344.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1376.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1408.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1440.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1472.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1504.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1536.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1568.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1600.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1632.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1664.0,
             "y": 608.0
         },
         {
+            "reducao": 0.8500000238418579,
             "type": "TeiaAranha",
             "x": 1696.0,
             "y": 608.0
         },
         {
+            "reducao": 0.949999988079071,
             "type": "TeiaAranha",
             "x": 1728.0,
             "y": 608.0
         },
         {
+            "reducao": 0.15000000596046448,
             "type": "TeiaAranha",
             "x": 1760.0,
             "y": 608.0
         },
         {
+            "reducao": 0.550000011920929,
             "type": "TeiaAranha",
             "x": 1792.0,
             "y": 608.0
         },
         {
+            "reducao": 0.949999988079071,
             "type": "TeiaAranha",
             "x": 1824.0,
             "y": 608.0
         },
         {
+            "reducao": 0.15000000596046448,
             "type": "TeiaAranha",
             "x": 1856.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1888.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1920.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1952.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1984.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2016.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2048.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2080.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2112.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2144.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2176.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2208.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2240.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2272.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2304.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2336.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2368.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2400.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2432.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2464.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2496.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2528.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2560.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2592.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2624.0,
             "y": 608.0
         },
         {
-            "type": "Plataforma",
+            "reducao": 0.45000001788139343,
+            "type": "TeiaAranha",
             "x": 2656.0,
             "y": 608.0
         },
         {
-            "type": "Plataforma",
+            "reducao": 0.3500000238418579,
+            "type": "TeiaAranha",
             "x": 2688.0,
             "y": 608.0
         },
         {
-            "type": "Plataforma",
+            "reducao": 0.75,
+            "type": "TeiaAranha",
             "x": 2720.0,
             "y": 608.0
         },
         {
-            "type": "Plataforma",
+            "reducao": 0.15000000596046448,
+            "type": "TeiaAranha",
             "x": 2752.0,
             "y": 608.0
         },
         {
-            "type": "Plataforma",
+            "reducao": 0.8500000238418579,
+            "type": "TeiaAranha",
             "x": 2784.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2816.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2848.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2880.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2912.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2944.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 2976.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3008.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3040.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3072.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3104.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3136.0,
             "y": 608.0
         },
         {
+            "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 3168.0,
             "y": 608.0
@@ -1446,24 +1699,17 @@
     ],
     "fase": 1,
     "jogador1": {
-        "numvidas": 11,
+        "numvidas": 3,
         "pontos1": 0,
-        "x": 336.0,
+        "x": 3120.0,
         "y": 560.0
     },
     "jogador2": {
-        "numvidas": 12,
+        "numvidas": 9,
         "pontos2": 0,
-        "x": 678.7501220703125,
-        "y": 336.0
+        "x": 3072.777587890625,
+        "y": 298.40008544921875
     },
     "numPlayers": 2,
-    "projeteis": [
-        {
-            "vx": -10.0,
-            "vy": 3.5,
-            "x": 520.7501220703125,
-            "y": 347.3999938964844
-        }
-    ]
+    "projeteis": []
 }

@@ -1,23 +1,34 @@
 #include "InimigoPequeno.h"
 
-InimigoPequeno::InimigoPequeno(Vector2f pos) :
+InimigoPequeno::InimigoPequeno(Vector2f pos, float acelex) :
 	Inimigo(nullptr, pos)
 {
 
 	num_vidas = VIDA_BAIXO;
 
+	if(acelex == 0)
+		aceleracaoextra = (rand() %50);
+	else
+		aceleracaoextra = acelex;
+
 	nivel_maldade = DANO_BAIXO;
-	aceleracao = ACELERACAO_BAIXO;
+	aceleracao = ACELERACAO_BAIXO * aceleracaoextra;
+
+	cout << "InimigoPequeno criado com aceleracao: " << aceleracao << endl;
 	direcao = 1;
+	
+
 
 	posinicial = pos;
 
 
-	if (!textura.loadFromFile("inimigopequeno.png")) {
-		std::cerr << "Erro ao carregar a textura INIMIGOPEQUENO" << std::endl;
-	}
-	else {
+	try {
+		carregarTextura("inimigopequeno.png");
 		corpo.setTexture(&textura);
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		corpo.setFillColor(sf::Color::Red); // fallback color
 	}
 	cout << "INIMIGOPEQUENO CRIADO" << endl;
 	corpo.setSize(Vector2f(64.f, 64.f));
@@ -36,6 +47,7 @@ void InimigoPequeno::executar()
 
 void InimigoPequeno::mover()
 {
+	sofrerGravidade();
 
 	Vector2f posAtual = corpo.getPosition();
 	float distancia = posAtual.x - posinicial.x;
@@ -47,7 +59,7 @@ void InimigoPequeno::mover()
 		direcao = 1;
 	}
 
-	corpo.setPosition(posAtual.x + aceleracao * direcao, posAtual.y);
+	corpo.move(aceleracao * direcao, 0.f);
 }
 
 void InimigoPequeno::salvar()

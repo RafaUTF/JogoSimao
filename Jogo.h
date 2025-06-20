@@ -26,10 +26,11 @@ private:
 	int numPlayers;
 
 public:
-	Jogo(int numPlayers_, int fase_);
+	//Jogo(int numPlayers_, int fase_);
+	Jogo();
 	~Jogo();
+	void executarFase();
 	void executar();
-
 	Fase* getFase();
 	void mudarParaFase2(const std::string& caminho);
 };

@@ -16,7 +16,6 @@ using std::endl;
 
 #define ESQUERDA 50.f
 
-#define PULO 20.f
 #define ATRITO 0.5f
 #define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
@@ -36,7 +35,7 @@ using std::endl;
 
 //VIDAS
 #define VIDA_BASE 1
-#define VIDA_JOGADOR 500
+#define VIDA_JOGADOR 12
 #define VIDA_CHEFE 5
 #define VIDA_ALTO 3
 #define VIDA_BAIXO 2
@@ -46,9 +45,9 @@ using std::endl;
 #define	ELASTICIDADE_ESPINHO 10.f
 
 //VELOCIDADE PROJETEIS
-#define  VY0 -2.f
+#define  VY0 -3.f
 
-#define FORCA_CHEFE 20
+#define FORCA_CHEFE 15
 #define FORCA_JOG 10
 
 
@@ -63,3 +62,10 @@ using std::endl;
 #define ACELERACAO_ALTO 1.f
 #define ACELERACAO_BAIXO 2.f
 
+//PULO
+#define PULO_JOG -18.f
+#define PULO_INIMIGO -12.f
+#define PULO_FRACO -10.f
+
+#define TAM_PROJ_CHEFE 50.f
+#define TAM_PROJ_JOG 20.f

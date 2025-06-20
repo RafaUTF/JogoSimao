@@ -5,8 +5,11 @@ class InimigoPequeno : public Inimigo
 private:
 	Vector2f posinicial;
 	int direcao;
+
+	float aceleracaoextra;
+
 public:
-	InimigoPequeno(Vector2f pos = (Vector2f(100.f, 100.f)));
+	InimigoPequeno(Vector2f pos = (Vector2f(100.f, 100.f)), float acelex = 0);
 	~InimigoPequeno();
 	void executar();
 	void salvar();
@@ -16,5 +19,6 @@ public:
 
 	std::string getTipo() const{ return "InimigoPequeno"; }
 
+	float getAceleracaoExtra() const { return aceleracaoextra; }
 };
 

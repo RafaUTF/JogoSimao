@@ -60,7 +60,8 @@ void Fase2::executar() {
         //cout << "g" << endl;
         LE.desenhar();
         //cout << "h" << endl;
-        desenharProjeteis();
+        //desenharProjeteis();
+        tiros->desenhar();
         //cout << "i" << endl;
         pGG->mostrar();
         //cout << "j" << endl;
@@ -83,34 +84,12 @@ void Fase2::executar() {
             return;
             
         }
-    }
 
-    if (numPlayers == 1) {
-        if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-            gravarNome(pGG->getWindow());
-            pGG->fechar();
-        }
-    }
-    else if (numPlayers == 2) {
-        if (pJog1 && pJog2) {
-            if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
-        }
-        else if (pJog1) {
-            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
-        }
-        else
-            if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
-            }
+        finalFase();
 
     }
+
+    
 }
 
 void Fase2::criarEntidades() {
@@ -286,6 +265,7 @@ void Fase2::salvarJogo(const std::string& caminho) {
     estado["entities"] = json::array();
     for (LE.primeiro(); !LE.fim(); ++LE) {
         Entidade* e = LE.getAtual();
+
         if (e == pJog1 || e == pJog2) continue;
         json je;
         je["type"] = e->getTipo();
@@ -293,9 +273,13 @@ void Fase2::salvarJogo(const std::string& caminho) {
         je["x"] = p.x;
         je["y"] = p.y;
 
+        if (e->getTipo() == "Plataforma")
+            je["deslocamento"] = static_cast<Plataforma*>(e)->getDeslocamento();
+
         if (e->getTipo() == "InimigoPequeno") {
             auto* ip = dynamic_cast<InimigoPequeno*>(e);
             if (ip) {
+                je["aceleracaoextra"] = ip->getAceleracaoExtra();
                 sf::Vector2f ini = ip->getPosicaoInicial();
                 je["xi"] = ini.x;
                 je["yi"] = ini.y;
@@ -316,6 +300,16 @@ void Fase2::carregarJogo(const std::string& caminho) {
     json estado;
     in >> estado;
 
+    if (!pJog1) {
+        pJog1 = new Jogador(&LE);
+        pGC->incluirJogador(pJog1);
+    }
+    if (estado["numPlayers"] == 2 && !pJog2) {
+        pJog2 = new Jogador(&LE);
+        pGC->incluirJogador(pJog2);
+    }
+
+
     if (estado["jogador1"]["numvidas"] > 0) {
 
         pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
@@ -326,7 +320,7 @@ void Fase2::carregarJogo(const std::string& caminho) {
         pontos1 = estado["jogador1"]["pontos1"];
         pJog1->setVida(0);
     }
-    destruirNeutralizados();
+
     if (estado["numPlayers"] == 2) {
         if (estado["jogador2"]["numvidas"] > 0) {
             pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
@@ -340,7 +334,6 @@ void Fase2::carregarJogo(const std::string& caminho) {
         }
     }
 
-    destruirNeutralizados();
 
 
     for (auto& je : estado["entities"]) {
@@ -350,7 +343,10 @@ void Fase2::carregarJogo(const std::string& caminho) {
         std::string tipo = je["type"];
 
 
-        if (tipo == "Plataforma") no = new Plataforma(pos);
+        if (tipo == "Plataforma") {
+			float deslocamento = je["deslocamento"];
+            no = new Plataforma(pos, deslocamento);
+        }
         else if (tipo == "Espinho") no = new Espinho(pos);
         else if (tipo == "Chefao") ne = new Chefao(tiros, pJog1, pJog2, pos);
 
@@ -360,7 +356,8 @@ void Fase2::carregarJogo(const std::string& caminho) {
             posIni = sf::Vector2f(je["xi"], je["yi"]);
 
         if (tipo == "InimigoPequeno") {
-            InimigoPequeno* ip = new InimigoPequeno(posIni); // posição inicial de patrulha
+			float acelex = je["aceleracaoextra"];
+            InimigoPequeno* ip = new InimigoPequeno(posIni, acelex); // posição inicial de patrulha
             ip->getCorpo().setPosition(posAtual);            // posição atual real
             ne = ip;
         }
@@ -402,104 +399,6 @@ void Fase2::carregarJogo(const std::string& caminho) {
 
 }
 
-void Fase2::desenharProjeteis()//mostra os projeteis na tela
-{
-    if (pJog1 && pJog1->getTiros())
-        pJog1->getTiros()->desenhar();
-    if (pJog2 && pJog2->getTiros())
-        pJog2->getTiros()->desenhar();
-    for (int i = 0;i < LCs.size();i++) {
-        if (LCs[i] && LCs[i]->getTiros()) {
-            LCs[i]->getTiros()->desenhar();
-        }
-        else {
-            cout << "ponteiro inimigo nulo em criar projeteis fase2" << endl;
-        }
-    }
-}
-void Fase2::incluirProjeteisGC()
-{
-    int j;
-    ListaEntidades* l = nullptr;
-    if (pJog1 && pJog1->getTiros()) {
-        //cout << "1" << endl;
-        l = pJog1->getTiros();
-        j = 0;
-        for (l->primeiro();!l->fim();l->operator++()) {
-            //cout << "a " << j++ << endl;
-            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-        }
-    }
-    j = 0;
-    if (pJog2 && pJog2->getTiros()) {
-        //cout << "2" << endl;
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            //cout << "b " << j++ << endl;
-            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-        }
-    }
-
-    for (int i = 0;i < LCs.size();i++) {
-        if (LCs[i] && LCs[i]->getTiros()) {
-            //cout << "3" << endl;
-            l = LCs[i]->getTiros();
-            j = 0;
-            for (l->primeiro();!l->fim();l->operator++()) {
-                //cout << "c " << j++ << endl;
-                pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
-            }
-        }
-    }
-}
-
-void Fase2::destruirProjeteis()//pega os desativados e tira da ListaEntidades e do Gerenciador_Colisoes e deleta
-{
-    pGC->retirarProjeteis();
-
-    ListaEntidades* l = nullptr;
-
-    if (pJog1 && pJog1->getTiros()) {
-        l = pJog1->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            Projetil* pj = static_cast<Projetil*>(l->getAtual());
-            if (pj->getAtivo() == false) {
-                l->retirar(pj);
-                delete pj;
-                pj = nullptr;
-            }
-        }
-    }
-
-    if (pJog2 && pJog2->getTiros()) {
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            Projetil* pj = static_cast<Projetil*>(l->getAtual());
-            if (pj->getAtivo() == false) {
-                l->retirar(pj);
-                delete pj;
-                pj = nullptr;
-            }
-        }
-    }
-
-    for (int i = 0;i < LCs.size();i++) {
-        if (LCs[i] && LCs[i]->getTiros()) {
-            l = LCs[i]->getTiros();
-            for (l->primeiro();!l->fim();l->operator++()) {
-                Projetil* pj = static_cast<Projetil*>(l->getAtual());
-                if (pj->getAtivo() == false) {
-                    l->retirar(pj);
-                    delete pj;
-                    pj = nullptr;
-                }
-            }
-        }
-        else
-            cout << "chefao nulo em destruirProjeteis na Fase2" << endl;
-    }
-}
-
 void Fase2::destruirNeutralizados()
 {
     pGC->retirarPersonagens();
@@ -539,3 +438,4 @@ void Fase2::destruirNeutralizados()
         }
     }
 }
+

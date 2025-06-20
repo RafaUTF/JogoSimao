@@ -4,20 +4,21 @@ bool Jogador::jogador1(true);
 
 Jogador::Jogador(ListaEntidades* t, Vector2f pos) : Personagem(t, pos), pontos(0)
 {
+    forca_pulo = PULO_JOG;
+
     num_vidas = VIDA_JOGADOR;
 
     aceleracao = ACELERACAO_JOG;
 
-    //criarTiros();
-
-
     if (jogador1) {
 
-        if (!textura.loadFromFile("j1.png")) {
-            std::cerr << "Erro ao carregar a textura JOGADOR1!" << std::endl;
-        }
-        else {
+        try {
+			carregarTextura("j1.png");
             corpo.setTexture(&textura);
+        }
+        catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+			corpo.setFillColor(sf::Color::Blue); // fallback color
         }
         cout << "JOGADOR 1 CRIADO" << endl;
         corpo.setSize(Vector2f(64.f, 64.f));
@@ -25,19 +26,19 @@ Jogador::Jogador(ListaEntidades* t, Vector2f pos) : Personagem(t, pos), pontos(0
         jogador1 = false;
         j1 = true;
     }
-    else {
+    else {//segundo jogador
 
-        if (!textura.loadFromFile("j2.png")) {
-            std::cerr << "Erro ao carregar a textura JOGADOR2!" << std::endl;
-        }
-        else {
+        try {
+            carregarTextura("j2.png");
             corpo.setTexture(&textura);
         }
-
+        catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            corpo.setFillColor(sf::Color::Green); // fallback color
+        }
         cout << "JOGADOR 2 CRIADO" << endl;
         corpo.setSize(Vector2f(64.f, 64.f));
         centralizarEntidade();
-
 
         j1 = false;
     }
@@ -64,16 +65,22 @@ void Jogador::colidirJog(Jogador* p, int d)
         x = drx - modulo(dx), y = dry - modulo(dy);
 
     if (d == 1) {
-        //chao2 = true;
+        if(modulo(p->getVel().x)< modulo(getVel().x))
+            p->getVel().x = getVel().x;
+
         p->setChao(true);
+		p->reduzPulo(); 
         p->getVel().y = getVel().y;
         getCorpo().move(0.f, y / 2);
         p->getCorpo().move(0.f, -y / 2);
 
     }
     if (d == 4) {
-        //chao1 = true;
+        if(modulo(getVel().x)< modulo(p->getVel().x))
+            getVel().x = p->getVel().x;
+
         setChao(true);
+        reduzPulo();
         getVel().y = p->getVel().y;
         getCorpo().move(0.f, -y / 2);
         p->getCorpo().move(0.f, y / 2);
@@ -136,14 +143,8 @@ void Jogador::operator++()
 void Jogador::mover()
 {
 
-    //GRAVIDADE ANTES!
-    if (getcm().y + getRaio().y < CHAO && !comChao) {
-        vel.y += GRAVIDADE;
-    }
-    else {//chao // comChao == true
-        vel.y = 0;
-        comChao = true;//tem q ter!
-    }
+    sofrerGravidade();
+
     if (j1) {
         if (!comChao) {//NO AR
 
@@ -186,7 +187,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * aceleracao;
+                vel.y += forca_pulo;
                 comChao = false;
             }
         }
@@ -233,7 +234,7 @@ void Jogador::mover()
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                 //cout << "pulo unico 2!" << endl;
-                vel.y += -PULO * aceleracao;
+                vel.y += forca_pulo;
                 comChao = false;
             }
         }

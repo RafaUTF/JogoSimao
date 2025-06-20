@@ -3,7 +3,7 @@
 Personagem::Personagem(ListaEntidades* t, Vector2f pos) :
     Entidade(pos), num_vidas(VIDA_BASE),
     aceleracao(ACELERACAO_BASE), comChao(false), tiros(t),
-    recarga(TEMPO_RECARGA), olhandoDir(true)
+	recarga(TEMPO_RECARGA), olhandoDir(true), forca_pulo(PULO_JOG)
 {
 
 }
@@ -12,13 +12,6 @@ Personagem::Personagem(ListaEntidades* t, Vector2f pos) :
 Personagem::~Personagem()
 {
     tiros = nullptr;
-    /*
-    if (tiros) {
-        cout << "destrutora personagem apagando a lista de tiros" << endl;
-        delete tiros;
-        tiros = NULL;
-    }
-    */
 }
 
 void Personagem::mover()
@@ -29,12 +22,6 @@ void Personagem::setChao(bool b)
 {
     comChao = b;
 }
-
-ListaEntidades* Personagem::getTiros()
-{
-    return tiros;
-}
-
 
 
 
@@ -57,7 +44,7 @@ void Personagem::criarTiros()
 
 void Personagem::reduzVelocidade(float fator)
 {
-    aceleracao *= fator;
+    vel *= fator;
 
 }
 
@@ -67,11 +54,24 @@ void Personagem::restaurarVelocidade() {
 
 void Personagem::sofrerGravidade()
 {
+    //GRAVIDADE ANTES!
+    if (getcm().y + getRaio().y < CHAO && !comChao) {
+        vel.y += GRAVIDADE;
+    }
+    else {//chao // comChao == true
+        vel.y = 0;
+        comChao = true;//tem q ter!
+    }
 }
 
 void Personagem::operator--() {
     if (num_vidas > 0)
         num_vidas--;
+}
+
+void Personagem::operator-=(int dano)
+{
+    num_vidas -= dano;
 }
 
 const int Personagem::getVidas()
@@ -126,4 +126,17 @@ void Personagem::incluirTiros(Projetil* p)
         criarTiros();
     }
     tiros->incluir(p);
+}
+
+void Personagem::zerarPulo()
+{
+	forca_pulo = PULO_JOG;
+}
+
+
+
+void Personagem::reduzPulo(float fator)
+{
+	forca_pulo = PULO_JOG * fator;
+    
 }

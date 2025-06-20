@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="fds">
+      <UniqueIdentifier>{2cc48bca-3069-42a7-89e7-22edce62765b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf">
+      <Filter>fds</Filter>
+    </Font>
+    <Font Include="upheavtt.ttf">
+      <Filter>fds</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BandeiraChegada.cpp" />
+    <ClCompile Include="Chefao.cpp" />
+    <ClCompile Include="Ente.cpp" />
+    <ClCompile Include="Entidade.cpp" />
+    <ClCompile Include="Espinho.cpp" />
+    <ClCompile Include="Fase.cpp" />
+    <ClCompile Include="Fase1.cpp" />
+    <ClCompile Include="Fase2.cpp" />
+    <ClCompile Include="Gerenciador_Colisoes.cpp" />
+    <ClCompile Include="Gerenciador_Grafico.cpp" />
+    <ClCompile Include="Inimigo.cpp" />
+    <ClCompile Include="InimigoAlto.cpp" />
+    <ClCompile Include="InimigoPequeno.cpp" />
+    <ClCompile Include="Jogador.cpp" />
+    <ClCompile Include="Jogo.cpp" />
+    <ClCompile Include="ListaEntidades.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuBase.cpp" />
+    <ClCompile Include="MenuInicial.cpp" />
+    <ClCompile Include="MenuLeaderboard.cpp" />
+    <ClCompile Include="MenuPause.cpp" />
+    <ClCompile Include="Obstaculo.cpp" />
+    <ClCompile Include="Personagem.cpp" />
+    <ClCompile Include="Plataforma.cpp" />
+    <ClCompile Include="Projetil.cpp" />
+    <ClCompile Include="TeiaAranha.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BandeiraChegada.h" />
+    <ClInclude Include="Chefao.h" />
+    <ClInclude Include="Elemento.h" />
+    <ClInclude Include="Ente.h" />
+    <ClInclude Include="Entidade.h" />
+    <ClInclude Include="Espinho.h" />
+    <ClInclude Include="Fase.h" />
+    <ClInclude Include="Fase1.h" />
+    <ClInclude Include="Fase2.h" />
+    <ClInclude Include="Gerenciador_Colisoes.h" />
+    <ClInclude Include="Gerenciador_Grafico.h" />
+    <ClInclude Include="Inimigo.h" />
+    <ClInclude Include="InimigoAlto.h" />
+    <ClInclude Include="InimigoPequeno.h" />
+    <ClInclude Include="Jogador.h" />
+    <ClInclude Include="Jogo.h" />
+    <ClInclude Include="Lista.h" />
+    <ClInclude Include="ListaEntidades.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuBase.h" />
+    <ClInclude Include="MenuInicial.h" />
+    <ClInclude Include="MenuLeaderboard.h" />
+    <ClInclude Include="MenuPause.h" />
+    <ClInclude Include="Obstaculo.h" />
+    <ClInclude Include="Personagem.h" />
+    <ClInclude Include="Plataforma.h" />
+    <ClInclude Include="Projetil.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TeiaAranha.h" />
+    <ClInclude Include="json.hpp">
+      <Filter>fds</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="boss.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="espinho.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundo.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundomenu.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="inimigoalto.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="j1.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="j2.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="plataforma.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="inimigopequeno.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="q.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="teiaaranha.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="teste.png">
+      <Filter>fds</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mapa2.json">
+      <Filter>fds</Filter>
+    </None>
+    <None Include="save.json">
+      <Filter>fds</Filter>
+    </None>
+    <None Include="mapa1.json">
+      <Filter>fds</Filter>
+    </None>
+    <None Include="leaderboard.json">
+      <Filter>fds</Filter>
+    </None>
+  </ItemGroup>
+</Project>

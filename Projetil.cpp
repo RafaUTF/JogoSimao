@@ -6,19 +6,23 @@ Projetil::Projetil(Vector2f pos, bool dir, float raio, ListaEntidades* lp, Jogad
     short int f) :
     Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
 {
-    /*
-    if (!textura.loadFromFile("boss.png")) {
-        std::cerr << "Erro ao carregar a textura BOSS!" << std::endl;
+    try {
+        carregarTextura("boss.png");
+        corpo.setTexture(&textura);
     }
-    else {
-        corpo.setTexture(textura);
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        corpo.setFillColor(sf::Color::White); // fallback color
     }
-    */
 
-    corpo.setSize(Vector2f(50.f, 50.f));
+	if (dynamic_cast<Jogador*>(pDono)) {
+        corpo.setSize(Vector2f(TAM_PROJ_JOG, TAM_PROJ_JOG));
+	}
+	else {
+        corpo.setSize(Vector2f(TAM_PROJ_CHEFE, TAM_PROJ_CHEFE));
+	}
     centralizarEntidade();
-    corpo.setFillColor(Color::White);
-
+    
     float v = static_cast<float>(f);
     if (dir) {
         vel = (Vector2f(v , VY0));
