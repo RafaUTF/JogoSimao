@@ -4,12 +4,15 @@
 #include "Fase2.h"
 #include "json.hpp"
 #include "MenuInicial.h"
+#include <fstream>
 
 using json = nlohmann::json;
+using namespace Fases;
+using namespace Entidades;
 
 Jogo::Jogo()
-    : GC(Gerenciador_Colisoes::getInstancia()),
-    GG(Gerenciador_Grafico::getInstancia()),
+    : GC(Gerenciadores::Gerenciador_Colisoes::getInstancia()),
+    GG(Gerenciadores::Gerenciador_Grafico::getInstancia()),
     pF1(nullptr), pF2(nullptr)
 {
     Ente::setpGG(GG);  // define ponteiro para o gerenciador gráfico na classe base
@@ -46,7 +49,7 @@ void Jogo::executar()
     sf::RenderWindow window(sf::VideoMode(960, 640), "Jogo");
     window.setFramerateLimit(60); // Limita para 60 FPS
 
-    Gerenciador_Grafico::getInstancia()->setJanelaExterna(&window);
+    Gerenciadores::Gerenciador_Grafico::getInstancia()->setJanelaExterna(&window);
 
     MenuInicial menu;
     int escolha = menu.mostrar(window);
@@ -66,6 +69,8 @@ void Jogo::executar()
         int fase = estado.value("fase", 1); // valor padrão 1, caso não exista
         int nJog = estado.value("numPlayers", 1); // valor padrão 1, caso não exista
 
+        numPlayers = nJog;
+
         // Cria a fase correta, mas não executa ainda
         if (fase == 1) {
             pF1 = new Fase1(GC, GG, nJog);
@@ -80,6 +85,9 @@ void Jogo::executar()
     }
     else if (escolha == 1) {
         //Jogo jogo(nJog, fase);
+
+		numPlayers = nJog; // Define o número de jogadores
+
         if (fase == 1) {
             pF1 = new Fase1(GC, GG, nJog);
             getFase()->criarMapa("mapa1.json");
@@ -118,7 +126,7 @@ void Jogo::mudarParaFase2(const std::string& caminho)
     int pontos1 = pF1->getPontos1();
     int pontos2 = pF1->getPontos2();
 
-    Jogador::jogador1 = true;
+    Entidades::Personagens::Jogador::jogador1 = true;
 
     pF2 = new Fase2(GC, GG, numPlayers);
     pF2->criarMapa("mapa2.json");

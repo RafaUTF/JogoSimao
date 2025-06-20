@@ -14,7 +14,6 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BandeiraChegada.cpp" />
     <ClCompile Include="Chefao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -30,8 +29,6 @@
     <ClCompile Include="Jogador.cpp" />
     <ClCompile Include="Jogo.cpp" />
     <ClCompile Include="ListaEntidades.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuBase.cpp" />
     <ClCompile Include="MenuInicial.cpp" />
     <ClCompile Include="MenuLeaderboard.cpp" />
@@ -41,9 +38,9 @@
     <ClCompile Include="Plataforma.cpp" />
     <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="TeiaAranha.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BandeiraChegada.h" />
     <ClInclude Include="Chefao.h" />
     <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
@@ -61,7 +58,6 @@
     <ClInclude Include="Jogo.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="ListaEntidades.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuInicial.h" />
     <ClInclude Include="MenuLeaderboard.h" />

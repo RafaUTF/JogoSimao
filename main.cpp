@@ -1,7 +1,6 @@
 #include "Jogo.h"
 
-int main()
-{
-    Jogo jogo;
-    return 0;
+int main() {
+	Jogo jogo;
+	return 0;
 }

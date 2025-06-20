@@ -12,48 +12,53 @@ using namespace std;
 #include "Obstaculo.h"
 #include "Espinho.h"
 
-class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
+namespace Gerenciadores {
 
-private:
-	bool chao1;
-	bool chao2;
+	class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
+
+	private:
+		bool chao1;
+		bool chao2;
 
 
-	vector<Inimigo*> LIs;
-	list<Obstaculo*> LOs;
-	set<Projetil*> LPs;
+		vector<Entidades::Personagens::Inimigo*> LIs;
+		list<Entidades::Obstaculos::Obstaculo*> LOs;
+		set<Entidades::Projetil*> LPs;
 
-	vector<Jogador*> LJs;
+		vector<Entidades::Personagens::Jogador*> LJs;
 
-	Gerenciador_Colisoes();//privada
+		Gerenciador_Colisoes();//privada
 
-	const int verificarDirecao(Entidade* pe1 = NULL, Entidade* pe2 = NULL) const;
+		const int verificarDirecao(Entidades::Entidade* pe1 = NULL, Entidades::Entidade* pe2 = NULL) const;
 
-	void tratarColisoesJogs();
-	void tratarColisoesJogsObstacs();
-	void tratarColisoesJogsInimgs();
-	void tratarColisoesJogsProjeteis();
+		void tratarColisoesJogs();
+		void tratarColisoesJogsObstacs();
+		void tratarColisoesJogsInimgs();
+		void tratarColisoesJogsProjeteis();
 
-	void tratarColisoesInimgsObstacs();
-	void tratarColisoesInimgsProjeteis();
-	void tratarColisoesInimgsInimgs();
+		void tratarColisoesInimgsObstacs();
+		void tratarColisoesInimgsProjeteis();
+		void tratarColisoesInimgsInimgs();
 
-	void tratarColisoesProjeteisObstacs();
-public:
-	static Gerenciador_Colisoes* getInstancia();
-	~Gerenciador_Colisoes();
-	void executar();
-	void retirarProjeteis();
-	void retirarPersonagens();
+		void tratarColisoesProjeteisObstacs();
+	public:
+		static Gerenciador_Colisoes* getInstancia();
+		~Gerenciador_Colisoes();
+		void executar();
+		void retirarProjeteis();
+		void retirarPersonagens();
 
-	void incluirInimigo(Inimigo* pi = NULL);
-	void incluirObstaculo(Obstaculo* po = NULL);
-	void incluirProjetil(Projetil* pj = NULL);
-	void incluirJogador(Jogador* pjog = NULL);
+		void incluirInimigo(Entidades::Personagens::Inimigo* pi = NULL);
+		void incluirObstaculo(Entidades::Obstaculos::Obstaculo* po = NULL);
+		void incluirProjetil(Entidades::Projetil* pj = NULL);
+		void incluirJogador(Entidades::Personagens::Jogador* pjog = NULL);
 
-	void removerEntidade(Entidade* pE);
+		void removerEntidade(Entidades::Entidade* pE);
 
-	set<Projetil*>& getProjeteis();
+		set<Entidades::Projetil*>& getProjeteis();
 
-	void limpaLista();
-};
+		void limpaLista();
+
+
+	};
+}
