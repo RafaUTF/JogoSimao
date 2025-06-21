@@ -138,7 +138,7 @@ namespace Fases {
 
 
 
-            //plataforma aleatÛria
+            //plataforma aleat√≥ria
             if (id == 12) {
                 bloco_plataforma.emplace_back(x, y);
                 if (bloco_plataforma.size() == 6) {
@@ -159,7 +159,7 @@ namespace Fases {
                 bloco_plataforma.clear();
             }
 
-            //Espinho aleatÛrio
+            //Espinho aleat√≥rio
             if (id == 4) {
                 int chance = rand() % 2;
                 if (chance == 0) {
@@ -169,7 +169,7 @@ namespace Fases {
                 }
             }
 
-            //Boss aleatÛrio
+            //Boss aleat√≥rio
             if (id == 21) {
                 int chance = rand() % 2;
                 if (chance == 0) {
@@ -194,7 +194,7 @@ namespace Fases {
                     pJog2->getCorpo().setPosition({ x, y });
             }
 
-            // Ex: id 2 = ch„o, id 781 = plataforma, etc.
+            // Ex: id 2 = ch√£o, id 781 = plataforma, etc.
             if (id == 2 || id == 781 || id == 34 || id == 28) {
                 auto* plataforma = new Entidades::Obstaculos::Plataforma({ x, y });
                 LE.incluir(plataforma);
@@ -262,9 +262,6 @@ namespace Fases {
             auto p = e->getcm();
             je["x"] = p.x;
             je["y"] = p.y;
-
-            if (e->getTipo() == "Plataforma")
-                je["deslocamento"] = static_cast<Entidades::Obstaculos::Plataforma*>(e)->getDeslocamento();
 
             if (e->getTipo() == "InimigoPequeno") {
                 auto* ip = dynamic_cast<Entidades::Personagens::InimigoPequeno*>(e);
@@ -334,8 +331,7 @@ namespace Fases {
 
 
             if (tipo == "Plataforma") {
-                float deslocamento = je["deslocamento"];
-                no = new Entidades::Obstaculos::Plataforma(pos, deslocamento);
+                no = new Entidades::Obstaculos::Plataforma(pos);
             }
             else if (tipo == "Espinho") no = new Entidades::Obstaculos::Espinho(pos);
             else if (tipo == "Chefao") ne = new Entidades::Personagens::Chefao(tiros, pJog1, pJog2, pos);
@@ -347,8 +343,8 @@ namespace Fases {
 
             if (tipo == "InimigoPequeno") {
                 float acelex = je["aceleracaoextra"];
-                Entidades::Personagens::InimigoPequeno* ip = new Entidades::Personagens::InimigoPequeno(posIni, acelex); // posiÁ„o inicial de patrulha
-                ip->getCorpo().setPosition(posAtual);            // posiÁ„o atual real
+                Entidades::Personagens::InimigoPequeno* ip = new Entidades::Personagens::InimigoPequeno(posIni, acelex); // posi√ß√£o inicial de patrulha
+                ip->getCorpo().setPosition(posAtual);            // posi√ß√£o atual real
                 ne = ip;
             }
 
