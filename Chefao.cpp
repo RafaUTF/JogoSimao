@@ -51,7 +51,9 @@ namespace Entidades {
             p1 = pp1;
             p2 = pp2;
             //criarTiros();
-
+	    
+	    recarga = 0;
+			
             corpo.setSize(Vector2f(150.f, 150.f));
             centralizarEntidade();
             try {
