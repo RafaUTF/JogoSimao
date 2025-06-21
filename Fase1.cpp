@@ -336,9 +336,6 @@ namespace Fases {
             je["x"] = atual.x;
             je["y"] = atual.y;
 
-            if (e->getTipo() == "Plataforma")
-                je["deslocamento"] = static_cast<Entidades::Obstaculos::Plataforma*>(e)->getDeslocamento();
-
             if (e->getTipo() == "TeiaAranha")
                 je["reducao"] = static_cast<Entidades::Obstaculos::TeiaAranha*>(e)->getReducao();
 
@@ -434,8 +431,7 @@ namespace Fases {
                 no = new Entidades::Obstaculos::TeiaAranha(pos, reducao);
             }
             else if (tipo == "Plataforma") {
-                float deslocamento = je["deslocamento"];
-                no = new Entidades::Obstaculos::Plataforma(pos, deslocamento);
+                no = new Entidades::Obstaculos::Plataforma(pos);
             }
 
             sf::Vector2f posAtual(je["x"], je["y"]);
