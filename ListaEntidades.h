@@ -23,6 +23,8 @@ namespace Listas {
 		void operator++();
 
 		void retirar(Entidades::Entidade* pE = NULL);
+
+		void limpar();
 	};
 
 }

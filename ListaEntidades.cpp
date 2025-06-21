@@ -14,14 +14,8 @@ namespace Listas {
 	ListaEntidades::~ListaEntidades()
 	{
 		cout << "destrutora ListaEntidades" << endl;
-
-		for (Lista<Entidades::Entidade*>::iterator it = LEs.begin(); it != LEs.end(); ++it) {
-			if (*it) {
-				delete* it;
-				*it = NULL;
-			}
-		}
-		LEs.clear();
+		limpar();
+		
 	}
 
 	void ListaEntidades::incluir(Entidades::Entidade* pE)
@@ -89,6 +83,17 @@ namespace Listas {
 			it = anterior;
 
 		}
+	}
+
+	void ListaEntidades::limpar()
+	{
+		for (Lista<Entidades::Entidade*>::iterator it = LEs.begin(); it != LEs.end(); ++it) {
+			if (*it) {
+				delete* it;
+				*it = NULL;
+			}
+		}
+		LEs.clear();
 	}
 
 }

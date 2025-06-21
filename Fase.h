@@ -15,6 +15,9 @@ namespace Fases {
 
     class Fase : public Ente {
     protected:
+		sf::Font fonteHUD;
+        sf::Text HUD;
+
         int pontos1;
         int pontos2;
 
@@ -41,7 +44,7 @@ namespace Fases {
 
         virtual void destruirProjeteis();
 
-
+        //virtual void finalizarFase()=0;
     public:
 
         virtual void destruirNeutralizados() = 0;
@@ -66,6 +69,9 @@ namespace Fases {
 
         void gravarNome(sf::RenderWindow* window);
         void finalFase();
+
+		void criarHUD();
+        void mostrarVidaPontos();
     };
 
 }

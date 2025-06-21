@@ -6,8 +6,8 @@ using namespace Listas;
 
 namespace Entidades {
 
-    Projetil::Projetil(Vector2f pos, bool dir, float raio, Listas::ListaEntidades* lp, Entidades::Personagens::Jogador* pdono,
-        short int f) :
+    Projetil::Projetil(Vector2f pos, bool dir, float raio, Listas::ListaEntidades* lp,
+        Entidades::Personagens::Jogador* pdono, short int f) :
         Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
     {
         try {
@@ -36,6 +36,30 @@ namespace Entidades {
             vel = (Vector2f(-1.f * v, VY0));
             corpo.move(-raio * 1.5f, 0.f);
         }
+
+    }
+
+    Projetil::Projetil(Vector2f pos, Vector2f v, Entidades::Personagens::Jogador* pdono):
+		Entidade(pos), pDono(pdono), ativo(true), lista(nullptr), duracao(TEMPO_PROJETIL)
+    {
+        try {
+            carregarTextura("boss.png");
+            corpo.setTexture(&textura);
+        }
+        catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            corpo.setFillColor(sf::Color::White); // fallback color
+        }
+
+        if (dynamic_cast<Personagens::Jogador*>(pDono)) {
+            corpo.setSize(Vector2f(TAM_PROJ_JOG, TAM_PROJ_JOG));
+        }
+        else {
+            corpo.setSize(Vector2f(TAM_PROJ_CHEFE, TAM_PROJ_CHEFE));
+        }
+        centralizarEntidade();
+
+        vel = v;
 
     }
 
@@ -68,14 +92,19 @@ namespace Entidades {
     {
         ativo = false;
         cout << "projetil colidiu" << endl;
-        if (pp && pp != nullptr) {
+        if (pp) {
             pp->operator--();
-            if (pp && pp != nullptr && pp->getVidas() == 0) {
+            if (pp->getVidas() == 0) {
                 cout << "personagem neutralizado por projetil" << endl;
                 if (pDono)
                     pDono->operator+=(100);
             }
         }
+    }
+
+    void Projetil::explodir()
+    {
+        ativo = false;
     }
 
     Vector2f Projetil::getVelocidade()

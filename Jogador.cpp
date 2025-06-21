@@ -173,7 +173,7 @@ namespace Entidades {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
                         vel.y += aceleracao;
                 }
-                else if (getcm().y - getRaio().y < CHAO) {//CHAO
+                else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
                         vel.x += -aceleracao;
@@ -220,7 +220,7 @@ namespace Entidades {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                         vel.y += aceleracao;
                 }
-                else if (getcm().y - getRaio().y < CHAO) {//CHAO
+                else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                         vel.x += -aceleracao;

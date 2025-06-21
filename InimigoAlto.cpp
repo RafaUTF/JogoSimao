@@ -6,7 +6,7 @@ namespace Entidades {
 		InimigoAlto::InimigoAlto(Vector2f pos, int distpad) :
 			Inimigo(nullptr, pos)
 		{
-			num_vidas = VIDA_BAIXO;
+			num_vidas = VIDA_ALTO;
 
 			nivel_maldade = DANO_ALTO;
 			aceleracao = ACELERACAO_ALTO;

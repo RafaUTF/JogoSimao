@@ -17,6 +17,8 @@ Jogo::Jogo()
 {
     Ente::setpGG(GG);  // define ponteiro para o gerenciador gráfico na classe base
 
+    sementear();
+
 	executar(); // Chama o método executar para iniciar o jogo
 }
 Jogo::~Jogo()
@@ -47,6 +49,7 @@ void Jogo::executarFase() {
 void Jogo::executar()
 {
     sf::RenderWindow window(sf::VideoMode(960, 640), "Jogo");
+    
     window.setFramerateLimit(60); // Limita para 60 FPS
 
     Gerenciadores::Gerenciador_Grafico::getInstancia()->setJanelaExterna(&window);
@@ -56,6 +59,7 @@ void Jogo::executar()
     int nJog = menu.getNJogadores();
     int fase = menu.getFase();
 
+    
     srand(static_cast<unsigned int>(time(0))); // Semente para números aleatórios
 
     
@@ -136,27 +140,39 @@ void Jogo::mudarParaFase2(const std::string& caminho)
         pF1 = nullptr;
     }
 
-    pF2->setPontos1(pontos1);
-    pF2->setPontos2(pontos2);
+    //pF2->setPontos1(pontos1);
+    //pF2->setPontos2(pontos2);
 
     pF2->getJogador1()->setVida(0);
-    if (estado["numPlayers"] == 2)
+    pF2->getJogador1()->operator+=(pontos1);
+    if (estado["numPlayers"] == 2) {
         pF2->getJogador2()->setVida(0);
+        pF2->getJogador2()->operator+=(pontos2);
+    }
 
 
 
     // Atualiza apenas vidas (sem reinserir ponteiros)
-    if (pF2->getJogador1())
+    if (pF2->getJogador1()) {
         pF2->getJogador1()->setVida(estado["jogador1"]["numvidas"]);
+        //pF2->getJogador1()->operator+=(pontos1);
+    }
 
 
 
 
-    if (estado["numPlayers"] == 2 && pF2->getJogador2() && estado["jogador2"]["numvidas"] > 0)
+    if (estado["numPlayers"] == 2 && pF2->getJogador2() && estado["jogador2"]["numvidas"] > 0) {
         pF2->getJogador2()->setVida(estado["jogador2"]["numvidas"]);
-
+		//pF2->getJogador2()->operator+=(pontos2);
+    }
 
     pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
 
     executarFase();
+}
+
+void Jogo::sementear()
+{
+    time_t tempo;
+	srand(static_cast<unsigned int>(time(&tempo))); 
 }

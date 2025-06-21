@@ -29,7 +29,7 @@ namespace Entidades {
         }
 
 
-
+        /*
         void Personagem::atirar(short int f)
         {
             if (recarga >= TEMPO_RECARGA) {
@@ -41,7 +41,7 @@ namespace Entidades {
                 recarga++;
 
         }
-
+        */
         void Personagem::criarTiros()
         {
             tiros = new ListaEntidades();
@@ -60,7 +60,7 @@ namespace Entidades {
         void Personagem::sofrerGravidade()
         {
             //GRAVIDADE ANTES!
-            if (getcm().y + getRaio().y < CHAO && !comChao) {
+            if (getcm().y + getRaio().y < CHAO_CHEFE && !comChao) {
                 vel.y += GRAVIDADE;
             }
             else {//chao // comChao == true

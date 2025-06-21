@@ -29,6 +29,7 @@ namespace Fases {
         else {
             pJog2 = nullptr;
         }
+        criarHUD();
     }
 
     Fase::~Fase() {
@@ -106,6 +107,12 @@ namespace Fases {
 
         window->setView(viewAnterior);
 
+		if (pJog1) {
+			pontos1 = pJog1->getPontos();
+		}
+        if (pJog2) {
+			pontos2 = pJog2->getPontos();
+        }
 
         int total = pontos1 + pontos2;
 
@@ -158,6 +165,36 @@ namespace Fases {
         }
     }
 
+    void Fase::criarHUD()
+    {
+        if (!fonteHUD.loadFromFile("upheavtt.ttf")) {
+            std::cerr << "Erro ao carregar a fonte!" << std::endl;
+            return;
+        }
+        else {
+            cout << "Fonte carregada com sucesso!" << endl;
+        }
+        HUD.setFont(fonteHUD);
+        HUD.setCharacterSize(36);
+        HUD.setFillColor(sf::Color::White);
+        HUD.setPosition(50, 50);
+
+    }
+
+    void Fase::mostrarVidaPontos()
+    {
+        if (pJog1 && pJog2) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos())
+                + "       2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
+        }
+        else if (pJog1) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos()));
+        }
+        else if (pJog2) {
+            HUD.setString("2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
+        }
+    }
+
     void Fase::desenharProjeteis()//mostra os projeteis na tela
     {
         tiros->desenhar();
@@ -185,4 +222,5 @@ namespace Fases {
         }
     }
 
+    
 }

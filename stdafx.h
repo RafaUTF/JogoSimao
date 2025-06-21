@@ -9,8 +9,8 @@ using std::endl;
 
 #define FPS 60
 
-#define CHAO 640.f
-#define DIREITA 960.f
+#define ALTURA_TELA 640.f
+#define LARGURA_TELA 960.f
 #define TAMANHOTOTALLATERAL 3200.f
 #define FINALFASE 3100.f
 
@@ -47,7 +47,8 @@ using std::endl;
 //VELOCIDADE PROJETEIS
 #define  VY0 -3.f
 
-#define FORCA_CHEFE 15
+#define MAX_FORCA_CHEFE 15
+#define MIN_FORCA_CHEFE 5
 #define FORCA_JOG 10
 
 
@@ -69,3 +70,5 @@ using std::endl;
 
 #define TAM_PROJ_CHEFE 50.f
 #define TAM_PROJ_JOG 20.f
+
+#define VETOR Vector2f()

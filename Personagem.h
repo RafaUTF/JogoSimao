@@ -31,7 +31,7 @@ namespace Entidades {
 
 			void setChao(bool b);
 
-			virtual void atirar(short int f = 1);
+			//virtual void atirar();
 
 			void criarTiros();
 
@@ -53,7 +53,6 @@ namespace Entidades {
 			virtual void zerarPulo();
 
 			void reduzPulo(float fator = 0.5f);
-
 
 		};
 

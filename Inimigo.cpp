@@ -123,7 +123,7 @@ namespace Entidades {
                 if (pAlvo->getcm().y > getcm().y)
                     vel.y += aceleracao;
             }
-            else if (getcm().y - getRaio().y < CHAO) {//CHAO
+            else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                 if (pAlvo->getcm().x < getcm().x)
                     vel.x += -aceleracao;

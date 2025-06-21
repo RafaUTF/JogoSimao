@@ -13,6 +13,7 @@ namespace Fases {
         : Fase(gc, gg, numPlayers)
     {
         proximaFase = false;
+		pGG->setFundo("fundoazul.png"); // Define o fundo da fase 1
     }
 
     Fase1::~Fase1() {
@@ -20,6 +21,7 @@ namespace Fases {
     }
 
     void Fase1::executar() {
+        
         while (pGG->aberta()) {
             sf::Event event;
             while (pGG->getWindow()->pollEvent(event)) {
@@ -47,16 +49,18 @@ namespace Fases {
 
                 }
             }
-           
+
+            mostrarVidaPontos();
             LE.percorrer();
             tiros->percorrer();
             incluirProjeteisGC();
             pGC->executar();
-            pGG->moverCamera(pJog1, pJog2);
+            pGG->moverCamera(&HUD, pJog1, pJog2);
             pGG->clear();
             pGG->desenhaFundo();
             LE.desenhar();
             tiros->desenhar();
+            pGG->getWindow()->draw(HUD);  // Desenha o texto do contador
             pGG->mostrar();
             destruirProjeteis();
             destruirNeutralizados();
@@ -77,6 +81,10 @@ namespace Fases {
 
 
             }
+            if (pJog1)
+                pontos1 = pJog1->getPontos();
+            if (pJog2)
+                pontos2 = pJog2->getPontos();
 
             if (numPlayers == 1) {
                 if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
@@ -116,10 +124,13 @@ namespace Fases {
                     }
 
             }
-
+        
         }
 
     }
+
+    
+
 
     void Fase1::criarEntidades() {
     }
@@ -336,6 +347,9 @@ namespace Fases {
             je["x"] = atual.x;
             je["y"] = atual.y;
 
+            if (e->getTipo() == "Plataforma")
+                je["deslocamento"] = static_cast<Entidades::Obstaculos::Plataforma*>(e)->getDeslocamento();
+
             if (e->getTipo() == "TeiaAranha")
                 je["reducao"] = static_cast<Entidades::Obstaculos::TeiaAranha*>(e)->getReducao();
 
@@ -347,6 +361,7 @@ namespace Fases {
                     sf::Vector2f ini = ip->getPosicaoInicial();
                     je["xi"] = ini.x;
                     je["yi"] = ini.y;
+                    je["vida"] = ip->getVidas();
                 }
             }
             else if (e->getTipo() == "InimigoAlto") {
@@ -356,6 +371,7 @@ namespace Fases {
                     sf::Vector2f ini = ia->getPosicaoInicial();
                     je["xi"] = ini.x;
                     je["yi"] = ini.y;
+                    je["vida"] = ia->getVidas();
                 }
             }
 
@@ -376,6 +392,9 @@ namespace Fases {
         proximaFase = t;
     }
 
+    
+
+
     void Fase1::carregarJogo(const std::string& caminho) {
         std::ifstream in(caminho);
         if (!in.is_open()) return;
@@ -387,7 +406,7 @@ namespace Fases {
 
             pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
             pJog1->setVida(estado["jogador1"]["numvidas"]);
-            pontos1 = estado["jogador1"]["pontos1"];
+            pJog1->operator+=(estado["jogador1"]["pontos1"]);
         }
         else {
             pontos1 = estado["jogador1"]["pontos1"];
@@ -398,7 +417,8 @@ namespace Fases {
             if (estado["jogador2"]["numvidas"] > 0) {
                 pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
                 pJog2->setVida(estado["jogador2"]["numvidas"]);
-                pontos2 = estado["jogador2"]["pontos2"];
+                pJog2->operator+=(estado["jogador2"]["pontos2"]);
+                //pontos2 = estado["jogador2"]["pontos2"];
             }
             else
             {
@@ -443,6 +463,7 @@ namespace Fases {
                 float acelex = je["aceleracaoextra"];
 
                 Entidades::Personagens::InimigoPequeno* ip = new Entidades::Personagens::InimigoPequeno(posIni, acelex); // posição inicial de patrulha
+				ip->setVida(je["vida"]);
                 ip->getCorpo().setPosition(posAtual);            // posição atual real
                 ne = ip;
             }
@@ -450,6 +471,7 @@ namespace Fases {
                 float distPadrao = je["distanciapadrao"];
 
                 Entidades::Personagens::InimigoAlto* ia = new Entidades::Personagens::InimigoAlto(posIni, distPadrao);
+				ia->setVida(je["vida"]);
                 ia->getCorpo().setPosition(posAtual);
                 ne = ia;
             }
@@ -468,10 +490,16 @@ namespace Fases {
         }
 
         for (auto& jp : estado["projeteis"]) {
-            Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]));
-            proj->getCorpo().setPosition(jp["x"], jp["y"]);
-            proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
-
+           
+            Entidades::Personagens::Jogador* p = pJog1;
+            if (!p)
+                p = pJog2;
+            Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]),
+                sf::Vector2f(jp["vx"], jp["vy"]), p);
+            //proj->getCorpo().setPosition(jp["x"], jp["y"]);
+            //proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+            tiros->incluir(proj);
+            /*
             if (pJog1) {
                 proj->setDono(pJog1);
                 pJog1->incluirTiros(proj);
@@ -480,7 +508,7 @@ namespace Fases {
                 proj->setDono(pJog2);
                 pJog2->incluirTiros(proj);
             }
-
+            */
             pGC->incluirProjetil(proj);
         }
 

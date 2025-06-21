@@ -18,16 +18,23 @@ namespace Entidades {
 		unsigned long long duracao;
 
 		Entidades::Personagens::Jogador* pDono;
-	public:
+	public://sobrecarga construtora
+		//quando eh criada:
 		Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f, Listas::ListaEntidades* pl = NULL,
 			Entidades::Personagens::Jogador* pdono = nullptr, short int f = 0);
+		//quando eh carregada:
+		Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), Vector2f v = (Vector2f(0.f, 0.f)), 
+			Entidades::Personagens::Jogador* pdono = nullptr);
 		~Projetil();
 		void executar();
 		void salvar();
 
 		const bool getAtivo();
 
-		void explodir(Entidades::Personagens::Personagem* pp = nullptr);
+		//quando explode um personagem
+		void explodir(Entidades::Personagens::Personagem* pp);
+		//quando explode em um obstaculo
+		void explodir();
 
 		std::string getTipo() const { return "Projetil"; }
 

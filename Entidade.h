@@ -11,16 +11,16 @@ namespace Entidades {
 
 		int dirColisao;
 	public:
-		//Entidade(float xx = 20, float yy = 20);
-		Entidade(Vector2f pos = (Vector2f(0.f, 0.f)));
+		
+		Entidade(Vector2f pos);
+		Entidade();
+
 		virtual ~Entidade();
 
 		Vector2f getcm();
-		//float getXcm();
-		//float getYcm();
+		
 		Vector2f getRaio();
-		//float getRaioX();
-		//float getRaioY();
+		
 
 		void centralizarEntidade();
 

@@ -7,14 +7,14 @@ using namespace Entidades;
 namespace Gerenciadores {
 
 	Gerenciador_Grafico::Gerenciador_Grafico() :
-		janela(new sf::RenderWindow(sf::VideoMode(DIREITA, CHAO), "janela", Style::Default)),
+		janela(new sf::RenderWindow(sf::VideoMode(LARGURA_TELA, ALTURA_TELA), "janela", Style::Default)),
 		fundo(),
-		camera(sf::FloatRect(0, 0, static_cast<int>(DIREITA), static_cast<int>(CHAO)))
+		camera(sf::FloatRect(0, 0, static_cast<int>(LARGURA_TELA), static_cast<int>(ALTURA_TELA)))
 	{
 		cout << "Gerenciador_Grafico criado" << endl;
 		janela->setFramerateLimit(FPS);
 
-
+		/*
 		try {
 			if (!textura.loadFromFile("fundo.png")) {
 				throw std::runtime_error("Erro ao carregar a textura FUNDO!");
@@ -23,10 +23,22 @@ namespace Gerenciadores {
 		}
 		catch (const std::exception& e) {
 			std::cerr << e.what() << std::endl;
-		}
+		}*/
 
 		fundo.setPosition(0.f, 0.f);
 		fundo.scale(1.5f, 1.5f);
+	}
+	void Gerenciador_Grafico::setFundo(const std::string& caminho)
+	{
+		try {
+			if (!textura.loadFromFile(caminho)) {
+				throw std::runtime_error("Erro ao carregar a textura FUNDO!");
+			}
+			fundo.setTexture(textura);
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
 	}
 
 	Gerenciador_Grafico::~Gerenciador_Grafico()
@@ -64,7 +76,7 @@ namespace Gerenciadores {
 		janela->close();
 	}
 
-	void Gerenciador_Grafico::moverCamera(Entidades::Entidade* p1, Entidades::Entidade* p2)
+	void Gerenciador_Grafico::moverCamera(sf::Text* t, Entidades::Entidade* p1, Entidades::Entidade* p2)
 	{
 		float larguraJanela = camera.getSize().x;
 		float larguraCenario = TAMANHOTOTALLATERAL;
@@ -88,10 +100,18 @@ namespace Gerenciadores {
 		if (centroX > maxCentro)
 			centroX = maxCentro;
 
-		camera.setCenter(Vector2f(centroX, CHAO / 2.f));
+		camera.setCenter(Vector2f(centroX, ALTURA_TELA / 2.f));
 		janela->setView(camera);
+		if(t)
+			t->setPosition(camera.getCenter()-Vector2f(LARGURA_TELA/2 - 20.f,ALTURA_TELA/2 - 10.f)); // Move o texto para acompanhar a câmera	
 	}
 
+	void Gerenciador_Grafico::moverCamera(Entidades::Entidade* p1, Entidades::Entidade* p2)
+	{
+		moverCamera(nullptr, p1, p2);
+	}
+
+	
 
 
 	Gerenciador_Grafico* Gerenciador_Grafico::getInstancia() {
@@ -120,4 +140,5 @@ namespace Gerenciadores {
 		}
 	}
 
+	
 }

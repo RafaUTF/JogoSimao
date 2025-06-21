@@ -27,6 +27,7 @@ namespace Fases {
 
         bool deveTrocarFase();
         void setTrocarFase(bool t);
-    };
 
+        //void finalizarFase();
+    };
 }

@@ -29,4 +29,6 @@ public:
 	void executar();
 	Fases::Fase* getFase();
 	void mudarParaFase2(const std::string& caminho);
+
+	void sementear();
 };

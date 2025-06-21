@@ -9,6 +9,13 @@ namespace Entidades {
         corpo.setPosition(pos); // o centro do sprite ficará em pos
 
     }
+    Entidade::Entidade() : Ente(), massa(10.f), dirColisao(0), vel(Vector2f(0.f, 0.f))
+    {
+
+        centralizarEntidade();
+        corpo.setPosition(Vector2f(0.f, 0.f)); // o centro do sprite ficará em pos
+
+    }
     Entidade::~Entidade()
     {
     }

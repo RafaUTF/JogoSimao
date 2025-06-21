@@ -7,20 +7,24 @@ namespace Entidades {
     namespace Personagens {
 
         Chefao::Chefao(Listas::ListaEntidades* t, Jogador* pp1, Jogador* pp2, Vector2f pos) :
-            Inimigo(t, pos), forca(FORCA_CHEFE)
+            Inimigo(t, pos), forca(FORCA_JOG)
         {
+            while (forca == FORCA_JOG) {
+				forca = MIN_FORCA_CHEFE + rand() % (MAX_FORCA_CHEFE - MIN_FORCA_CHEFE);
+            }
+
             chefao = true;
 
             num_vidas = VIDA_CHEFE;
 
-            nivel_maldade = DANO_ALTO;
+            nivel_maldade = DANO_CHEFE;
 
             aceleracao = ACELERACAO_CHEFE;
 
             p1 = pp1;
             p2 = pp2;
             //criarTiros();
-
+  
             corpo.setSize(Vector2f(150.f, 150.f));
             centralizarEntidade();
             try {
@@ -32,6 +36,34 @@ namespace Entidades {
                 corpo.setFillColor(sf::Color::Red); // fallback color
             }
         }
+
+        Chefao::Chefao(Listas::ListaEntidades* t, Jogador* pp1, Jogador* pp2, Vector2f pos, short int f, int vida):
+			Inimigo(t, pos), forca(f)
+		{
+            chefao = true;
+
+            num_vidas = vida;
+
+            nivel_maldade = DANO_CHEFE;
+
+            aceleracao = ACELERACAO_CHEFE;
+
+            p1 = pp1;
+            p2 = pp2;
+            //criarTiros();
+            recarga = 0;
+            corpo.setSize(Vector2f(150.f, 150.f));
+            centralizarEntidade();
+            try {
+                carregarTextura("boss.png");
+                corpo.setTexture(&textura);
+            }
+            catch (const std::exception& e) {
+                std::cerr << e.what() << std::endl;
+                corpo.setFillColor(sf::Color::Red); // fallback color
+            }
+            
+        }
         Chefao::~Chefao()
         {
             cout << "destrutora chefao" << endl;
@@ -42,7 +74,7 @@ namespace Entidades {
             escolherAlvo();
             mover();//mover inimigo
             if (pAlvo) {
-                atirar(forca);
+                atirar();
             }
             //tiros->percorrer();
         }
@@ -62,6 +94,17 @@ namespace Entidades {
 
 
         }
+        void Chefao::atirar()
+        {
+            if (recarga >= TEMPO_RECARGA) {
+                cout << "CHEFAO ATIROU" << endl;
+                tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr, forca));
+                recarga = 0;
+            }
+            else
+                recarga++;
 
+        }
     }
 }
+
