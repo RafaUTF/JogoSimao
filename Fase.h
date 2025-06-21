@@ -11,60 +11,61 @@
 #include "InimigoPequeno.h"
 #include "InimigoAlto.h"
 
-class Fase : public Ente {
-protected:
-    int pontos1;
-    int pontos2;
+namespace Fases {
 
-	int numPlayers;
+    class Fase : public Ente {
+    protected:
+        int pontos1;
+        int pontos2;
 
-    Jogador* pJog1;
-    Jogador* pJog2;
+        int numPlayers;
 
-    ListaEntidades LE;
-    ListaEntidades* tiros;
+        Entidades::Personagens::Jogador* pJog1;
+        Entidades::Personagens::Jogador* pJog2;
 
-    Gerenciador_Colisoes* pGC;
-    Gerenciador_Grafico* pGG;
+        Listas::ListaEntidades LE;
+        Listas::ListaEntidades* tiros;
 
-    virtual void criarInimigos() = 0;
-    virtual void criarObstaculos() = 0;
-    void criarCenario();//tem q fazer
+        Gerenciadores::Gerenciador_Colisoes* pGC;
+        Gerenciadores::Gerenciador_Grafico* pGG;
 
-    
-    virtual void criarEntidades() = 0;
-    virtual void criarChefe(Vector2f pos) = 0;
+        virtual void criarInimigos() = 0;
+        virtual void criarObstaculos() = 0;
+
+        virtual void criarEntidades() = 0;
+        virtual void criarChefe(Vector2f pos) = 0;
+
+        virtual void incluirProjeteisGC();
+
+        virtual void desenharProjeteis();
+
+        virtual void destruirProjeteis();
 
 
-    virtual void incluirProjeteisGC();
+    public:
 
-    virtual void desenharProjeteis();
+        virtual void destruirNeutralizados() = 0;
 
-    virtual void destruirProjeteis();
+        virtual void criarMapa(const std::string& caminhoJson) = 0;
+        Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_);
+        virtual ~Fase();
+        virtual void executar();
+        Listas::ListaEntidades* getListaEntidades();
 
+        virtual void carregarJogo(const std::string& caminho) = 0;
+        virtual void salvarJogo(const std::string& caminho) = 0;
 
-public:
+        int getPontos1() const { return pontos1; }
+        void setPontos1(int pontos) { pontos1 = pontos; }
+        int getPontos2() const { return pontos2; }
+        void setPontos2(int pontos) { pontos2 = pontos; }
+        int getNumPlayers() const { return numPlayers; }
 
-    virtual void destruirNeutralizados() = 0;
+        Entidades::Personagens::Jogador* getJogador1() const { return pJog1; }
+        Entidades::Personagens::Jogador* getJogador2() const { return pJog2; }
 
-    virtual void criarMapa(const std::string& caminhoJson) = 0;
-    Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_);
-    virtual ~Fase();
-    virtual void executar();
-    ListaEntidades* getListaEntidades();
+        void gravarNome(sf::RenderWindow* window);
+        void finalFase();
+    };
 
-    virtual void carregarJogo(const std::string& caminho) = 0;
-    virtual void salvarJogo(const std::string& caminho)=0;
-
-	int getPontos1() const { return pontos1; }
-	void setPontos1(int pontos) { pontos1 = pontos;}
-	int getPontos2() const { return pontos2; }
-    void setPontos2(int pontos) { pontos2 = pontos; }
-	int getNumPlayers() const { return numPlayers; }    
-
-	Jogador* getJogador1() const { return pJog1; }
-	Jogador* getJogador2() const { return pJog2; }
-
-    void gravarNome(sf::RenderWindow* window);
-    void finalFase();
-};
+}

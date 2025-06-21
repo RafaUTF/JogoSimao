@@ -1,23 +1,13 @@
 #include "Ente.h"
 
-#include "Gerenciador_Grafico.h"
+using namespace Gerenciadores;
 
 int Ente::cont(0);
-Gerenciador_Grafico* Ente::pGG(0);
+Gerenciadores::Gerenciador_Grafico* Ente::pGG(0);
 
 
 Ente::Ente() :id(cont++), corpo(Vector2f(200.f, 200.f)) {
 	
-	// Carregar a textura
-	/*
-	if (!textura.loadFromFile("q.png")) {
-		std::cerr << "Erro ao carregar a textura QUADRADO!" << std::endl;
-	}
-	else {
-		corpo.setTexture(&textura);
-	}*/
-	//corpo.setSize(Vector2f(100.f,100.f));
-
 }
 
 Ente::~Ente()
@@ -25,7 +15,7 @@ Ente::~Ente()
 
 }
 
-void Ente::setpGG(Gerenciador_Grafico* p)
+void Ente::setpGG(Gerenciadores::Gerenciador_Grafico* p)
 {
 	pGG = p;
 }
@@ -45,4 +35,11 @@ void Ente::desenhar(Ente* pE)
 RectangleShape& Ente::getCorpo()
 {
 	return corpo;
+}
+
+void Ente::carregarTextura(const std::string& caminho)
+{
+	if (!textura.loadFromFile(caminho)) {
+		throw std::runtime_error("Erro ao carregar a imagem: " + caminho);
+	}
 }

@@ -45,9 +45,10 @@ using std::endl;
 #define	ELASTICIDADE_ESPINHO 10.f
 
 //VELOCIDADE PROJETEIS
-#define  VY0 -2.f
+#define  VY0 -3.f
 
-#define FORCA_CHEFE 20
+#define MAX_FORCA_CHEFE 15
+#define MIN_FORCA_CHEFE 5
 #define FORCA_JOG 10
 
 
@@ -66,3 +67,6 @@ using std::endl;
 #define PULO_JOG -18.f
 #define PULO_INIMIGO -12.f
 #define PULO_FRACO -10.f
+
+#define TAM_PROJ_CHEFE 50.f
+#define TAM_PROJ_JOG 20.f

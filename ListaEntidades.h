@@ -2,23 +2,29 @@
 #include "Lista.h"
 #include "Entidade.h"
 
-class ListaEntidades {
-private:
-	Lista<Entidade*> LEs;
-	Lista<Entidade*>::iterator it;
+namespace Listas {
 
-public:
-	ListaEntidades();
-	~ListaEntidades();
-	void incluir(Entidade* pE=NULL);
-	void percorrer();
+	class ListaEntidades {
+	private:
+		Lista<Entidades::Entidade*> LEs;
+		Lista<Entidades::Entidade*>::iterator it;
 
-	void desenhar();
+	public:
+		ListaEntidades();
+		~ListaEntidades();
+		void incluir(Entidades::Entidade* pE = NULL);
+		void percorrer();
 
-	Entidade* getAtual();
-	void primeiro();
-	bool fim();
-	void operator++();
+		void desenhar();
 
-	void retirar(Entidade* pE = NULL);
-};
+		Entidades::Entidade* getAtual();
+		void primeiro();
+		bool fim();
+		void operator++();
+
+		void retirar(Entidades::Entidade* pE = NULL);
+
+		void limpar();
+	};
+
+}

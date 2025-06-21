@@ -2,36 +2,41 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Ente.h"
-#include "Entidade.h"
+class Ente;
+namespace Entidades {
+	class Entidade;
+}
 
-class Gerenciador_Grafico
-{
-private:
-	//static Gerenciador_Grafico* pgg;
+namespace Gerenciadores {
 
+	class Gerenciador_Grafico
+	{
+	private:
 
-	sf::RenderWindow* janela;
-	Sprite fundo;
-	Texture textura;
+		sf::RenderWindow* janela;
+		sf::Sprite fundo;
+		sf::Texture textura;
 
-	View camera;
+		sf::View camera;
 
-	Gerenciador_Grafico();//tem que ser privada
-public:
-	~Gerenciador_Grafico();
-	sf::RenderWindow* getWindow();
-	const bool aberta() const;
-	void clear();
-	void desenhar(Ente* pE = NULL);
-	void desenhar(const RectangleShape& retangulo);
-	void desenhaFundo();
-	void mostrar();
-	void fechar();
+		Gerenciador_Grafico();
 
-	void moverCamera(Entidade* p1 = NULL, Entidade* p2 = NULL);
+	public:
 
-	static Gerenciador_Grafico* getInstancia();
+		~Gerenciador_Grafico();
+		sf::RenderWindow* getWindow();
+		const bool aberta() const;
+		void clear();
+		void desenhar(Ente* pE = NULL);
+		void desenhar(const sf::RectangleShape& retangulo);
+		void desenhaFundo();
+		void mostrar();
+		void fechar();
 
-	void setJanelaExterna(sf::RenderWindow* j);
-};
+		void moverCamera(Entidades::Entidade* p1 = NULL, Entidades::Entidade* p2 = NULL);
+
+		static Gerenciador_Grafico* getInstancia();
+
+		void setJanelaExterna(sf::RenderWindow* j);
+	};
+}

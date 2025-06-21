@@ -1,16 +1,26 @@
 #include "Obstaculo.h"
 
-Obstaculo::Obstaculo(Vector2f pos) :
-	danoso(false), Entidade(pos)
-{
-}
 
-Obstaculo::~Obstaculo()
-{
-}
 
-bool Obstaculo::isDanoso() const { return danoso; }
+using namespace Entidades::Personagens;
 
-void Obstaculo::causarDano(Personagem* pJog)
-{
+namespace Entidades {
+	namespace Obstaculos {
+
+		Obstaculo::Obstaculo(Vector2f pos) :
+			danoso(false), Entidade(pos)
+		{
+		}
+
+		Obstaculo::~Obstaculo()
+		{
+		}
+
+		bool Obstaculo::isDanoso() const { return danoso; }
+
+		void Obstaculo::causarDano(Entidades::Personagens::Personagem* pJog)
+		{
+		}
+
+	}
 }

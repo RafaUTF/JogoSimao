@@ -1,20 +1,25 @@
 #pragma once
 #include "Obstaculo.h"
 
-class Plataforma : public Obstaculo
-{
-private:
+namespace Entidades {
+	namespace Obstaculos {
 
-	float deslocamento; // Deslocamento da plataformaf
+		class Plataforma : public Obstaculo
+		{
+		private:
 
-public:
-	Plataforma(Vector2f pos = (Vector2f(0.f, 0.f)), float desloc = 0);
-	~Plataforma();
-	void executar();
-	void obstacular(Personagem* p = NULL, int d = 0);
+			float deslocamento; // Deslocamento da plataformaf
 
-	std::string getTipo() const { return "Plataforma"; }
+		public:
+			Plataforma(Vector2f pos = (Vector2f(0.f, 0.f)), float desloc = 0);
+			~Plataforma();
+			void executar();
+			void obstacular(Personagens::Personagem* p = NULL, int d = 0);
 
-	float getDeslocamento() const { return deslocamento; }
+			std::string getTipo() const { return "Plataforma"; }
 
-};
+			float getDeslocamento() const { return deslocamento; }
+
+		};
+	}
+}
