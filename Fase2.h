@@ -10,26 +10,21 @@ namespace Fases {
 
         vector<Entidades::Personagens::Chefao*> LCs;//lista de chefes
 
-
-        void criarInimigos();
-        void criarObstaculos();
-
+        void salvarJogo(const std::string& caminho);
+        void destruirNeutralizados();
+        void criarChefe(Vector2f pos);
 
     public:
 
-        void destruirNeutralizados();
 
         Fase2(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers);
         ~Fase2();
 
         void executar();
         void criarMapa(const std::string& caminhoJson);
-        void criarEntidades();
-
-        void criarChefe(Vector2f pos);
 
         void carregarJogo(const std::string& caminho);
-        void salvarJogo(const std::string& caminho);
+        
 
 
     };

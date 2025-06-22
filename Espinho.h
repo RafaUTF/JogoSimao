@@ -13,7 +13,7 @@ namespace Entidades {
 			Espinho(Vector2f pos = (Vector2f(0.f, 0.f)));
 			~Espinho();
 			void causarDano(Personagens::Personagem* p);
-			void obstacular(Personagens::Personagem* p = NULL, int d = 0);
+			void obstacular(Personagens::Personagem* p = nullptr, int d = 0);
 			void executar();
 			void salvar(json& j);
 		};

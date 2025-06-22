@@ -17,17 +17,16 @@ namespace Entidades {
 				std::cerr << e.what() << std::endl;
 				corpo.setFillColor(sf::Color::Yellow); // fallback color
 			}
-			//corpo.setFillColor(sf::Color::Transparent);
+			
 		}
 
 
 		Plataforma::~Plataforma() {
-			//cout << "destrutora plataforma" << endl;
+			
 		}
 
 		void Plataforma::executar()
 		{
-			//?
 		}
 
 		void Plataforma::obstacular(Personagens::Personagem* p, int d)

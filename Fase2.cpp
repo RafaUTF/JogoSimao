@@ -93,10 +93,6 @@ namespace Fases {
 
         }
 
-
-    }
-
-    void Fase2::criarEntidades() {
     }
 
 
@@ -104,15 +100,7 @@ namespace Fases {
         Entidades::Personagens::Chefao* chefe = new Entidades::Personagens::Chefao(tiros, pJog1, pJog2, pos);
         LE.incluir(chefe);
         pGC->incluirInimigo(chefe);
-        LCs.push_back(chefe);////
-    }
-
-    void Fase2::criarInimigos()
-    {
-    }
-
-    void Fase2::criarObstaculos()
-    {
+        LCs.push_back(chefe);
     }
 
 
@@ -268,29 +256,8 @@ namespace Fases {
             if (e == pJog1 || e == pJog2) continue;
             json je;
             if (e) {
-                //je["type"] = e->getTipo();
 				e->salvarPos(je);
                 e->salvar(je);
-                /*
-                if (e->getTipo() == "Plataforma") {
-                    Entidades::Obstaculos::Plataforma* p = dynamic_cast<Entidades::Obstaculos::Plataforma*>(e);
-					if (p) {
-						p->salvar(je);
-                }
-                    
-
-                if (e->getTipo() == "InimigoPequeno") {
-                    auto* ip = dynamic_cast<Entidades::Personagens::InimigoPequeno*>(e);
-                    if (ip) {
-						ip->salvar(je);
-                    }
-                }
-                if (e->getTipo() == "Chefao") {
-                    Entidades::Personagens::Chefao* c = dynamic_cast<Entidades::Personagens::Chefao*>(e);
-                    c->salvar(je);
-					//je["forca"] = static_cast<Entidades::Personagens::Chefao*>(e)->getForca();
-					//je["vida"] = e->getVidas();
-                }*/
             }
             estado["entities"].push_back(je);
         }
@@ -325,10 +292,8 @@ namespace Fases {
             pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
             pJog1->setVida(estado["jogador1"]["numvidas"]);
 			pJog1->operator+=(estado["jogador1"]["pontos1"]);
-            //pontos1 = estado["jogador1"]["pontos1"];
         }
         else {
-            //pontos1 = estado["jogador1"]["pontos1"];
             pJog1->setVida(0);
         }
 
@@ -337,11 +302,9 @@ namespace Fases {
                 pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
                 pJog2->setVida(estado["jogador2"]["numvidas"]);
 				pJog2->operator+=(estado["jogador2"]["pontos2"]);
-                //pontos2 = estado["jogador2"]["pontos2"];
             }
             else
             {
-                //pontos2 = estado["jogador2"]["pontos2"];
                 pJog2->setVida(0);
             }
         }
@@ -370,7 +333,7 @@ namespace Fases {
                 float acelex = je["aceleracaoextra"];
                 Entidades::Personagens::InimigoPequeno* ip = new Entidades::Personagens::InimigoPequeno(posIni, acelex); // posição inicial de patrulha
 				ip->setVida(je["vida"]);
-                ip->getCorpo().setPosition(posAtual);            // posição atual real
+                ip->getCorpo().setPosition(posAtual);// posição atual real
                 ne = ip;
             }
 
@@ -402,19 +365,8 @@ namespace Fases {
             }
             Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]),
                 sf::Vector2f(jp["vx"], jp["vy"]), p);
-            //proj->getCorpo().setPosition(jp["x"], jp["y"]);
-            //proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
             tiros->incluir(proj);
-            /*
-            if (pJog1) {
-                proj->setDono(pJog1);
-                pJog1->incluirTiros(proj);
-            }
-            else {
-                proj->setDono(pJog2);
-                pJog2->incluirTiros(proj);
-            }
-            */
+            
             pGC->incluirProjetil(proj);
         
         }

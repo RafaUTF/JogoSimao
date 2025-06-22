@@ -16,7 +16,7 @@ namespace Entidades {
 			void obstacular(Personagens::Personagem* p = nullptr, int d = 0);
 			void executar();
 
-			float getReducao() const { return reducao; }
+			float getReducao() const;
 
 			void salvar(json& j);
 		};

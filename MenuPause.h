@@ -7,6 +7,6 @@ private:
 public:
     MenuPause();
     ~MenuPause();
-    int mostrar(sf::RenderWindow& window) override;
+    int mostrar(sf::RenderWindow& window);// override;
     void setAtivo(const bool b=true);
 };

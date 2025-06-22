@@ -16,7 +16,7 @@ public:
 	virtual ~Ente();
 	static void setpGG(Gerenciadores::Gerenciador_Grafico* p);
 
-	void desenhar(Ente* pE=NULL);
+	void desenhar(Ente* pE=nullptr);
 
 	RectangleShape& getCorpo();
 

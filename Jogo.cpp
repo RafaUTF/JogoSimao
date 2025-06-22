@@ -175,9 +175,6 @@ void Jogo::mudarParaFase2(const std::string& caminho)
         delete pF1;
         pF1 = nullptr;
     }
-
-    pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
-
     executarFase();
 }
 

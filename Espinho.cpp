@@ -23,7 +23,7 @@ namespace Entidades {
 
 		Espinho::~Espinho()
 		{
-			cout << "destrutora espinho" << endl;
+			
 		}
 
 		void Espinho::causarDano(Personagens::Personagem* p)
@@ -31,7 +31,6 @@ namespace Entidades {
 
 			if (p != nullptr) {
 				p->operator--();
-				cout << "Jogador atingido por espinho" << endl;
 			}
 		}
 

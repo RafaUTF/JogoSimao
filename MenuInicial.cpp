@@ -161,3 +161,13 @@ int MenuInicial::mostrar(sf::RenderWindow& window) {
 
     return 2;
 }
+
+int MenuInicial::getNJogadores() const
+{
+    return nJogadores;
+}
+
+int MenuInicial::getFase() const
+{
+    return fase;
+}

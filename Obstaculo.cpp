@@ -18,9 +18,6 @@ namespace Entidades {
 
 		bool Obstaculo::isDanoso() const { return danoso; }
 
-		void Obstaculo::causarDano(Entidades::Personagens::Personagem* pJog)
-		{
-		}
 
 	}
 }

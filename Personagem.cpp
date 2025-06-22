@@ -28,8 +28,6 @@ namespace Entidades {
             comChao = b;
         }
 
-
-        
         void Personagem::criarTiros()
         {
             tiros = new ListaEntidades();
@@ -109,7 +107,6 @@ namespace Entidades {
                     pe->getcm().y - getRaio().y - pe->getRaio().y
                 );
             }
-
         }
 
         void Personagem::incluirTiros(Projetil* p)
@@ -126,12 +123,9 @@ namespace Entidades {
             forca_pulo = PULO_JOG;
         }
 
-
-
         void Personagem::reduzPulo(float fator)
         {
             forca_pulo = PULO_JOG * fator;
-
         }
 
     }

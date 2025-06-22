@@ -102,6 +102,10 @@ namespace Entidades {
                 recarga++;
 
         }
+        const short int Chefao::getForca() const
+        {
+            return forca;
+        }
     }
 }
 

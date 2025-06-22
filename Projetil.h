@@ -21,9 +21,11 @@ namespace Entidades {
 		unsigned long long duracao;
 
 		Entidades::Personagens::Jogador* pDono;
-	public://sobrecarga construtora
+	public:
+		//sobrecarga construtora
 		//quando eh criada:
-		Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f, Listas::ListaEntidades* pl = NULL,
+		Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), bool dir = true, float raio = 0.f,
+			Listas::ListaEntidades* pl = nullptr,
 			Entidades::Personagens::Jogador* pdono = nullptr, short int f = 0);
 		//quando eh carregada:
 		Projetil(Vector2f pos = (Vector2f(0.f, 0.f)), Vector2f v = (Vector2f(0.f, 0.f)), 

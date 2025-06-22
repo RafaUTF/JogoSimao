@@ -8,7 +8,7 @@ namespace Entidades {
 		{
 		private:
 
-			float deslocamento; // Deslocamento da plataformaf
+			float deslocamento; 
 
 		public:
 			Plataforma(Vector2f pos = (Vector2f(0.f, 0.f)), float desloc = 0);

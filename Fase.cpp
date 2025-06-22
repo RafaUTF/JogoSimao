@@ -52,6 +52,20 @@ namespace Fases {
         return &LE;
     }
 
+    int Fase::getNumPlayers() const
+    {
+        return numPlayers;
+    }
+
+    Entidades::Personagens::Jogador* Fase::getJogador1() const
+    {
+        return pJog1;
+    }
+    Entidades::Personagens::Jogador* Fase::getJogador2() const
+    {
+        return pJog2;
+    }
+
     void Fase::gravarNome(sf::RenderWindow* window) {
 
         // Salva a view atual da fase

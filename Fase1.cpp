@@ -105,23 +105,10 @@ namespace Fases {
 
     
 
-
-    void Fase1::criarEntidades() {
-    }
-
-
     void Fase1::criarChefe(Vector2f pos) {
         Entidades::Personagens::Inimigo* chefe = new Entidades::Personagens::Chefao(tiros, pJog1, pJog2, pos);
         LE.incluir(chefe);
         pGC->incluirInimigo(chefe);
-    }
-
-    void Fase1::criarInimigos()
-    {
-    }
-
-    void Fase1::criarObstaculos()
-    {
     }
 
 
@@ -269,10 +256,6 @@ namespace Fases {
                 LE.incluir(inimigoalto);
                 pGC->incluirInimigo(inimigoalto);
             }
-
-
-
-
         }
 
     }
@@ -443,19 +426,9 @@ namespace Fases {
                 p = pJog2;
             Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]),
                 sf::Vector2f(jp["vx"], jp["vy"]), p);
-            //proj->getCorpo().setPosition(jp["x"], jp["y"]);
-            //proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+         
             tiros->incluir(proj);
-            /*
-            if (pJog1) {
-                proj->setDono(pJog1);
-                pJog1->incluirTiros(proj);
-            }
-            else {
-                proj->setDono(pJog2);
-                pJog2->incluirTiros(proj);
-            }
-            */
+            
             pGC->incluirProjetil(proj);
         }
         cout << "7" << endl;

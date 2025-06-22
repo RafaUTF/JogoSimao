@@ -34,10 +34,6 @@ namespace Fases {
         Gerenciadores::Gerenciador_Colisoes* pGC;
         Gerenciadores::Gerenciador_Grafico* pGG;
 
-        virtual void criarInimigos() = 0;
-        virtual void criarObstaculos() = 0;
-
-        virtual void criarEntidades() = 0;
         virtual void criarChefe(Vector2f pos) = 0;
 
         virtual void incluirProjeteisGC();
@@ -49,28 +45,29 @@ namespace Fases {
         virtual void destruirNeutralizados() = 0;
 
         virtual void salvarJogo(const std::string& caminho) = 0;
-
+        void gravarNome(sf::RenderWindow* window);
+        void criarHUD();
+        void mostrarVidaPontos();
+        bool fimFase();
     public:
 
-        virtual void carregarJogo(const std::string& caminho) = 0;
-
-        virtual void criarMapa(const std::string& caminhoJson) = 0;
         Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_);
         virtual ~Fase();
+
+        virtual void carregarJogo(const std::string& caminho) = 0;
+        virtual void criarMapa(const std::string& caminhoJson) = 0;
         virtual void executar();
         Listas::ListaEntidades* getListaEntidades();
 
-       
-        int getNumPlayers() const { return numPlayers; }
+        int getNumPlayers() const; 
 
-        Entidades::Personagens::Jogador* getJogador1() const { return pJog1; }
-        Entidades::Personagens::Jogador* getJogador2() const { return pJog2; }
+        Entidades::Personagens::Jogador* getJogador1() const; 
+        Entidades::Personagens::Jogador* getJogador2() const;
 
-        void gravarNome(sf::RenderWindow* window);
-        bool fimFase();
+        
+        
 
-		void criarHUD();
-        void mostrarVidaPontos();
+		
     };
 
 }

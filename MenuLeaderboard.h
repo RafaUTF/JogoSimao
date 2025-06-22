@@ -7,6 +7,6 @@ private:
 public:
 	MenuLeaderboard();
 	~MenuLeaderboard();
-	int mostrar(sf::RenderWindow& window) override;
+	int mostrar(sf::RenderWindow& window);// override;
 };
 
