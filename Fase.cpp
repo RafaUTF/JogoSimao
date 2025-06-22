@@ -3,216 +3,225 @@
 #include <fstream>
 
 using json = nlohmann::json;
+using namespace Listas;
+using namespace Entidades;
+using namespace Gerenciadores;
 
-void Fase::criarCenario()
-{
-}
+namespace Fases {
 
-Fase::Fase(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers_) :
-    pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
-{
+    Fase::Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_) :
+        pGC(gc), pGG(gg), LE(), pontos(0),menuPause(new MenuPause())
+    {
+        tiros = new Listas::ListaEntidades();
 
-    Ente::setpGG(gg); // define o gerenciador gr�fico no Ente base
+        Ente::setpGG(gg); // define o gerenciador gr�fico no Ente base
 
-    numPlayers = numPlayers_;
+        numPlayers = numPlayers_;
 
-    pJog1 = new Jogador();
-    LE.incluir(pJog1);
-    pGC->incluirJogador(pJog1);
-    if (numPlayers == 2) {
-        pJog2 = new Jogador();
-        LE.incluir(pJog2);
-        pGC->incluirJogador(pJog2);
-    }
-    else {
-        pJog2 = nullptr;
-    }
-}
-
-Fase::~Fase() {
-    // A lista deve deletar todas as entidades automaticamente.
-}
-
-void Fase::executar()
-{
-}
-
-ListaEntidades* Fase::getListaEntidades() {
-    return &LE;
-}
-
-void Fase::gravarNome(sf::RenderWindow* window) {
-    
-    // Salva a view atual da fase
-    sf::View viewAnterior = window->getView();
-
-    // Cria uma view fixa (HUD) centralizada na tela
-    sf::View viewHUD(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
-    viewHUD.setCenter(window->getSize().x / 2.0f, window->getSize().y / 2.0f);
-    sf::Font font;
-    if (!font.loadFromFile("upheavtt.ttf")) {
-        return; // Verifique se a fonte está disponível
+        pJog1 = new Entidades::Personagens::Jogador(tiros);
+        LE.incluir(pJog1);
+        pGC->incluirJogador(pJog1);
+        if (numPlayers == 2) {
+            pJog2 = new Entidades::Personagens::Jogador(tiros);
+            LE.incluir(pJog2);
+            pGC->incluirJogador(pJog2);
+        }
+        else {
+            pJog2 = nullptr;
+        }
+        criarHUD();
     }
 
-    std::string nome;
-    sf::Text texto;
-    texto.setFont(font);
-    texto.setCharacterSize(28);
-    texto.setFillColor(sf::Color::White);
+    Fase::~Fase() {
+        // A lista deve deletar todas as entidades automaticamente.
+        cout << "destrutora fase apagando a lista de projeteis(tiros)" << endl;
+        delete tiros;
+        tiros = nullptr;
+
+        if (menuPause) {
+            delete menuPause;
+            menuPause = nullptr;
+        }
+    }
+
+    void Fase::executar()
+    {
+    }
+
+    Listas::ListaEntidades* Fase::getListaEntidades() {
+        return &LE;
+    }
+
+    void Fase::gravarNome(sf::RenderWindow* window) {
+
+        // Salva a view atual da fase
+        sf::View viewAnterior = window->getView();
+
+        // Cria uma view fixa (HUD) centralizada na tela
+        sf::View viewHUD(sf::FloatRect(0, 0, window->getSize().x, window->getSize().y));
+        viewHUD.setCenter(window->getSize().x / 2.0f, window->getSize().y / 2.0f);
+        sf::Font font;
+        if (!font.loadFromFile("upheavtt.ttf")) {
+            return; // Verifique se a fonte está disponível
+        }
+
+        std::string nome;
+        sf::Text texto;
+        texto.setFont(font);
+        texto.setCharacterSize(28);
+        texto.setFillColor(sf::Color::White);
 
 
-    sf::Text instrucao("Digite seu nome e pressione Enter:", font, 24);
-    instrucao.setFillColor(sf::Color::White);
+        sf::Text instrucao("Digite seu nome e pressione Enter:", font, 24);
+        instrucao.setFillColor(sf::Color::White);
 
-    instrucao.setPosition(window->getSize().x / 2.f - 180, window->getSize().y / 2.f - 60);
-    texto.setPosition(window->getSize().x / 2.f - 100, window->getSize().y / 2.f);
+        instrucao.setPosition(window->getSize().x / 2.f - 180, window->getSize().y / 2.f - 60);
+        texto.setPosition(window->getSize().x / 2.f - 100, window->getSize().y / 2.f);
 
-    bool inserindo = true;
-    while (inserindo && window->isOpen()) {
-        sf::Event event;
-        while (window->pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window->close();
-                return;
+        bool inserindo = true;
+        while (inserindo && window->isOpen()) {
+            sf::Event event;
+            while (window->pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    window->close();
+                    return;
+                }
+
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode == '\b') {
+                        if (!nome.empty())
+                            nome.pop_back();
+                    }
+                    else if (event.text.unicode == '\r' || event.text.unicode == '\n') {
+                        inserindo = false;
+                    }
+                    else if (event.text.unicode < 128 && nome.size() < 15) {
+                        nome += static_cast<char>(event.text.unicode);
+                    }
+                }
             }
 
-            if (event.type == sf::Event::TextEntered) {
-                if (event.text.unicode == '\b') {
-                    if (!nome.empty())
-                        nome.pop_back();
-                }
-                else if (event.text.unicode == '\r' || event.text.unicode == '\n') {
-                    inserindo = false;
-                }
-                else if (event.text.unicode < 128 && nome.size() < 15) {
-                    nome += static_cast<char>(event.text.unicode);
-                }
+            texto.setString("Nome: " + nome);
+
+            window->setView(viewHUD);
+            window->clear(sf::Color::Black);
+            window->draw(instrucao);
+            window->draw(texto);
+            window->display();
+        }
+
+        window->setView(viewAnterior);
+
+        int total = pontos;
+		if (pJog1) {
+			total += pJog1->getPontos();
+		}
+        if (pJog2) {
+            total += pJog2->getPontos();
+        }
+
+        std::ifstream in("leaderboard.json");
+        json lb = json::array();
+        if (in.is_open()) {
+            in >> lb;
+        }
+
+        lb.push_back({ {"nome", nome}, {"pontuacao", total} });
+
+        std::sort(lb.begin(), lb.end(), [](const json& a, const json& b) {
+            return a["pontuacao"] > b["pontuacao"];
+            });
+
+        //if (lb.size() > 10)
+           // lb.erase(lb.begin() + 10, lb.end());
+        //
+        std::ofstream out("leaderboard.json");
+        out << lb.dump(4);
+    }
+
+    bool Fase::fimFase()
+    {
+        
+        if (numPlayers == 1) {
+            if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+                return true;
             }
         }
-
-        texto.setString("Nome: " + nome);
-
-		window->setView(viewHUD);
-        window->clear(sf::Color::Black);
-        window->draw(instrucao);
-        window->draw(texto);
-        window->display();
-    }
-
-    window->setView(viewAnterior);
-
-
-    int total = pontos1 + pontos2;
-
-    std::ifstream in("leaderboard.json");
-    json lb = json::array();
-    if (in.is_open()) {
-        in >> lb;
-    }
-
-    lb.push_back({ {"nome", nome}, {"pontuacao", total} });
-
-    std::sort(lb.begin(), lb.end(), [](const json& a, const json& b) {
-        return a["pontuacao"] > b["pontuacao"];
-        });
-
-    if (lb.size() > 10)
-        lb.erase(lb.begin() + 10, lb.end());
-
-    std::ofstream out("leaderboard.json");
-    out << lb.dump(4);
-}
-
-void Fase::desenharProjeteis()//mostra os projeteis na tela
-{
-    if (pJog1 && pJog1->getTiros())
-        pJog1->getTiros()->desenhar();
-    if (pJog2 && pJog2->getTiros())
-        pJog2->getTiros()->desenhar();
-    
-}
-void Fase::incluirProjeteisGC()
-{
-    int j;
-    ListaEntidades* l = nullptr;
-    if (pJog1 && pJog1->getTiros()) {
-        //cout << "1" << endl;
-        l = pJog1->getTiros();
-        j = 0;
-        for (l->primeiro();!l->fim();l->operator++()) {
-            //cout << "a " << j++ << endl;
-            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+        else if (numPlayers == 2) {
+            if (pJog1 && pJog2) {
+                if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
+                    return true;
+                }
+            }
+            else if (pJog1) {
+                if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
+                    return true;
+                }
+            }
+            else
+                if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
+                    return true;
+                }
         }
+        return false;
     }
-    j = 0;
-    if (pJog2 && pJog2->getTiros()) {
-        //cout << "2" << endl;
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            //cout << "b " << j++ << endl;
-            pGC->incluirProjetil(static_cast<Projetil*>(l->getAtual()));
+
+    void Fase::criarHUD()
+    {
+        if (!fonteHUD.loadFromFile("upheavtt.ttf")) {
+            std::cerr << "Erro ao carregar a fonte!" << std::endl;
+            return;
+        }
+        else {
+            cout << "Fonte carregada com sucesso!" << endl;
+        }
+        HUD.setFont(fonteHUD);
+        HUD.setCharacterSize(36);
+        HUD.setFillColor(sf::Color::White);
+        HUD.setPosition(50, 50);
+
+    }
+
+    void Fase::mostrarVidaPontos()
+    {
+        if (pJog1 && pJog2) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos())
+                + "   2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
+        }
+        else if (pJog1) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos()));
+        }
+        else if (pJog2) {
+            HUD.setString("2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
         }
     }
 
-}
+    void Fase::desenharProjeteis()//mostra os projeteis na tela
+    {
+        tiros->desenhar();
 
-void Fase::destruirProjeteis()//pega os desativados e tira da ListaEntidades e do Gerenciador_Colisoes e deleta
-{
-    pGC->retirarProjeteis();
+    }
+    void Fase::incluirProjeteisGC()
+    {
+        for (tiros->primeiro(); !tiros->fim(); tiros->operator++()) {
+            pGC->incluirProjetil(static_cast<Entidades::Projetil*>(tiros->getAtual()));
+        }
+    }
 
-    ListaEntidades* l = nullptr;
+    void Fase::destruirProjeteis()//pega os desativados e tira da ListaEntidades e do Gerenciador_Colisoes e deleta
+    {
+        pGC->retirarProjeteis();
 
-    if (pJog1 && pJog1->getTiros()) {
-        l = pJog1->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            Projetil* pj = static_cast<Projetil*>(l->getAtual());
-            if (pj->getAtivo() == false) {
-                l->retirar(pj);
+        Projetil* pj = nullptr;
+        for (tiros->primeiro(); !tiros->fim(); tiros->operator++()) {
+            pj = static_cast<Entidades::Projetil*>(tiros->getAtual());
+            if (pj && pj->getAtivo() == false) {
+                tiros->retirar(pj);
                 delete pj;
                 pj = nullptr;
             }
         }
     }
 
-    if (pJog2 && pJog2->getTiros()) {
-        l = pJog2->getTiros();
-        for (l->primeiro();!l->fim();l->operator++()) {
-            Projetil* pj = static_cast<Projetil*>(l->getAtual());
-            if (pj->getAtivo() == false) {
-                l->retirar(pj);
-                delete pj;
-                pj = nullptr;
-            }
-        }
-    }
-
-}
-
-void Fase::destruirNeutralizados()
-{
-    pGC->retirarPersonagens();
-
-    Entidade* pe = nullptr;
-    for (LE.primeiro();!LE.fim();LE.operator++()) {
-        pe = LE.getAtual();
-        if (pe && pe->getVidas() == 0) {
-            Jogador* pjog = static_cast<Jogador*>(pe);
-            if (pJog1 && pjog == pJog1) {
-                pontos1 = pJog1->getPontos();
-                cout << pJog1->getPontos() << endl;
-                cout << "j1 morreu" << endl;
-                cout << pontos1 << endl;
-                pJog1 = nullptr;
-            }
-            else if (pJog2 && pjog == pJog2) {
-                pontos2 = pJog2->getPontos();
-                cout << "j2 morreu" << endl;
-                pJog2 = nullptr;
-            }
-            
-            LE.retirar(pe);
-            delete pe;
-            pe = nullptr;
-        }
-    }
+    
 }

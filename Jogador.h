@@ -1,31 +1,40 @@
 #pragma once
 #include "Personagem.h" 
 
-class Jogador : public Personagem
-{
-protected:
-	int pontos;
+namespace Entidades {
+	namespace Personagens {
 
-	
-	bool j1;
-public:
-	static bool jogador1;
+		class Jogador : public Personagem
+		{
+		protected:
+			int pontos;
 
-	Jogador(Vector2f pos = (Vector2f(0.f, 0.f)));
-	~Jogador();
-	void mover();
+			bool j1;//flag principal
+		public:
+			static bool jogador1;//flag temporaria
 
-	void executar();
+			Jogador(Listas::ListaEntidades* t = nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
+			~Jogador();
+			void mover();
 
-	void colidirJog(Jogador* p = nullptr, int d = 0);
+			void executar();
 
-	void atirar(short int f = 1);
+			void colidirJog(Jogador* p = nullptr, int d = 0);
 
-	std::string getTipo() const { return "Jogador"; }
+			void atirar(short int f = 1);
 
-	const int getPontos() const;
+			const int getPontos() const;
 
-	void operator+=(const int n);
+			void operator+=(const int n);
 
-	void operator++();
-};
+			void operator++();
+
+			void salvar(json& j);
+
+			static void reiniciarJogs();
+
+		};
+
+
+	}
+}

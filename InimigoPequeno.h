@@ -1,20 +1,29 @@
 #pragma once
 #include "Inimigo.h"
-class InimigoPequeno : public Inimigo
-{
-private:
-	Vector2f posinicial;
-	int direcao;
-public:
-	InimigoPequeno(Vector2f pos = (Vector2f(100.f, 100.f)));
-	~InimigoPequeno();
-	void executar();
-	void salvar();
-	Vector2f getPosicaoInicial();
-	Vector2f getPosicaoAtual();
-	void mover();
 
-	std::string getTipo() const{ return "InimigoPequeno"; }
+namespace Entidades {
+	namespace Personagens {
 
-};
+		class InimigoPequeno : public Inimigo
+		{
+		private:
+			Vector2f posinicial;
+			int direcao;
 
+			float aceleracaoextra;
+
+		public:
+			InimigoPequeno(Vector2f pos = (Vector2f(100.f, 100.f)), float acelex = 0);
+			~InimigoPequeno();
+			void executar();
+			void salvar();
+			Vector2f getPosicaoInicial();
+			Vector2f getPosicaoAtual();
+			void mover();
+			float getAceleracaoExtra() const;
+
+			void salvar(json& j);
+		};
+
+	}
+}

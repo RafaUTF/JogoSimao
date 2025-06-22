@@ -7,20 +7,25 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#include "json.hpp"
+#include <fstream>
+
+using json = nlohmann::json;
+
 #define FPS 60
 
-#define CHAO 640.f
-#define DIREITA 960.f
+#define ALTURA_TELA 640.f
+#define LARGURA_TELA 960.f
 #define TAMANHOTOTALLATERAL 3200.f
 #define FINALFASE 3100.f
 
 #define ESQUERDA 50.f
 
-#define PULO 20.f
 #define ATRITO 0.5f
 #define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
-#define MAX_VEL 5.f//velocidade maxima
+#define MAX_VEL_JOG 5.f
+#define MAX_VEL_CHEFE 3.f
 
 #define TEMPO_RECARGA 30
 
@@ -33,6 +38,7 @@ using std::endl;
 #define	DANO_CHEFE 5
 #define	DANO_ALTO 3
 #define	DANO_BAIXO 2
+
 //VIDAS
 #define VIDA_BASE 1
 #define VIDA_JOGADOR 12
@@ -45,9 +51,10 @@ using std::endl;
 #define	ELASTICIDADE_ESPINHO 10.f
 
 //VELOCIDADE PROJETEIS
-#define  VY0 -2.f
+#define  VY0 -3.f
 
-#define FORCA_CHEFE 20
+#define MAX_FORCA_CHEFE 15
+#define MIN_FORCA_CHEFE 5
 #define FORCA_JOG 10
 
 
@@ -62,3 +69,20 @@ using std::endl;
 #define ACELERACAO_ALTO 1.f
 #define ACELERACAO_BAIXO 2.f
 
+//PULO
+#define PULO_JOG -18.f
+#define PULO_INIMIGO -12.f
+#define PULO_FRACO -10.f
+
+#define TAM_PROJ_CHEFE 50.f
+#define TAM_PROJ_JOG 20.f
+
+//pontos ao completar as fases
+#define PREMIO1 1000
+#define PREMIO2 2000
+#define PREMIO_CHEFE 10
+#define PREMIO_ALTO 5
+#define PREMIO_BAIXO 2
+#define PUNICAO_FOGO_AMIGO -5000
+
+#define N_LEADERBOARD 10

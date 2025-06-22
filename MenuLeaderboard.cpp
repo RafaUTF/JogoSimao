@@ -4,7 +4,9 @@
 
 using json = nlohmann::json;
 
-MenuLeaderboard::MenuLeaderboard() {
+MenuLeaderboard::MenuLeaderboard() :
+    nPosicoes(N_LEADERBOARD)
+{
     std::ifstream in("leaderboard.json");
     json lb = json::array();
     if (in.is_open()) in >> lb;
@@ -19,6 +21,8 @@ MenuLeaderboard::MenuLeaderboard() {
 
     float y = 150;
     int i = 1;
+
+    int j = 0;
     for (auto& entry : lb) {
         sf::Text t;
         t.setFont(fonte);
@@ -31,6 +35,10 @@ MenuLeaderboard::MenuLeaderboard() {
         t.setPosition(200, y);
         y += 40;
         opcoes.push_back(t);
+
+        j++;
+        if (j >= nPosicoes)
+            break;
     }
 
     sf::Text voltar;
@@ -65,5 +73,8 @@ int MenuLeaderboard::mostrar(sf::RenderWindow& window) {
 
     return 0;
 }
+
+
+
 
 

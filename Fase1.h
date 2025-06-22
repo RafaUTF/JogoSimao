@@ -1,27 +1,33 @@
 #pragma once
 #include "Fase.h"
 
-class Fase1 : public Fase {
+namespace Fases {
+    
+    class Fase1 : public Fase {
 
-private: 
-    bool proximaFase;
+    private:
+        bool proximaFase;
 
+    public:
+        void destruirNeutralizados();
 
-public:
-    Fase1(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
-    ~Fase1();
+        Fase1(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers);
+        ~Fase1();
 
-    void executar();
-    void criarMapa(const std::string& caminhoJson);
-    void criarEntidades();
-    void criarChefe(Vector2f pos);
+        void executar();
+        void criarMapa(const std::string& caminhoJson);
+        void criarEntidades();
+        void criarChefe(Vector2f pos);
 
-    void criarInimigos();
-    void criarObstaculos();
+        void criarInimigos();
+        void criarObstaculos();
 
-    void carregarJogo(const std::string& caminho);
-    void salvarJogo(const std::string& caminho);
+        void carregarJogo(const std::string& caminho);
+        void salvarJogo(const std::string& caminho);
 
-    bool deveTrocarFase();
-    void setTrocarFase(bool t);
-};
+        bool deveTrocarFase();
+        void setTrocarFase(bool t);
+
+        //void finalizarFase();
+    };
+}

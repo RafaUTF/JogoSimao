@@ -1,34 +1,18 @@
 [
     {
-        "nome": "rafa",
-        "pontuacao": 103
+        "nome": "lenda",
+        "pontuacao": 3062
+    },
+    {
+        "nome": "q",
+        "pontuacao": 19
     },
     {
         "nome": "a",
-        "pontuacao": 102
-    },
-    {
-        "nome": "f",
-        "pontuacao": 101
-    },
-    {
-        "nome": "b",
-        "pontuacao": 100
-    },
-    {
-        "nome": "Deb2",
-        "pontuacao": 4
-    },
-    {
-        "nome": "aa",
-        "pontuacao": 1
-    },
-    {
-        "nome": "Deborah",
-        "pontuacao": 1
+        "pontuacao": 12
     },
     {
         "nome": "ruim",
-        "pontuacao": 1
+        "pontuacao": 5
     }
 ]

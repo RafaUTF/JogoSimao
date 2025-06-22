@@ -2,17 +2,23 @@
 #include "Obstaculo.h"
 #include "Jogador.h"
 
-class TeiaAranha : public Obstaculo
-{
-private:
-	int dano;
+namespace Entidades {
+	namespace Obstaculos {
 
-public:
-	TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)));
-	~TeiaAranha();
-	void obstacular(Personagem* p = NULL, int d = 0);
-	void executar();
+		class TeiaAranha : public Obstaculo
+		{
+		private:
+			float reducao;
 
-	std::string getTipo() const { return "TeiaAranha"; }
+		public:
+			TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)), float redux = 0);
+			~TeiaAranha();
+			void obstacular(Personagens::Personagem* p = nullptr, int d = 0);
+			void executar();
 
-};
+			float getReducao() const { return reducao; }
+
+			void salvar(json& j);
+		};
+	}
+}

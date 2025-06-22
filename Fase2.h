@@ -1,35 +1,37 @@
 #pragma once
 #include "Fase.h"
 
-class Fase2 : public Fase {
 
-private:
+namespace Fases {
 
-    vector<Chefao*> LCs;//lista de chefes
+    class Fase2 : public Fase {
 
+    private:
 
-    void criarInimigos();
-    void criarObstaculos();
-
-    void incluirProjeteisGC();
-
-    void desenharProjeteis();
-    void destruirProjeteis();
-
-    void destruirNeutralizados();
-
-public:
-    Fase2(Gerenciador_Colisoes* gc, Gerenciador_Grafico* gg, int numPlayers);
-    ~Fase2();
-
-    void executar();
-    void criarMapa(const std::string& caminhoJson);
-    void criarEntidades();
-
-    void criarChefe(Vector2f pos);
-
-    void carregarJogo(const std::string& caminho);
-    void salvarJogo(const std::string& caminho);
+        vector<Entidades::Personagens::Chefao*> LCs;//lista de chefes
 
 
-};
+        void criarInimigos();
+        void criarObstaculos();
+
+
+    public:
+
+        void destruirNeutralizados();
+
+        Fase2(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers);
+        ~Fase2();
+
+        void executar();
+        void criarMapa(const std::string& caminhoJson);
+        void criarEntidades();
+
+        void criarChefe(Vector2f pos);
+
+        void carregarJogo(const std::string& caminho);
+        void salvarJogo(const std::string& caminho);
+
+
+    };
+
+}

@@ -1,30 +1,25 @@
 #pragma once
 #include "stdafx.h"
-
-class Gerenciador_Grafico;
+#include "Gerenciador_Grafico.h"
 
 class Ente
 {
 protected:
 	static int cont;
 	int id;
-
-	static Gerenciador_Grafico* pGG;
-
-	//Sprite corpo;//tirar o RectangleShape
+	static Gerenciadores::Gerenciador_Grafico* pGG;
 	RectangleShape corpo;
 	Texture textura;
-	//Figura* pFig;
-	
 
 public:
-	Ente();//(Vector2f pos = (Vector2f(0.f, 0.f))); ENTIDADE!
+	Ente();
 	virtual ~Ente();
-	//virtual void executar() = 0;
-	static void setpGG(Gerenciador_Grafico* p);
+	static void setpGG(Gerenciadores::Gerenciador_Grafico* p);
 
 	void desenhar(Ente* pE=NULL);
 
 	RectangleShape& getCorpo();
+
+	void carregarTextura(const std::string& caminho);
 
 };

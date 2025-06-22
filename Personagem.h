@@ -3,50 +3,58 @@
 #include "ListaEntidades.h"
 #include "Projetil.h"
 
-class Personagem : public Entidade
-{
-protected:
-	int num_vidas;
-	float aceleracao;
+namespace Entidades {
+	namespace Personagens {
 
-	ListaEntidades* tiros;
+		class Personagem : public Entidade
+		{
+		protected:
+			int num_vidas;
+			float aceleracao;
 
-	int recarga;
+			Listas::ListaEntidades* tiros;
 
-	bool comChao;
+			int recarga;
 
-	bool olhandoDir;
+			bool comChao;
 
+			bool olhandoDir;
 
+			float forca_pulo;
 
-public:
-	Personagem(Vector2f pos = (Vector2f(0.f, 0.f)));
-	~Personagem();
-	virtual void mover();
+		public:
+			Personagem(Listas::ListaEntidades* t = nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
+			~Personagem();
+			virtual void mover();
 
-	virtual void executar() = 0;
+			virtual void executar() = 0;
 
-	void setChao(bool b);
-
-	virtual void atirar(short int f = 1);
-
-	ListaEntidades* getTiros();
-
-	void criarTiros();
-
-	void reduzVelocidade(float fator);
-	void restaurarVelocidade();
-
-	virtual void sofrerGravidade();
-
-	void operator--();
-
-	const int getVidas();
-	void setVida(int v);
-
-	void colidir(Entidade* pe = NULL, int d = 0);
-
-	void incluirTiros(Projetil* p);
+			void setChao(bool b);
 
 
-};
+			void criarTiros();
+
+			void reduzVelocidade(float fator);
+			void restaurarVelocidade();
+
+			void sofrerGravidade();
+
+			void operator--();
+			void operator-=(int dano);
+
+			const int getVidas() const;
+			void setVida(int v);
+
+			void colidir(Entidade* pe = nullptr, int d = 0);
+
+			void incluirTiros(Projetil* p);
+
+			virtual void zerarPulo();
+
+			void reduzPulo(float fator = 0.5f);
+
+			virtual void salvar(json& j)=0;
+		};
+
+	}
+}

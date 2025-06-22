@@ -1,37 +1,37 @@
 #pragma once
 #include "Ente.h"
-class Entidade: public Ente
-{
-protected:
-	float massa;
-	Vector2f vel;
 
-	int dirColisao;
-public:
-	//Entidade(float xx = 20, float yy = 20);
-	Entidade(Vector2f pos = (Vector2f(0.f, 0.f)));
-	virtual ~Entidade();
+namespace Entidades {
 
-	Vector2f getcm();
-	//float getXcm();
-	//float getYcm();
-	Vector2f getRaio();
-	//float getRaioX();
-	//float getRaioY();
-	
-	void centralizarEntidade();
+	class Entidade : public Ente
+	{
+	protected:
+		Vector2f vel;
+		int dirColisao;
+	public:
+		
+		Entidade(Vector2f pos);
+		Entidade();
+		virtual ~Entidade();
 
-	virtual void executar()=0;
+		Vector2f getcm();
 
-	void setDir(int v = 0);
-	int getDir();
+		Vector2f getRaio();
+		
 
-	void setVel(Vector2f v = (Vector2f(0.f, 0.f)));
+		void centralizarEntidade();
 
-	Vector2f& getVel();
+		virtual void executar() = 0;
 
-	virtual const int getVidas();
+		void setDir(int v = 0);
+		int getDir();
 
-	virtual std::string getTipo() const = 0;
-};
+		void setVel(Vector2f v = (Vector2f(0.f, 0.f)));
 
+		Vector2f& getVel();
+
+		virtual void salvar(json& j) = 0;
+
+		void salvarPos(json& j);
+	};
+}
