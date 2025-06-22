@@ -18,8 +18,7 @@ namespace Fases {
 		sf::Font fonteHUD;
         sf::Text HUD;
 
-        int pontos1;
-        int pontos2;
+        int pontos;
 
         int numPlayers;
 
@@ -58,17 +57,17 @@ namespace Fases {
         virtual void carregarJogo(const std::string& caminho) = 0;
         virtual void salvarJogo(const std::string& caminho) = 0;
 
-        int getPontos1() const { return pontos1; }
-        void setPontos1(int pontos) { pontos1 = pontos; }
-        int getPontos2() const { return pontos2; }
-        void setPontos2(int pontos) { pontos2 = pontos; }
+        //int getPontos1() const { return pontos1; }
+        //void setPontos1(int pontos) { pontos1 = pontos; }
+        //int getPontos2() const { return pontos2; }
+        //void setPontos2(int pontos) { pontos2 = pontos; }
         int getNumPlayers() const { return numPlayers; }
 
         Entidades::Personagens::Jogador* getJogador1() const { return pJog1; }
         Entidades::Personagens::Jogador* getJogador2() const { return pJog2; }
 
         void gravarNome(sf::RenderWindow* window);
-        void finalFase();
+        bool fimFase();
 
 		void criarHUD();
         void mostrarVidaPontos();

@@ -1,9 +1,9 @@
 #include "Projetil.h"
 
 #include "Jogador.h"
-
+#include "Chefao.h"
 using namespace Listas;
-
+//using namespace Entidades::Personagens;
 namespace Entidades {
 
     Projetil::Projetil(Vector2f pos, bool dir, float raio, Listas::ListaEntidades* lp,
@@ -96,8 +96,20 @@ namespace Entidades {
             pp->operator--();
             if (pp->getVidas() == 0) {
                 cout << "personagem neutralizado por projetil" << endl;
-                if (pDono)
-                    pDono->operator+=(100);
+                if (pDono) {
+                    if (dynamic_cast<Personagens::Jogador*>(pp))
+                        pDono->operator+=(PUNICAO_FOGO_AMIGO);
+                    /*
+                    else if(dynamic_cast<Personagens:Chefao*>(pp))
+                        pDono->operator+=(PREMIO_CHEFE);
+                    else if (dynamic_cast<Personagens:InimigoAlto*>(pp))
+                        pDono->operator+=(PREMIO_ALTO);
+                    else if (dynamic_cast<Personagens:InimigoAlto*>(pp))
+                        pDono->operator+=(PREMIO_BAIXO);
+                      */
+                    else
+                        pDono->operator+=(PREMIO_BAIXO);
+                }
             }
         }
     }

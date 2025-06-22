@@ -185,7 +185,16 @@ namespace Gerenciadores {
 							pi->getcm().y - pJog->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
 						);
 						pi->setVida(0);
-						pJog->operator++();
+						/*
+						if (dynamic_cast<Entidades::Personagens::Chefao*>(pi)) {
+							pDono->operator+=(PREMIO_CHEFE);
+						}
+						else if (dynamic_cast<Entidades::Personagens:InimigoAlto*>(pi))
+							pDono->operator+=(PREMIO_ALTO);
+						else if (dynamic_cast<Entidades::Personagens:InimigoAlto*>(pi))
+							pDono->operator+=(PREMIO_BAIXO);
+							*/
+						pJog->operator+=(PREMIO_ALTO);
 						pJog->setChao(true);
 						pJog->reduzPulo();
 

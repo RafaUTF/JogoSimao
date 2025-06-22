@@ -71,4 +71,10 @@ using std::endl;
 #define TAM_PROJ_CHEFE 50.f
 #define TAM_PROJ_JOG 20.f
 
-#define VETOR Vector2f()
+//pontos ao completar as fases
+#define PREMIO1 1000
+#define PREMIO2 2000
+#define PREMIO_CHEFE 10
+#define PREMIO_ALTO 5
+#define PREMIO_BAIXO 2
+#define PUNICAO_FOGO_AMIGO -5000

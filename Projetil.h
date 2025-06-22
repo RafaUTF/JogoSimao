@@ -6,6 +6,9 @@ namespace Entidades {
 	namespace Personagens {
 		class Jogador;
 		class Personagem;
+		class Chefao;
+		class InimigoAlto;
+		class InimigoBaixo;
 	}
 }
 

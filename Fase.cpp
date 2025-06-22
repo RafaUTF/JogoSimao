@@ -10,7 +10,7 @@ using namespace Gerenciadores;
 namespace Fases {
 
     Fase::Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_) :
-        pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
+        pGC(gc), pGG(gg), LE(), pontos(0)
     {
         tiros = new Listas::ListaEntidades();
 
@@ -107,14 +107,13 @@ namespace Fases {
 
         window->setView(viewAnterior);
 
+        int total = pontos;
 		if (pJog1) {
-			pontos1 = pJog1->getPontos();
+			total += pJog1->getPontos();
 		}
         if (pJog2) {
-			pontos2 = pJog2->getPontos();
+            total += pJog2->getPontos();
         }
-
-        int total = pontos1 + pontos2;
 
         std::ifstream in("leaderboard.json");
         json lb = json::array();
@@ -135,34 +134,31 @@ namespace Fases {
         out << lb.dump(4);
     }
 
-    void Fase::finalFase()
+    bool Fase::fimFase()
     {
+        
         if (numPlayers == 1) {
             if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
+                return true;
             }
         }
         else if (numPlayers == 2) {
             if (pJog1 && pJog2) {
                 if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
             }
             else if (pJog1) {
                 if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
             }
             else
                 if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
-
         }
+        return false;
     }
 
     void Fase::criarHUD()
@@ -185,7 +181,7 @@ namespace Fases {
     {
         if (pJog1 && pJog2) {
             HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos())
-                + "       2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
+                + "   2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
         }
         else if (pJog1) {
             HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos()));

@@ -1,7 +1,23 @@
 [
     {
+        "nome": "605",
+        "pontuacao": 1748605
+    },
+    {
+        "nome": "3605",
+        "pontuacao": 3605
+    },
+    {
+        "nome": "a",
+        "pontuacao": 3505
+    },
+    {
         "nome": "era",
         "pontuacao": 703
+    },
+    {
+        "nome": "502",
+        "pontuacao": 402
     },
     {
         "nome": "q",
@@ -16,27 +32,11 @@
         "pontuacao": 305
     },
     {
-        "nome": "d",
-        "pontuacao": 205
+        "nome": "304",
+        "pontuacao": 305
     },
     {
-        "nome": "rafa",
-        "pontuacao": 103
-    },
-    {
-        "nome": "a",
-        "pontuacao": 102
-    },
-    {
-        "nome": "f",
-        "pontuacao": 101
-    },
-    {
-        "nome": "b",
-        "pontuacao": 100
-    },
-    {
-        "nome": "c",
-        "pontuacao": 100
+        "nome": "301",
+        "pontuacao": 301
     }
 ]
