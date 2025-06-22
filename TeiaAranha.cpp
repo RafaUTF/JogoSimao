@@ -74,5 +74,9 @@ namespace Entidades {
 		void TeiaAranha::executar() {
 
 		}
+		void TeiaAranha::salvar(json& j)
+		{
+			j["reducao"] = getReducao();
+		}
 	}
 }

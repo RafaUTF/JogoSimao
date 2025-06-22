@@ -23,8 +23,7 @@ namespace Entidades {
 
             p1 = pp1;
             p2 = pp2;
-            //criarTiros();
-
+  
             corpo.setSize(Vector2f(150.f, 150.f));
             centralizarEntidade();
             try {
@@ -50,10 +49,8 @@ namespace Entidades {
 
             p1 = pp1;
             p2 = pp2;
-            //criarTiros();
-	    
-	    recarga = 0;
-			
+
+            recarga = 0;
             corpo.setSize(Vector2f(150.f, 150.f));
             centralizarEntidade();
             try {
@@ -78,23 +75,20 @@ namespace Entidades {
             if (pAlvo) {
                 atirar();
             }
-            //tiros->percorrer();
         }
 
-        void Chefao::salvar()
+        void Chefao::salvar(json& je)
         {
+            je["vida"] = getVidas();
+            je["forca"] = getForca();
         }
 
+        
         void Chefao::mover() {
-
             sofrerGravidade();
-
             if (pAlvo)
                 perseguir();
-
             corpo.move(vel);
-
-
         }
         void Chefao::atirar()
         {

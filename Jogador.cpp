@@ -144,6 +144,26 @@ namespace Entidades {
             pontos++;
         }
 
+        void Jogador::salvar(json& j)
+        {
+            if (j1) {
+                j["jogador1"] = { {"x", getCorpo().getPosition().x},
+                {"y", getCorpo().getPosition().y}, {"numvidas", getVidas() },
+                {"pontos1", getPontos()} };
+            }
+            else {
+                j["jogador2"] = { {"x", getCorpo().getPosition().x},
+                {"y", getCorpo().getPosition().y}, {"numvidas", getVidas() },
+                {"pontos2", getPontos()} };
+            }
+            
+        }
+
+        void Jogador::reiniciarJogs()
+        {
+            jogador1 = true;
+        }
+
 
 
         void Jogador::mover()
@@ -173,7 +193,7 @@ namespace Entidades {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
                         vel.y += aceleracao;
                 }
-                else if (getcm().y - getRaio().y < CHAO) {//CHAO
+                else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
                         vel.x += -aceleracao;
@@ -220,7 +240,7 @@ namespace Entidades {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
                         vel.y += aceleracao;
                 }
-                else if (getcm().y - getRaio().y < CHAO) {//CHAO
+                else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
                         vel.x += -aceleracao;
@@ -263,10 +283,10 @@ namespace Entidades {
             //    vel.x = 0.f;
             //}
 
-            if (vel.x > MAX_VEL)
-                vel.x = MAX_VEL;
-            else if (vel.x < -MAX_VEL)
-                vel.x = -MAX_VEL;
+            if (vel.x > MAX_VEL_JOG)
+                vel.x = MAX_VEL_JOG;
+            else if (vel.x < -MAX_VEL_JOG)
+                vel.x = -MAX_VEL_JOG;
 
             corpo.move(vel);
 

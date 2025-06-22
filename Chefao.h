@@ -16,7 +16,6 @@ namespace Entidades {
 				Vector2f pos,short int f,int vida);
 			~Chefao();
 			void executar();
-			void salvar();
 			void mover();
 
 			std::string getTipo() const { return "Chefao"; }
@@ -24,6 +23,8 @@ namespace Entidades {
 			void atirar();
 
 			const short int getForca() const { return forca; }
+
+			void salvar(json& j);
 		};
 
 	}

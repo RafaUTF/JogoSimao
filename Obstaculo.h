@@ -17,6 +17,8 @@ namespace Entidades {
 			virtual void obstacular(Personagens::Personagem* p = NULL, int d = 0) = 0;
 			bool isDanoso() const;
 			virtual void causarDano(Personagens::Personagem* pJog = NULL);
+
+			virtual void salvar(json& j)=0;
 		};
 	}
 }

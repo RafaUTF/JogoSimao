@@ -9,10 +9,9 @@ namespace Entidades {
 		protected:
 			int pontos;
 
-
-			bool j1;
+			bool j1;//flag principal
 		public:
-			static bool jogador1;
+			static bool jogador1;//flag temporaria
 
 			Jogador(Listas::ListaEntidades* t = nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 			~Jogador();
@@ -31,6 +30,11 @@ namespace Entidades {
 			void operator+=(const int n);
 
 			void operator++();
+
+			void salvar(json& j);
+
+			static void reiniciarJogs();
+
 		};
 
 

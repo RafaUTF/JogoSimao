@@ -19,6 +19,7 @@ namespace Entidades {
 
 			std::string getTipo() const override { return "Espinho"; }
 
+			void salvar(json& j);
 		};
 	}
 }

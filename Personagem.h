@@ -54,6 +54,7 @@ namespace Entidades {
 
 			void reduzPulo(float fator = 0.5f);
 
+			virtual void salvar(json& j)=0;
 		};
 
 	}

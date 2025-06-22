@@ -89,5 +89,8 @@ namespace Entidades {
 		void Espinho::executar() {
 
 		}
+		void Espinho::salvar(json& j)
+		{
+		}
 	}
 }

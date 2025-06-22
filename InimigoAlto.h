@@ -24,6 +24,7 @@ namespace Entidades {
 			std::string getTipo() const { return "InimigoAlto"; }
 			int getDistanciaPadrao() const { return distanciapadrao; }
 
+			void salvar(json& j);
 		};
 
 	}

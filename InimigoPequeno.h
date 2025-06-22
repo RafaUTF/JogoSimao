@@ -24,6 +24,8 @@ namespace Entidades {
 			std::string getTipo() const { return "InimigoPequeno"; }
 
 			float getAceleracaoExtra() const { return aceleracaoextra; }
+
+			void salvar(json& j);
 		};
 
 	}

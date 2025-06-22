@@ -5,7 +5,7 @@ MenuInicial::MenuInicial() : etapa(0), nJogadores(1), fase(1) {
     
     
     nomeJogo.setFont(fonte);
-    nomeJogo.setString("ADefinir++");
+    nomeJogo.setString("SpiderJumper");
     nomeJogo.setCharacterSize(60);
     nomeJogo.setFillColor(sf::Color::White);
     sf::FloatRect nJ = nomeJogo.getLocalBounds();

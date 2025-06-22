@@ -6,6 +6,9 @@ namespace Entidades {
 	namespace Personagens {
 		class Jogador;
 		class Personagem;
+		class Chefao;
+		class InimigoAlto;
+		class InimigoPequeno;
 	}
 }
 
@@ -32,7 +35,7 @@ namespace Entidades {
 		const bool getAtivo();
 
 		//quando explode um personagem
-		void explodir(Entidades::Personagens::Personagem* pp);
+		void explodir(Personagens::Personagem* pp);
 		//quando explode em um obstaculo
 		void explodir();
 
@@ -41,5 +44,7 @@ namespace Entidades {
 		Vector2f getVelocidade();
 		void setVelocidade(Vector2f v);
 		void setDono(Entidades::Personagens::Jogador* pdono);
+
+		void salvar(json& j);
 	};
 }

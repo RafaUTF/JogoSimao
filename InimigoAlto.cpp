@@ -57,7 +57,15 @@ namespace Entidades {
 				direcao = 1;
 			}
 
-			corpo.move(aceleracao * direcao, 0.f);
+			corpo.move(aceleracao * direcao, vel.y);
+		}
+
+		void InimigoAlto::salvar(json& j)
+		{
+			j["distanciapadrao"] = getDistanciaPadrao();
+			j["xi"] = getPosicaoInicial().x;
+			j["yi"] = getPosicaoInicial().y;
+			j["vida"] = getVidas();
 		}
 
 		void InimigoAlto::salvar()

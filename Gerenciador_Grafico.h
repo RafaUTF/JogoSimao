@@ -33,10 +33,11 @@ namespace Gerenciadores {
 		void mostrar();
 		void fechar();
 
-		void moverCamera(Entidades::Entidade* p1 = NULL, Entidades::Entidade* p2 = NULL);
-
+		void moverCamera(sf::Text* t, Entidades::Entidade* p1 = nullptr, Entidades::Entidade* p2 = nullptr);
+		void moverCamera(Entidades::Entidade* p1=nullptr, Entidades::Entidade* p2=nullptr);
 		static Gerenciador_Grafico* getInstancia();
 
 		void setJanelaExterna(sf::RenderWindow* j);
+		void setFundo(const std::string& caminho); 
 	};
 }

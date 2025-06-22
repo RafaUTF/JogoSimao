@@ -657,42 +657,6 @@
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
-            "x": 384.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 416.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 448.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 480.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 512.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 544.0,
-            "y": 138.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
             "x": 3168.0,
             "y": 160.0
         },
@@ -701,15 +665,6 @@
             "type": "Plataforma",
             "x": 0.0,
             "y": 192.0
-        },
-        {
-            "aceleracaoextra": 47.0,
-            "type": "InimigoPequeno",
-            "vida": 1,
-            "x": 1078.0,
-            "xi": 1024.0,
-            "y": 176.0,
-            "yi": 192.0
         },
         {
             "deslocamento": 0.0,
@@ -763,73 +718,37 @@
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1472.0,
-            "y": 216.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1504.0,
-            "y": 216.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1536.0,
-            "y": 216.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1568.0,
-            "y": 216.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1600.0,
-            "y": 216.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 1632.0,
-            "y": 216.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2304.0,
-            "y": 190.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2336.0,
-            "y": 190.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2368.0,
-            "y": 190.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2400.0,
-            "y": 190.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2432.0,
-            "y": 190.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 2464.0,
-            "y": 190.0
+            "y": 200.0
         },
         {
             "deslocamento": 0.0,
@@ -858,42 +777,6 @@
         {
             "deslocamento": 0.0,
             "type": "Plataforma",
-            "x": 512.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 544.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 576.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 608.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 640.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 672.0,
-            "y": 265.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
             "x": 3168.0,
             "y": 288.0
         },
@@ -913,6 +796,16 @@
             "deslocamento": 0.0,
             "type": "Plataforma",
             "x": 0.0,
+            "y": 352.0
+        },
+        {
+            "type": "Espinho",
+            "x": 800.0,
+            "y": 352.0
+        },
+        {
+            "type": "Espinho",
+            "x": 896.0,
             "y": 352.0
         },
         {
@@ -952,10 +845,19 @@
             "y": 352.0
         },
         {
-            "forca": 13,
+            "aceleracaoextra": 25.0,
+            "type": "InimigoPequeno",
+            "vida": 2,
+            "x": 2131.0,
+            "xi": 2080.0,
+            "y": 336.0,
+            "yi": 352.0
+        },
+        {
+            "forca": 7,
             "type": "Chefao",
             "vida": 5,
-            "x": 2789.1005859375,
+            "x": 2848.0,
             "y": 389.0
         },
         {
@@ -1041,42 +943,6 @@
             "type": "Plataforma",
             "x": 928.0,
             "y": 384.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1248.0,
-            "y": 355.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1280.0,
-            "y": 355.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1312.0,
-            "y": 355.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1344.0,
-            "y": 355.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1376.0,
-            "y": 355.0
-        },
-        {
-            "deslocamento": 0.0,
-            "type": "Plataforma",
-            "x": 1408.0,
-            "y": 355.0
         },
         {
             "deslocamento": 0.0,
@@ -1205,10 +1071,10 @@
             "y": 512.0
         },
         {
-            "forca": 6,
+            "forca": 7,
             "type": "Chefao",
-            "vida": 4,
-            "x": 251.0,
+            "vida": 5,
+            "x": 2368.0,
             "y": 517.0
         },
         {
@@ -1249,24 +1115,6 @@
             "type": "Espinho",
             "x": 1472.0,
             "y": 576.0
-        },
-        {
-            "aceleracaoextra": 27.0,
-            "type": "InimigoPequeno",
-            "vida": 1,
-            "x": 1627.4000244140625,
-            "xi": 1568.0,
-            "y": 560.0,
-            "yi": 576.0
-        },
-        {
-            "aceleracaoextra": 39.0,
-            "type": "InimigoPequeno",
-            "vida": 1,
-            "x": 2125.69970703125,
-            "xi": 2048.0,
-            "y": 560.0,
-            "yi": 576.0
         },
         {
             "deslocamento": 0.0,
@@ -1877,24 +1725,17 @@
     ],
     "fase": 2,
     "jogador1": {
-        "numvidas": 12,
-        "pontos1": 0,
-        "x": 2790.2998046875,
+        "numvidas": 4,
+        "pontos1": 533,
+        "x": 1730.0001220703125,
         "y": 560.0
     },
     "jogador2": {
-        "numvidas": 0,
-        "pontos2": 0,
-        "x": 0,
-        "y": 0
+        "numvidas": 4,
+        "pontos2": 512,
+        "x": 1872.0,
+        "y": 560.0
     },
     "numPlayers": 2,
-    "projeteis": [
-        {
-            "vx": 13.0,
-            "vy": 1.5,
-            "x": 3019.400390625,
-            "y": 385.8999938964844
-        }
-    ]
+    "projeteis": []
 }

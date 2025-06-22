@@ -1,6 +1,6 @@
 // MenuBase.h
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 #include <vector>
 #include <string>
 

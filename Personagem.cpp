@@ -60,7 +60,7 @@ namespace Entidades {
         void Personagem::sofrerGravidade()
         {
             //GRAVIDADE ANTES!
-            if (getcm().y + getRaio().y < CHAO && !comChao) {
+            if (getcm().y + getRaio().y < CHAO_CHEFE && !comChao) {
                 vel.y += GRAVIDADE;
             }
             else {//chao // comChao == true

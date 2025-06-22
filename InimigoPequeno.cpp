@@ -65,6 +65,14 @@ namespace Entidades {
 			corpo.move(aceleracao * direcao, 0.f);
 		}
 
+		void InimigoPequeno::salvar(json& j)
+		{
+			j["aceleracaoextra"] = getAceleracaoExtra();
+			j["xi"] = getPosicaoInicial().x;
+			j["yi"] = getPosicaoInicial().y;
+			j["vida"] = getVidas();
+		}
+
 		void InimigoPequeno::salvar()
 		{
 		}

@@ -10,6 +10,7 @@ namespace Entidades {
 		Vector2f vel;
 
 		int dirColisao;
+
 	public:
 		
 		Entidade(Vector2f pos);
@@ -36,5 +37,9 @@ namespace Entidades {
 		virtual const int getVidas();
 
 		virtual std::string getTipo() const = 0;
+
+		virtual void salvar(json& j) = 0;
+
+		void salvarPos(json& j);
 	};
 }

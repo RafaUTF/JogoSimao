@@ -66,5 +66,9 @@ namespace Entidades {
 				);
 			}
 		}
+		void Plataforma::salvar(json& j)
+		{
+			j["deslocamento"] = getDeslocamento();
+		}
 	}
 }

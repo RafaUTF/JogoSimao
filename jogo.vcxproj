@@ -26,12 +26,18 @@
     <Image Include="boss.png" />
     <Image Include="espinho.png" />
     <Image Include="fundo.png" />
+    <Image Include="fundo1.jfif" />
+    <Image Include="fundo2.jpg" />
+    <Image Include="fundoazul.png" />
     <Image Include="fundomenu.png" />
+    <Image Include="fundoroxo.png" />
+    <Image Include="fundovermelho.png" />
     <Image Include="inimigoalto.png" />
     <Image Include="inimigopequeno.png" />
     <Image Include="j1.png" />
     <Image Include="j2.png" />
     <Image Include="plataforma.png" />
+    <Image Include="projetil.png" />
     <Image Include="teiaaranha.png" />
     <Image Include="teste.png" />
   </ItemGroup>

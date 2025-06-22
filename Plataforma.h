@@ -20,6 +20,7 @@ namespace Entidades {
 
 			float getDeslocamento() const { return deslocamento; }
 
+			void salvar(json& j);
 		};
 	}
 }

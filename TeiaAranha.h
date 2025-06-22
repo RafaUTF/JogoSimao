@@ -20,6 +20,7 @@ namespace Entidades {
 
 			float getReducao() const { return reducao; }
 
+			void salvar(json& j);
 		};
 	}
 }

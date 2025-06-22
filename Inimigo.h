@@ -31,6 +31,8 @@ namespace Entidades {
 			void colidirInim(Inimigo* p = nullptr, int d = 0);
 
 			void zerarPulo();
+
+			virtual void salvar(json& j)=0;
 		};
 
 	}

@@ -10,7 +10,7 @@ using namespace Gerenciadores;
 namespace Fases {
 
     Fase::Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_) :
-        pGC(gc), pGG(gg), LE(), pontos1(0), pontos2(0)
+        pGC(gc), pGG(gg), LE(), pontos(0),menuPause(new MenuPause())
     {
         tiros = new Listas::ListaEntidades();
 
@@ -29,6 +29,7 @@ namespace Fases {
         else {
             pJog2 = nullptr;
         }
+        criarHUD();
     }
 
     Fase::~Fase() {
@@ -36,6 +37,11 @@ namespace Fases {
         cout << "destrutora fase apagando a lista de projeteis(tiros)" << endl;
         delete tiros;
         tiros = nullptr;
+
+        if (menuPause) {
+            delete menuPause;
+            menuPause = nullptr;
+        }
     }
 
     void Fase::executar()
@@ -106,8 +112,13 @@ namespace Fases {
 
         window->setView(viewAnterior);
 
-
-        int total = pontos1 + pontos2;
+        int total = pontos;
+		if (pJog1) {
+			total += pJog1->getPontos();
+		}
+        if (pJog2) {
+            total += pJog2->getPontos();
+        }
 
         std::ifstream in("leaderboard.json");
         json lb = json::array();
@@ -121,40 +132,67 @@ namespace Fases {
             return a["pontuacao"] > b["pontuacao"];
             });
 
-        if (lb.size() > 10)
-            lb.erase(lb.begin() + 10, lb.end());
-
+        //if (lb.size() > 10)
+           // lb.erase(lb.begin() + 10, lb.end());
+        //
         std::ofstream out("leaderboard.json");
         out << lb.dump(4);
     }
 
-    void Fase::finalFase()
+    bool Fase::fimFase()
     {
+        
         if (numPlayers == 1) {
             if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                gravarNome(pGG->getWindow());
-                pGG->fechar();
+                return true;
             }
         }
         else if (numPlayers == 2) {
             if (pJog1 && pJog2) {
                 if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
             }
             else if (pJog1) {
                 if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
             }
             else
                 if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
-                    gravarNome(pGG->getWindow());
-                    pGG->fechar();
+                    return true;
                 }
+        }
+        return false;
+    }
 
+    void Fase::criarHUD()
+    {
+        if (!fonteHUD.loadFromFile("upheavtt.ttf")) {
+            std::cerr << "Erro ao carregar a fonte!" << std::endl;
+            return;
+        }
+        else {
+            cout << "Fonte carregada com sucesso!" << endl;
+        }
+        HUD.setFont(fonteHUD);
+        HUD.setCharacterSize(36);
+        HUD.setFillColor(sf::Color::White);
+        HUD.setPosition(50, 50);
+
+    }
+
+    void Fase::mostrarVidaPontos()
+    {
+        if (pJog1 && pJog2) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos())
+                + "   2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
+        }
+        else if (pJog1) {
+            HUD.setString("1. Vida: " + std::to_string(pJog1->getVidas()) + "    Pontos: " + std::to_string(pJog1->getPontos()));
+        }
+        else if (pJog2) {
+            HUD.setString("2. Vida: " + std::to_string(pJog2->getVidas()) + "    Pontos: " + std::to_string(pJog2->getPontos()));
         }
     }
 
@@ -185,4 +223,5 @@ namespace Fases {
         }
     }
 
+    
 }

@@ -1,7 +1,11 @@
 #include "Gerenciador_Colisoes.h"
+#include "Chefao.h"
+#include "InimigoAlto.h"
+#include "InimigoPequeno.h"
 
 using namespace Entidades;
 using namespace Obstaculos;
+using namespace Personagens;
 
 float modulo(float x) {
 	return x < 0 ? (-1.f) * x : x;
@@ -185,7 +189,14 @@ namespace Gerenciadores {
 							pi->getcm().y - pJog->getRaio().y - pi->getRaio().y - ELASTICIDADE_INIMIGO
 						);
 						pi->setVida(0);
-						pJog->operator++();
+						if (dynamic_cast<Chefao*>(pi))
+							pJog->operator+=(PREMIO_CHEFE);
+						else if (dynamic_cast<InimigoAlto*>(pi))
+							pJog->operator+=(PREMIO_ALTO);
+						else if (dynamic_cast<InimigoPequeno*>(pi))
+							pJog->operator+=(PREMIO_BAIXO);
+						else
+							pJog->operator++();
 						pJog->setChao(true);
 						pJog->reduzPulo();
 

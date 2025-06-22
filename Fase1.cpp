@@ -13,6 +13,7 @@ namespace Fases {
         : Fase(gc, gg, numPlayers)
     {
         proximaFase = false;
+		pGG->setFundo("fundoazul.png"); // Define o fundo da fase 1
     }
 
     Fase1::~Fase1() {
@@ -20,6 +21,7 @@ namespace Fases {
     }
 
     void Fase1::executar() {
+        
         while (pGG->aberta()) {
             sf::Event event;
             while (pGG->getWindow()->pollEvent(event)) {
@@ -27,18 +29,20 @@ namespace Fases {
                     pGG->fechar();
 
                 if (event.type == sf::Event::KeyPressed) {
-                    if (event.key.code == sf::Keyboard::Escape) {
+                    if (event.key.code == sf::Keyboard::Escape && menuPause) {
                         // ABRIR MENU DE PAUSE
-                        MenuPause menuPause;
-                        int escolha = menuPause.mostrar(*pGG->getWindow());
+                        menuPause->setAtivo();
+                        int escolha = menuPause->mostrar(*pGG->getWindow());
 
                         if (escolha == 1) { // Salvar Jogo
                             salvarJogo("save.json");
                             std::cout << "Jogo salvo.\n";
                         }
                         else if (escolha == 2) { // Sair para Menu
+                            menuPause->setAtivo(false);
                             return; // sai da fase e volta ao menu inicial
                         }
+
                     }
                     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
                         salvarJogo("save.json");
@@ -47,16 +51,18 @@ namespace Fases {
 
                 }
             }
-           
+
+            mostrarVidaPontos();
             LE.percorrer();
             tiros->percorrer();
             incluirProjeteisGC();
             pGC->executar();
-            pGG->moverCamera(pJog1, pJog2);
+            pGG->moverCamera(&HUD, pJog1, pJog2);
             pGG->clear();
             pGG->desenhaFundo();
             LE.desenhar();
             tiros->desenhar();
+            pGG->getWindow()->draw(HUD);  // Desenha o texto do contador
             pGG->mostrar();
             destruirProjeteis();
             destruirNeutralizados();
@@ -64,8 +70,7 @@ namespace Fases {
 
             if (pJog1 == nullptr && pJog2 == nullptr) {
                 cout << "todos os jogadores foram neutralizados, fim do programa!" << endl;
-                cout << "PONTUACAO1: " << pontos1 << endl;
-                cout << "PONTUACAO2: " << pontos2 << endl;
+                cout << "PONTUACAO TOTAL: " << pontos << endl;
 
 
                 gravarNome(pGG->getWindow());
@@ -77,49 +82,29 @@ namespace Fases {
 
 
             }
-
-            if (numPlayers == 1) {
-                if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                    salvarJogo("save.json");
-                    pGG->clear();
-                    pGC->limpaLista();
-                    setTrocarFase(true);
-                    return;
-                }
-            }
-            else if (numPlayers == 2) {
+            if (fimFase()) {
+                salvarJogo("save.json");
                 if (pJog1 && pJog2) {
-                    if ((pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) && (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30)) {
-                        salvarJogo("save.json");
-                        pGG->clear();
-                        pGC->limpaLista();
-                        setTrocarFase(true);
-                        return;
-                    }
+                    pJog1->operator+=(PREMIO1 / 2);
+                    pJog2->operator+=(PREMIO1 / 2);
                 }
-                else if (pJog1) {
-                    if (pJog1->getcm().x > FINALFASE - 30 && pJog1->getcm().x < FINALFASE + 30) {
-                        salvarJogo("save.json");
-                        pGG->clear();
-                        pGC->limpaLista();
-                        setTrocarFase(true);
-                        return;
-                    }
-                }
+                else if(pJog1)
+                    pJog1->operator+=(PREMIO1);
                 else
-                    if (pJog2->getcm().x > FINALFASE - 30 && pJog2->getcm().x < FINALFASE + 30) {
-                        salvarJogo("save.json");
-                        pGG->clear();
-                        pGC->limpaLista();
-                        setTrocarFase(true);
-                        return;
-                    }
-
+                    pJog2->operator+=(PREMIO1);
+                pGG->clear();
+                pGC->limpaLista();
+                setTrocarFase(true);
+                return;
             }
-
+      
+        
         }
 
     }
+
+    
+
 
     void Fase1::criarEntidades() {
     }
@@ -299,28 +284,22 @@ namespace Fases {
         estado["fase"] = 1;
         estado["numPlayers"] = getNumPlayers();
         if (pJog1)
-            estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y}, {"numvidas", pJog1->getVidas() }, {"pontos1", pJog1->getPontos()} };
+            pJog1->salvar(estado);
         else
-            estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1",getPontos1() } };
+            estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1", 0 } };
         if (getNumPlayers() == 2)
         {
             if (pJog2) {
-                estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y}, {"numvidas", pJog2->getVidas()}, {"pontos2", pJog2->getPontos()} };
+                pJog2->salvar(estado);
             }
             else
-                estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", getPontos2() } };
+                estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", 0 } };
         }
 
         estado["projeteis"] = json::array();
         set<Projetil*>::iterator it = pGC->getProjeteis().begin();
         while (it != pGC->getProjeteis().end()) {
-            estado["projeteis"].push_back({
-                 {"x", (*it)->getCorpo().getPosition().x},
-                 {"y", (*it)->getCorpo().getPosition().y},
-                 {"vx", (*it)->getVelocidade().x},
-                 {"vy", (*it)->getVelocidade().y},
-
-                });
+            (*it)->salvar(estado);
             ++it;
         }
 
@@ -330,40 +309,13 @@ namespace Fases {
             Entidades::Entidade* e = LE.getAtual();
             if (e == pJog1 || e == pJog2) continue;
             json je;
-            je["type"] = e->getTipo();
-
-            sf::Vector2f atual = e->getcm();
-            je["x"] = atual.x;
-            je["y"] = atual.y;
-
-            if (e->getTipo() == "Plataforma")
-                je["deslocamento"] = static_cast<Entidades::Obstaculos::Plataforma*>(e)->getDeslocamento();
-
-            if (e->getTipo() == "TeiaAranha")
-                je["reducao"] = static_cast<Entidades::Obstaculos::TeiaAranha*>(e)->getReducao();
-
-            if (e->getTipo() == "InimigoPequeno") {
-                auto* ip = dynamic_cast<Entidades::Personagens::InimigoPequeno*>(e);
-                if (ip) {
-
-                    je["aceleracaoextra"] = ip->getAceleracaoExtra();
-                    sf::Vector2f ini = ip->getPosicaoInicial();
-                    je["xi"] = ini.x;
-                    je["yi"] = ini.y;
-                    je["vida"] = ip->getVidas();
-                }
+            if (e) {
+                je["type"] = e->getTipo();
+				e->salvarPos(je);
+				e->salvar(je);
+                
             }
-            else if (e->getTipo() == "InimigoAlto") {
-                auto* ia = dynamic_cast<Entidades::Personagens::InimigoAlto*>(e);
-                if (ia) {
-                    je["distanciapadrao"] = ia->getDistanciaPadrao();
-                    sf::Vector2f ini = ia->getPosicaoInicial();
-                    je["xi"] = ini.x;
-                    je["yi"] = ini.y;
-                    je["vida"] = ia->getVidas();
-                }
-            }
-
+            
             estado["entities"].push_back(je);
         }
 
@@ -381,6 +333,9 @@ namespace Fases {
         proximaFase = t;
     }
 
+    
+
+
     void Fase1::carregarJogo(const std::string& caminho) {
         std::ifstream in(caminho);
         if (!in.is_open()) return;
@@ -392,22 +347,23 @@ namespace Fases {
 
             pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
             pJog1->setVida(estado["jogador1"]["numvidas"]);
-            pontos1 = estado["jogador1"]["pontos1"];
+            pJog1->operator+=(estado["jogador1"]["pontos1"]);
         }
         else {
-            pontos1 = estado["jogador1"]["pontos1"];
+            //pontos1 = estado["jogador1"]["pontos1"];
             pJog1->setVida(0);
         }
-        destruirNeutralizados();
+        //destruirNeutralizados();
         if (estado["numPlayers"] == 2) {
             if (estado["jogador2"]["numvidas"] > 0) {
                 pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
                 pJog2->setVida(estado["jogador2"]["numvidas"]);
-                pontos2 = estado["jogador2"]["pontos2"];
+                pJog2->operator+=(estado["jogador2"]["pontos2"]);
+                //pontos2 = estado["jogador2"]["pontos2"];
             }
             else
             {
-                pontos2 = estado["jogador2"]["pontos2"];
+                //pontos2 = estado["jogador2"]["pontos2"];
                 pJog2->setVida(0);
             }
         }
@@ -509,14 +465,22 @@ namespace Fases {
             if (pe && pe->getVidas() == 0) {
                 Entidades::Personagens::Jogador* pjog = static_cast<Entidades::Personagens::Jogador*>(pe);
                 if (pJog1 && pjog == pJog1) {
-                    pontos1 = pJog1->getPontos();
+                    //pontos1 = pJog1->getPontos();
+                    if (pJog2)
+                        pJog2->operator+=(pJog1->getPontos());
+                    else
+						pontos = pJog1->getPontos();
                     cout << pJog1->getPontos() << endl;
                     cout << "j1 morreu" << endl;
-                    cout << pontos1 << endl;
+                  
                     pJog1 = nullptr;
                 }
                 else if (pJog2 && pjog == pJog2) {
-                    pontos2 = pJog2->getPontos();
+                    //pontos2 = pJog2->getPontos();
+                    if(pJog1)
+                        pJog1->operator+=(pJog2->getPontos());
+                    else
+						pontos = pJog2->getPontos();
                     cout << "j2 morreu" << endl;
                     pJog2 = nullptr;
                 }

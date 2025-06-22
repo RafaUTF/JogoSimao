@@ -1,7 +1,7 @@
 #include "Entidade.h"
 
 namespace Entidades {
-
+    
     Entidade::Entidade(Vector2f pos) : Ente(), massa(10.f), dirColisao(0), vel(Vector2f(0.f, 0.f))
     {
 
@@ -63,5 +63,10 @@ namespace Entidades {
     const int Entidade::getVidas()
     {
         return 1;
+    }
+    void Entidade::salvarPos(json& j)
+    {
+        j["x"] = getcm().x;
+        j["y"] = getcm().y;
     }
 }

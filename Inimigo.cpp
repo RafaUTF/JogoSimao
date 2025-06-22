@@ -123,7 +123,7 @@ namespace Entidades {
                 if (pAlvo->getcm().y > getcm().y)
                     vel.y += aceleracao;
             }
-            else if (getcm().y - getRaio().y < CHAO) {//CHAO
+            else if (getcm().y - getRaio().y < CHAO_CHEFE) {//CHAO
 
                 if (pAlvo->getcm().x < getcm().x)
                     vel.x += -aceleracao;
@@ -161,10 +161,10 @@ namespace Entidades {
                     vel.y = 0.f;
             }
 
-            if (vel.x > MAX_VEL * aceleracao)
-                vel.x = MAX_VEL * aceleracao;
-            else if (vel.x < -MAX_VEL * aceleracao)
-                vel.x = -MAX_VEL * aceleracao;
+            if (vel.x > MAX_VEL_CHEFE)
+                vel.x = MAX_VEL_CHEFE;
+            else if (vel.x < -MAX_VEL_CHEFE)
+                vel.x = -MAX_VEL_CHEFE;
 
             if (vel.x > 0)
                 olhandoDir = true;
@@ -218,6 +218,7 @@ namespace Entidades {
         {
             forca_pulo = PULO_INIMIGO;
         }
+
 
     }
 }

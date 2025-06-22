@@ -50,6 +50,24 @@
     <Image Include="fundomenu.png">
       <Filter>fds</Filter>
     </Image>
+    <Image Include="fundo1.jfif">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundo2.jpg">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundoazul.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundovermelho.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="fundoroxo.png">
+      <Filter>fds</Filter>
+    </Image>
+    <Image Include="projetil.png">
+      <Filter>fds</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chefao.cpp">
