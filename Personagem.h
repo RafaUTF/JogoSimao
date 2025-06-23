@@ -22,38 +22,33 @@ namespace Entidades {
 
 			float forca_pulo;
 
+			virtual void mover()=0;
+
+			void sofrerGravidade();
 		public:
 			Personagem(Listas::ListaEntidades* t = nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 			~Personagem();
-			virtual void mover();
 
 			virtual void executar() = 0;
 
 			void setChao(bool b);
 
-			//virtual void atirar();
-
-			void criarTiros();
-
 			void reduzVelocidade(float fator);
 			void restaurarVelocidade();
-
-			void sofrerGravidade();
 
 			void operator--();
 			void operator-=(int dano);
 
-			const int getVidas();
+			const int getVidas() const;
 			void setVida(int v);
 
 			void colidir(Entidade* pe = nullptr, int d = 0);
-
-			void incluirTiros(Projetil* p);
 
 			virtual void zerarPulo();
 
 			void reduzPulo(float fator = 0.5f);
 
+			virtual void salvar(json& j)=0;
 		};
 
 	}

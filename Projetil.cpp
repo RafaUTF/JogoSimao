@@ -2,8 +2,11 @@
 
 #include "Jogador.h"
 #include "Chefao.h"
+#include "InimigoAlto.h"
+#include "InimigoPequeno.h"
+
 using namespace Listas;
-//using namespace Entidades::Personagens;
+using namespace Entidades::Personagens;
 namespace Entidades {
 
     Projetil::Projetil(Vector2f pos, bool dir, float raio, Listas::ListaEntidades* lp,
@@ -11,7 +14,7 @@ namespace Entidades {
         Entidade(pos), ativo(true), lista(lp), duracao(TEMPO_PROJETIL), pDono(pdono)
     {
         try {
-            carregarTextura("boss.png");
+            carregarTextura("projetil.png");
             corpo.setTexture(&textura);
         }
         catch (const std::exception& e) {
@@ -43,7 +46,7 @@ namespace Entidades {
 		Entidade(pos), pDono(pdono), ativo(true), lista(nullptr), duracao(TEMPO_PROJETIL)
     {
         try {
-            carregarTextura("boss.png");
+            carregarTextura("projetil.png");
             corpo.setTexture(&textura);
         }
         catch (const std::exception& e) {
@@ -79,16 +82,12 @@ namespace Entidades {
         }
     }
 
-    void Projetil::salvar()
-    {
-    }
-
     const bool Projetil::getAtivo()
     {
         return ativo;
     }
 
-    void Projetil::explodir(Entidades::Personagens::Personagem* pp)
+    void Projetil::explodir(Personagens::Personagem* pp)
     {
         ativo = false;
         cout << "projetil colidiu" << endl;
@@ -97,16 +96,15 @@ namespace Entidades {
             if (pp->getVidas() == 0) {
                 cout << "personagem neutralizado por projetil" << endl;
                 if (pDono) {
-                    if (dynamic_cast<Personagens::Jogador*>(pp))
+                    if (dynamic_cast<Jogador*>(pp))
                         pDono->operator+=(PUNICAO_FOGO_AMIGO);
-                    /*
-                    else if(dynamic_cast<Personagens:Chefao*>(pp))
+                    else if(dynamic_cast<Chefao*>(pp))
                         pDono->operator+=(PREMIO_CHEFE);
-                    else if (dynamic_cast<Personagens:InimigoAlto*>(pp))
+                    else if (dynamic_cast<InimigoAlto*>(pp))
                         pDono->operator+=(PREMIO_ALTO);
-                    else if (dynamic_cast<Personagens:InimigoAlto*>(pp))
+                    else if (dynamic_cast<InimigoPequeno*>(pp))
                         pDono->operator+=(PREMIO_BAIXO);
-                      */
+                      
                     else
                         pDono->operator+=(PREMIO_BAIXO);
                 }
@@ -132,6 +130,18 @@ namespace Entidades {
     void Projetil::setDono(Entidades::Personagens::Jogador* pdono)
     {
         pDono = pdono;
+    }
+
+    void Projetil::salvar(json& j)
+    {
+        j["type"] = "Projetil";
+        j["projeteis"].push_back({
+                 {"x", getCorpo().getPosition().x},
+                 {"y", getCorpo().getPosition().y},
+                 {"vx", getVelocidade().x},
+                 {"vy", getVelocidade().y},
+
+            });
     }
 
 }

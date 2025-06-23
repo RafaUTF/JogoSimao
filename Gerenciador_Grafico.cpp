@@ -106,11 +106,6 @@ namespace Gerenciadores {
 			t->setPosition(camera.getCenter()-Vector2f(LARGURA_TELA/2 - 20.f,ALTURA_TELA/2 - 10.f)); // Move o texto para acompanhar a câmera	
 	}
 
-	void Gerenciador_Grafico::moverCamera(Entidades::Entidade* p1, Entidades::Entidade* p2)
-	{
-		moverCamera(nullptr, p1, p2);
-	}
-
 	
 
 

@@ -25,7 +25,6 @@ namespace Entidades {
 				std::cerr << e.what() << std::endl;
 				corpo.setFillColor(sf::Color::White); // fallback color
 			}
-			//corpo.setFillColor(sf::Color::Transparent);
 		}
 
 		TeiaAranha::~TeiaAranha()
@@ -39,7 +38,7 @@ namespace Entidades {
 			if (!p) return;
 
 			p->reduzVelocidade(reducao);
-			p->reduzPulo();//reducao
+			p->reduzPulo();
 			if (d == 1) {
 				p->getVel().y = 0.f;
 				p->getCorpo().setPosition(
@@ -73,6 +72,15 @@ namespace Entidades {
 
 		void TeiaAranha::executar() {
 
+		}
+		float TeiaAranha::getReducao() const
+		{
+			return reducao;
+		}
+		void TeiaAranha::salvar(json& j)
+		{
+			j["type"] = "TeiaAranha";
+			j["reducao"] = getReducao();
 		}
 	}
 }

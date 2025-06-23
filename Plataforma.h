@@ -8,18 +8,17 @@ namespace Entidades {
 		{
 		private:
 
-			float deslocamento; // Deslocamento da plataformaf
+			float deslocamento; 
 
 		public:
 			Plataforma(Vector2f pos = (Vector2f(0.f, 0.f)), float desloc = 0);
 			~Plataforma();
 			void executar();
-			void obstacular(Personagens::Personagem* p = NULL, int d = 0);
+			void obstacular(Personagens::Personagem* p = nullptr, int d = 0);
 
-			std::string getTipo() const { return "Plataforma"; }
+			float getDeslocamento() const;
 
-			float getDeslocamento() const { return deslocamento; }
-
+			void salvar(json& j);
 		};
 	}
 }

@@ -5,14 +5,12 @@ using namespace Gerenciadores;
 int Ente::cont(0);
 Gerenciadores::Gerenciador_Grafico* Ente::pGG(0);
 
-
 Ente::Ente() :id(cont++), corpo(Vector2f(200.f, 200.f)) {
 	
 }
 
 Ente::~Ente()
 {
-
 }
 
 void Ente::setpGG(Gerenciadores::Gerenciador_Grafico* p)
@@ -29,8 +27,6 @@ void Ente::desenhar(Ente* pE)
 	pGG->desenhar(this);
 
 }
-
-
 
 RectangleShape& Ente::getCorpo()
 {

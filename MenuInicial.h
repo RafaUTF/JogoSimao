@@ -12,7 +12,8 @@ private:
 
 public:
     MenuInicial();
-    int mostrar(sf::RenderWindow& window) override;
-    int getNJogadores() const { return nJogadores; }
-    int getFase() const { return fase; }
+    ~MenuInicial();
+    int mostrar(sf::RenderWindow& window);// override;
+    int getNJogadores() const;
+    int getFase() const;
 };

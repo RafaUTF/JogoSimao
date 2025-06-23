@@ -9,21 +9,23 @@ namespace Entidades {
 		{
 		private:
 			short int forca;
-
-		public:
-			Chefao(Listas::ListaEntidades* t = nullptr, Jogador* pp1 = nullptr, Jogador* pp2 = nullptr, Vector2f pos = (Vector2f(100.f, 100.f)));
-			Chefao(Listas::ListaEntidades* t, Jogador* pp1, Jogador* pp2,
-				Vector2f pos,short int f,int vida);
-			~Chefao();
-			void executar();
-			void salvar();
 			void mover();
-
-			std::string getTipo() const { return "Chefao"; }
-
 			void atirar();
+		public:
+			//sobrecarga construtora
+			//quando eh criada:
+			Chefao(Listas::ListaEntidades* t, Jogador* pp1 = nullptr, Jogador* pp2 = nullptr,
+				Vector2f pos = (Vector2f(100.f, 100.f)));
+			//quando eh carregada:
+			Chefao(Listas::ListaEntidades* t, Jogador* pp1, Jogador* pp2,
+				Vector2f pos, short int f, int vida);
+			~Chefao();
 
-			const short int getForca() const { return forca; }
+			void executar();
+
+			const short int getForca() const;
+
+			void salvar(json& j);
 		};
 
 	}

@@ -17,10 +17,7 @@ namespace Gerenciadores {
 	class Gerenciador_Colisoes {//chamar todas essas funcoes no executar();
 
 	private:
-		bool chao1;
-		bool chao2;
-
-
+		
 		vector<Entidades::Personagens::Inimigo*> LIs;
 		list<Entidades::Obstaculos::Obstaculo*> LOs;
 		set<Entidades::Projetil*> LPs;
@@ -29,7 +26,7 @@ namespace Gerenciadores {
 
 		Gerenciador_Colisoes();//privada
 
-		const int verificarDirecao(Entidades::Entidade* pe1 = NULL, Entidades::Entidade* pe2 = NULL) const;
+		const int verificarDirecao(Entidades::Entidade* pe1 = nullptr, Entidades::Entidade* pe2 = nullptr) const;
 
 		void tratarColisoesJogs();
 		void tratarColisoesJogsObstacs();

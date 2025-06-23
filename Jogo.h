@@ -11,8 +11,11 @@
 #include "Fase1.h"
 #include "Fase2.h"
 
+#include "MenuInicial.h"
 class Jogo {
 private:
+	MenuInicial menu;
+
 	Fases::Fase1* pF1;
 	Fases::Fase2* pF2;
 
@@ -20,15 +23,18 @@ private:
 	Gerenciadores::Gerenciador_Colisoes* GC;
 
 	int fase;
-	int numPlayers;
+	int nJogs;
 
-public:
-	Jogo();
-	~Jogo();
+
 	void executarFase();
 	void executar();
 	Fases::Fase* getFase();
 	void mudarParaFase2(const std::string& caminho);
 
 	void sementear();
+
+public:
+	Jogo();
+	~Jogo();
+	
 };

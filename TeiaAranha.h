@@ -13,13 +13,12 @@ namespace Entidades {
 		public:
 			TeiaAranha(Vector2f pos = (Vector2f(0.f, 0.f)), float redux = 0);
 			~TeiaAranha();
-			void obstacular(Personagens::Personagem* p = NULL, int d = 0);
+			void obstacular(Personagens::Personagem* p = nullptr, int d = 0);
 			void executar();
 
-			std::string getTipo() const { return "TeiaAranha"; }
+			float getReducao() const;
 
-			float getReducao() const { return reducao; }
-
+			void salvar(json& j);
 		};
 	}
 }

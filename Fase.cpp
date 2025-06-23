@@ -10,7 +10,7 @@ using namespace Gerenciadores;
 namespace Fases {
 
     Fase::Fase(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers_) :
-        pGC(gc), pGG(gg), LE(), pontos(0)
+        pGC(gc), pGG(gg), LE(), pontos(0),menuPause(new MenuPause())
     {
         tiros = new Listas::ListaEntidades();
 
@@ -37,14 +37,30 @@ namespace Fases {
         cout << "destrutora fase apagando a lista de projeteis(tiros)" << endl;
         delete tiros;
         tiros = nullptr;
+
+        if (menuPause) {
+            delete menuPause;
+            menuPause = nullptr;
+        }
     }
 
-    void Fase::executar()
-    {
-    }
-
+  
     Listas::ListaEntidades* Fase::getListaEntidades() {
         return &LE;
+    }
+
+    int Fase::getNumPlayers() const
+    {
+        return numPlayers;
+    }
+
+    Entidades::Personagens::Jogador* Fase::getJogador1() const
+    {
+        return pJog1;
+    }
+    Entidades::Personagens::Jogador* Fase::getJogador2() const
+    {
+        return pJog2;
     }
 
     void Fase::gravarNome(sf::RenderWindow* window) {
@@ -127,9 +143,9 @@ namespace Fases {
             return a["pontuacao"] > b["pontuacao"];
             });
 
-        if (lb.size() > 10)
-            lb.erase(lb.begin() + 10, lb.end());
-
+        //if (lb.size() > 10)
+           // lb.erase(lb.begin() + 10, lb.end());
+        //
         std::ofstream out("leaderboard.json");
         out << lb.dump(4);
     }

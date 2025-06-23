@@ -19,34 +19,13 @@ namespace Entidades {
             tiros = nullptr;
         }
 
-        void Personagem::mover()
-        {
-        }
 
         void Personagem::setChao(bool b)
         {
             comChao = b;
         }
 
-
-        /*
-        void Personagem::atirar(short int f)
-        {
-            if (recarga >= TEMPO_RECARGA) {
-                cout << "CHEFAO ATIROU" << endl;
-                tiros->incluir(new Projetil(getcm(), olhandoDir, getRaio().x, tiros, nullptr, f));
-                recarga = 0;
-            }
-            else
-                recarga++;
-
-        }
-        */
-        void Personagem::criarTiros()
-        {
-            tiros = new ListaEntidades();
-        }
-
+        
         void Personagem::reduzVelocidade(float fator)
         {
             vel *= fator;
@@ -79,7 +58,7 @@ namespace Entidades {
             num_vidas -= dano;
         }
 
-        const int Personagem::getVidas()
+        const int Personagem::getVidas() const
         {
             return num_vidas;
         }
@@ -121,29 +100,17 @@ namespace Entidades {
                     pe->getcm().y - getRaio().y - pe->getRaio().y
                 );
             }
-
         }
 
-        void Personagem::incluirTiros(Projetil* p)
-        {
-            if (tiros == NULL) {
-                cout << "criando lista de tiros" << endl;
-                criarTiros();
-            }
-            tiros->incluir(p);
-        }
 
         void Personagem::zerarPulo()
         {
             forca_pulo = PULO_JOG;
         }
 
-
-
         void Personagem::reduzPulo(float fator)
         {
             forca_pulo = PULO_JOG * fator;
-
         }
 
     }

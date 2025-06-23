@@ -29,18 +29,20 @@ namespace Fases {
                     pGG->fechar();
 
                 if (event.type == sf::Event::KeyPressed) {
-                    if (event.key.code == sf::Keyboard::Escape) {
+                    if (event.key.code == sf::Keyboard::Escape && menuPause) {
                         // ABRIR MENU DE PAUSE
-                        MenuPause menuPause;
-                        int escolha = menuPause.mostrar(*pGG->getWindow());
+                        menuPause->setAtivo();
+                        int escolha = menuPause->mostrar(*pGG->getWindow());
 
                         if (escolha == 1) { // Salvar Jogo
                             salvarJogo("save.json");
                             std::cout << "Jogo salvo.\n";
                         }
                         else if (escolha == 2) { // Sair para Menu
+                            menuPause->setAtivo(false);
                             return; // sai da fase e volta ao menu inicial
                         }
+
                     }
                     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
                         salvarJogo("save.json");
@@ -102,26 +104,6 @@ namespace Fases {
     }
 
     
-
-
-    void Fase1::criarEntidades() {
-    }
-
-
-    void Fase1::criarChefe(Vector2f pos) {
-        Entidades::Personagens::Inimigo* chefe = new Entidades::Personagens::Chefao(tiros, pJog1, pJog2, pos);
-        LE.incluir(chefe);
-        pGC->incluirInimigo(chefe);
-    }
-
-    void Fase1::criarInimigos()
-    {
-    }
-
-    void Fase1::criarObstaculos()
-    {
-    }
-
 
     void Fase1::criarMapa(const std::string& caminhoJson) {
         std::ifstream arquivo(caminhoJson);
@@ -241,7 +223,7 @@ namespace Fases {
             }
 
             if (id == 10) {
-                criarChefe({ x, y });
+                //criarChefe({ x, y });
             }
 
             if (id == 14) {
@@ -267,10 +249,6 @@ namespace Fases {
                 LE.incluir(inimigoalto);
                 pGC->incluirInimigo(inimigoalto);
             }
-
-
-
-
         }
 
     }
@@ -282,13 +260,13 @@ namespace Fases {
         estado["fase"] = 1;
         estado["numPlayers"] = getNumPlayers();
         if (pJog1)
-            estado["jogador1"] = { {"x", pJog1->getCorpo().getPosition().x}, {"y", pJog1->getCorpo().getPosition().y}, {"numvidas", pJog1->getVidas() }, {"pontos1", pJog1->getPontos()} };
+            pJog1->salvar(estado);
         else
             estado["jogador1"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos1", 0 } };
         if (getNumPlayers() == 2)
         {
             if (pJog2) {
-                estado["jogador2"] = { {"x", pJog2->getCorpo().getPosition().x}, {"y", pJog2->getCorpo().getPosition().y}, {"numvidas", pJog2->getVidas()}, {"pontos2", pJog2->getPontos()} };
+                pJog2->salvar(estado);
             }
             else
                 estado["jogador2"] = { {"x", 0}, {"y", 0}, {"numvidas", 0}, { "pontos2", 0 } };
@@ -297,13 +275,7 @@ namespace Fases {
         estado["projeteis"] = json::array();
         set<Projetil*>::iterator it = pGC->getProjeteis().begin();
         while (it != pGC->getProjeteis().end()) {
-            estado["projeteis"].push_back({
-                 {"x", (*it)->getCorpo().getPosition().x},
-                 {"y", (*it)->getCorpo().getPosition().y},
-                 {"vx", (*it)->getVelocidade().x},
-                 {"vy", (*it)->getVelocidade().y},
-
-                });
+            (*it)->salvar(estado);
             ++it;
         }
 
@@ -313,40 +285,13 @@ namespace Fases {
             Entidades::Entidade* e = LE.getAtual();
             if (e == pJog1 || e == pJog2) continue;
             json je;
-            je["type"] = e->getTipo();
-
-            sf::Vector2f atual = e->getcm();
-            je["x"] = atual.x;
-            je["y"] = atual.y;
-
-            if (e->getTipo() == "Plataforma")
-                je["deslocamento"] = static_cast<Entidades::Obstaculos::Plataforma*>(e)->getDeslocamento();
-
-            if (e->getTipo() == "TeiaAranha")
-                je["reducao"] = static_cast<Entidades::Obstaculos::TeiaAranha*>(e)->getReducao();
-
-            if (e->getTipo() == "InimigoPequeno") {
-                auto* ip = dynamic_cast<Entidades::Personagens::InimigoPequeno*>(e);
-                if (ip) {
-
-                    je["aceleracaoextra"] = ip->getAceleracaoExtra();
-                    sf::Vector2f ini = ip->getPosicaoInicial();
-                    je["xi"] = ini.x;
-                    je["yi"] = ini.y;
-                    je["vida"] = ip->getVidas();
-                }
+            if (e) {
+                //je["type"] = e->getTipo();
+				e->salvarPos(je);
+				e->salvar(je);
+                
             }
-            else if (e->getTipo() == "InimigoAlto") {
-                auto* ia = dynamic_cast<Entidades::Personagens::InimigoAlto*>(e);
-                if (ia) {
-                    je["distanciapadrao"] = ia->getDistanciaPadrao();
-                    sf::Vector2f ini = ia->getPosicaoInicial();
-                    je["xi"] = ini.x;
-                    je["yi"] = ini.y;
-                    je["vida"] = ia->getVidas();
-                }
-            }
-
+            
             estado["entities"].push_back(je);
         }
 
@@ -368,12 +313,16 @@ namespace Fases {
 
 
     void Fase1::carregarJogo(const std::string& caminho) {
-        std::ifstream in(caminho);
-        if (!in.is_open()) return;
 
+        cout << "entrou carregar fase1" << endl;
+
+        std::ifstream in(caminho);
+        cout << "1" << endl;
+        if (!in.is_open()) return;
+        cout << "2" << endl;
         json estado;
         in >> estado;
-
+        cout << "3" << endl;
         if (estado["jogador1"]["numvidas"] > 0) {
 
             pJog1->getCorpo().setPosition(estado["jogador1"]["x"], estado["jogador1"]["y"]);
@@ -384,7 +333,7 @@ namespace Fases {
             //pontos1 = estado["jogador1"]["pontos1"];
             pJog1->setVida(0);
         }
-        destruirNeutralizados();
+        //destruirNeutralizados();
         if (estado["numPlayers"] == 2) {
             if (estado["jogador2"]["numvidas"] > 0) {
                 pJog2->getCorpo().setPosition(estado["jogador2"]["x"], estado["jogador2"]["y"]);
@@ -398,26 +347,27 @@ namespace Fases {
                 pJog2->setVida(0);
             }
         }
-
+        cout << "4" << endl;
         destruirNeutralizados();
-
+        cout << "a" << endl;
         std::vector<Entidades::Entidade*> remover;
         for (LE.primeiro(); !LE.fim(); ++LE) {
             Entidades::Entidade* e = LE.getAtual();
             if (e != pJog1 && e != pJog2) remover.push_back(e);
         }
+        cout << "b" << endl;
         for (auto* e : remover) {
             LE.retirar(e);
             Gerenciador_Colisoes::getInstancia()->removerEntidade(e);
             delete e;
         }
-
+        cout << "c" << endl;
         for (auto& je : estado["entities"]) {
             Entidades::Entidade* ne = nullptr;
             Entidades::Obstaculos::Obstaculo* no = nullptr;
             sf::Vector2f pos(je["x"], je["y"]);
             std::string tipo = je["type"];
-
+            cout << "d" << endl;
             if (tipo == "TeiaAranha") {
                 float reducao = je["reducao"];
                 no = new Entidades::Obstaculos::TeiaAranha(pos, reducao);
@@ -425,12 +375,12 @@ namespace Fases {
             else if (tipo == "Plataforma") {
                 no = new Entidades::Obstaculos::Plataforma(pos);
             }
-
+            cout << "e" << endl;
             sf::Vector2f posAtual(je["x"], je["y"]);
             sf::Vector2f posIni = posAtual;
             if (je.contains("xi") && je.contains("yi"))
                 posIni = sf::Vector2f(je["xi"], je["yi"]);
-
+            cout << "f" << endl;
             if (tipo == "InimigoPequeno") {
                 float acelex = je["aceleracaoextra"];
 
@@ -447,20 +397,21 @@ namespace Fases {
                 ia->getCorpo().setPosition(posAtual);
                 ne = ia;
             }
-
+            cout << "g" << endl;
             if (ne) {
                 LE.incluir(ne);
                 pGC->incluirInimigo(static_cast<Entidades::Personagens::Inimigo*>(ne));
 
             }
-
+            cout << "h" << endl;
             if (no) {
                 LE.incluir(no);
                 pGC->incluirObstaculo(no);
+
             }
 
         }
-
+        cout << "6" << endl;
         for (auto& jp : estado["projeteis"]) {
            
             Entidades::Personagens::Jogador* p = pJog1;
@@ -468,59 +419,48 @@ namespace Fases {
                 p = pJog2;
             Projetil* proj = new Projetil(sf::Vector2f(jp["x"], jp["y"]),
                 sf::Vector2f(jp["vx"], jp["vy"]), p);
-            //proj->getCorpo().setPosition(jp["x"], jp["y"]);
-            //proj->setVelocidade(sf::Vector2f(jp["vx"], jp["vy"]));
+         
             tiros->incluir(proj);
-            /*
-            if (pJog1) {
-                proj->setDono(pJog1);
-                pJog1->incluirTiros(proj);
-            }
-            else {
-                proj->setDono(pJog2);
-                pJog2->incluirTiros(proj);
-            }
-            */
+            
             pGC->incluirProjetil(proj);
         }
-
+        cout << "7" << endl;
     }
-
+    
     void Fase1::destruirNeutralizados()
     {
         pGC->retirarPersonagens();
 
         Entidades::Entidade* pe = nullptr;
+        Entidades::Personagens::Personagem* p = nullptr;
+        Entidades::Personagens::Jogador* pjog = nullptr;
         for (LE.primeiro(); !LE.fim(); LE.operator++()) {
             pe = LE.getAtual();
-            if (pe && pe->getVidas() == 0) {
-                Entidades::Personagens::Jogador* pjog = static_cast<Entidades::Personagens::Jogador*>(pe);
-                if (pJog1 && pjog == pJog1) {
-                    //pontos1 = pJog1->getPontos();
-                    if (pJog2)
-                        pJog2->operator+=(pJog1->getPontos());
-                    else
-						pontos = pJog1->getPontos();
-                    cout << pJog1->getPontos() << endl;
-                    cout << "j1 morreu" << endl;
-                  
-                    pJog1 = nullptr;
+            if (pe) {
+				p = dynamic_cast<Entidades::Personagens::Personagem*>(pe);
+                if (p && p->getVidas() == 0) {
+                    pjog = dynamic_cast<Entidades::Personagens::Jogador*>(p);
+                    if (pJog1 && pjog == pJog1) {
+                        if (pJog2)
+                            pJog2->operator+=(pJog1->getPontos());
+                        else
+                            pontos = pJog1->getPontos();
+                        pJog1 = nullptr;
+                    }
+                    else if (pJog2 && pjog == pJog2) {
+                        if (pJog1)
+                            pJog1->operator+=(pJog2->getPontos());
+                        else
+                            pontos = pJog2->getPontos();
+                        pJog2 = nullptr;
+                    }
+                    LE.retirar(pe);
+                    delete pe;
+                    pe = nullptr;
                 }
-                else if (pJog2 && pjog == pJog2) {
-                    //pontos2 = pJog2->getPontos();
-                    if(pJog1)
-                        pJog1->operator+=(pJog2->getPontos());
-                    else
-						pontos = pJog2->getPontos();
-                    cout << "j2 morreu" << endl;
-                    pJog2 = nullptr;
-                }
-
-                LE.retirar(pe);
-                delete pe;
-                pe = nullptr;
             }
         }
     }
+
 
 }

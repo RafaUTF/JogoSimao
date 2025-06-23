@@ -7,6 +7,11 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#include "json.hpp"
+#include <fstream>
+
+using json = nlohmann::json;
+
 #define FPS 60
 
 #define ALTURA_TELA 640.f
@@ -19,7 +24,8 @@ using std::endl;
 #define ATRITO 0.5f
 #define VISCOSO 0.1f
 #define GRAVIDADE 0.5f
-#define MAX_VEL 5.f//velocidade maxima
+#define MAX_VEL_JOG 5.f
+#define MAX_VEL_CHEFE 3.f
 
 #define TEMPO_RECARGA 30
 
@@ -78,3 +84,5 @@ using std::endl;
 #define PREMIO_ALTO 5
 #define PREMIO_BAIXO 2
 #define PUNICAO_FOGO_AMIGO -5000
+
+#define N_LEADERBOARD 10

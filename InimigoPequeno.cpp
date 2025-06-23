@@ -65,8 +65,18 @@ namespace Entidades {
 			corpo.move(aceleracao * direcao, 0.f);
 		}
 
-		void InimigoPequeno::salvar()
+		float InimigoPequeno::getAceleracaoExtra() const
 		{
+			return aceleracaoextra;
+		}
+
+		void InimigoPequeno::salvar(json& j)
+		{
+			j["aceleracaoextra"] = getAceleracaoExtra();
+			j["xi"] = getPosicaoInicial().x;
+			j["yi"] = getPosicaoInicial().y;
+			j["vida"] = getVidas();
+			j["type"] = "InimigoPequeno";
 		}
 
 		Vector2f InimigoPequeno::getPosicaoInicial()

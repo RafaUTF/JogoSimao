@@ -110,7 +110,7 @@ namespace Entidades {
         }
 
 
-        void Jogador::atirar(short int f)
+        void Jogador::atirar()
         {
             if (recarga >= TEMPO_RECARGA) {
                 if (j1 && sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
@@ -142,6 +142,27 @@ namespace Entidades {
         void Jogador::operator++()
         {
             pontos++;
+        }
+
+        void Jogador::salvar(json& j)
+        {
+            j["type"] = "Jogador";
+            if (j1) {
+                j["jogador1"] = { {"x", getCorpo().getPosition().x},
+                {"y", getCorpo().getPosition().y}, {"numvidas", getVidas() },
+                {"pontos1", getPontos()} };
+            }
+            else {
+                j["jogador2"] = { {"x", getCorpo().getPosition().x},
+                {"y", getCorpo().getPosition().y}, {"numvidas", getVidas() },
+                {"pontos2", getPontos()} };
+            }
+            
+        }
+
+        void Jogador::reiniciarJogs()
+        {
+            jogador1 = true;
         }
 
 
@@ -263,10 +284,10 @@ namespace Entidades {
             //    vel.x = 0.f;
             //}
 
-            if (vel.x > MAX_VEL)
-                vel.x = MAX_VEL;
-            else if (vel.x < -MAX_VEL)
-                vel.x = -MAX_VEL;
+            if (vel.x > MAX_VEL_JOG)
+                vel.x = MAX_VEL_JOG;
+            else if (vel.x < -MAX_VEL_JOG)
+                vel.x = -MAX_VEL_JOG;
 
             corpo.move(vel);
 

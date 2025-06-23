@@ -8,29 +8,21 @@ namespace Entidades {
 		{
 		protected:
 			int pontos;
-
-
-			bool j1;
+			bool j1;//flag principal
+			static bool jogador1;//flag temporaria
+			void mover();
+			void atirar();
 		public:
-			static bool jogador1;
-
 			Jogador(Listas::ListaEntidades* t = nullptr, Vector2f pos = (Vector2f(0.f, 0.f)));
 			~Jogador();
-			void mover();
-
 			void executar();
-
 			void colidirJog(Jogador* p = nullptr, int d = 0);
-
-			void atirar(short int f = 1);
-
-			std::string getTipo() const { return "Jogador"; }
-
 			const int getPontos() const;
-
 			void operator+=(const int n);
-
 			void operator++();
+			void salvar(json& j);
+			static void reiniciarJogs();
+
 		};
 
 

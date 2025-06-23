@@ -6,6 +6,8 @@
 #include "MenuInicial.h"
 #include <fstream>
 
+#include <string>
+
 using json = nlohmann::json;
 using namespace Fases;
 using namespace Entidades;
@@ -13,7 +15,7 @@ using namespace Entidades;
 Jogo::Jogo()
     : GC(Gerenciadores::Gerenciador_Colisoes::getInstancia()),
     GG(Gerenciadores::Gerenciador_Grafico::getInstancia()),
-    pF1(nullptr), pF2(nullptr)
+	pF1(nullptr), pF2(nullptr), menu(), fase(0), nJogs(0)
 {
     Ente::setpGG(GG);  // define ponteiro para o gerenciador gráfico na classe base
 
@@ -23,10 +25,14 @@ Jogo::Jogo()
 }
 Jogo::~Jogo()
 {
-    if (pF1)
+    if (pF1) {
         delete pF1;
-    if (pF2)
+        pF1 = nullptr;
+    }
+    if (pF2) {
         delete pF2;
+        pF2 = nullptr;
+    }
     std::cout << "destrutora jogo" << std::endl;
 }
 
@@ -53,61 +59,78 @@ void Jogo::executar()
     window.setFramerateLimit(60); // Limita para 60 FPS
 
     Gerenciadores::Gerenciador_Grafico::getInstancia()->setJanelaExterna(&window);
+    int escolha = 0;
+    while (GG->aberta()) {
 
-    MenuInicial menu;
-    int escolha = menu.mostrar(window);
-    int nJog = menu.getNJogadores();
-    int fase = menu.getFase();
+        escolha = menu.mostrar(window);
+        nJogs = menu.getNJogadores();
+        fase = menu.getFase();
 
-    
-    srand(static_cast<unsigned int>(time(0))); // Semente para números aleatórios
 
-    
-    if (escolha == 0) {
+        sementear();
 
-        Fase* faseAtual = nullptr;
-        std::ifstream in("save.json");
-        json estado;
-        in >> estado;
 
-        int fase = estado.value("fase", 1); // valor padrão 1, caso não exista
-        int nJog = estado.value("numPlayers", 1); // valor padrão 1, caso não exista
+        if (escolha == 0) {
 
-        numPlayers = nJog;
+            Fase* faseAtual = nullptr;
+            std::ifstream in("save.json");
+            json estado;
+            in >> estado;
 
-        // Cria a fase correta, mas não executa ainda
-        if (fase == 1) {
-            pF1 = new Fase1(GC, GG, nJog);
+            fase = estado.value("fase", 1); // valor padrão 1, caso não exista
+            nJogs = estado.value("numPlayers", 1); // valor padrão 1, caso não exista
+
+            // Cria a fase correta, mas não executa ainda
+            if (fase == 1) {
+                pF1 = new Fase1(GC, GG, nJogs);
+            }
+            else {
+                pF2 = new Fase2(GC, GG, nJogs);
+            }
+			cout << "carregando jogo..." << endl;
+            getFase()->carregarJogo("save.json");
+            cout << "jogo carregado com sucesso!" << endl;
+            executarFase();
+
+            if (pF1) {
+                delete pF1;
+                pF1 = nullptr;
+            }
+            if (pF2) {
+                delete pF2;
+                pF2 = nullptr;
+            }
+            Entidades::Personagens::Jogador::reiniciarJogs();
+            GC->limpaLista();
+        }
+        else if (escolha == 1) {
+            if (fase == 1) {
+                pF1 = new Fase1(GC, GG, nJogs);
+                getFase()->criarMapa("mapa1.json");
+            }
+            else if (fase == 2) {
+                pF2 = new Fase2(GC, GG, nJogs);
+                getFase()->criarMapa("mapa2.json");
+            }
+
+            executarFase();
+            if (pF1) {
+                delete pF1;
+                pF1 = nullptr;
+            }
+            if (pF2) {
+                delete pF2;
+                pF2 = nullptr;
+            }
+            Entidades::Personagens::Jogador::reiniciarJogs();
+            GC->limpaLista();
         }
         else {
-            pF2 = new Fase2(GC, GG, nJog);
+            // Leaderboard
         }
 
-        getFase()->carregarJogo("save.json");
-
-        executarFase();
-    }
-    else if (escolha == 1) {
-        //Jogo jogo(nJog, fase);
-
-		numPlayers = nJog; // Define o número de jogadores
-
-        if (fase == 1) {
-            pF1 = new Fase1(GC, GG, nJog);
-            getFase()->criarMapa("mapa1.json");
-        }
-        else if (fase == 2) {
-            pF2 = new Fase2(GC, GG, nJog);
-            getFase()->criarMapa("mapa2.json");
-        }
-
-        executarFase();
-    }
-    else {
-        // Leaderboard
     }
 
-    
 
 }
 Fase* Jogo::getFase()
@@ -128,33 +151,11 @@ void Jogo::mudarParaFase2(const std::string& caminho)
     }
 
     
-    Entidades::Personagens::Jogador::jogador1 = true;
+	Entidades::Personagens::Jogador::reiniciarJogs(); 
 
-    pF2 = new Fase2(GC, GG, numPlayers);
+    pF2 = new Fase2(GC, GG, nJogs);
     pF2->criarMapa("mapa2.json");
 
-    /*
-    pF2->getJogador1()->setVida(0);
-    pF2->getJogador1()->operator+=(pF1->getJogador1()->getPontos());
-    if (estado["numPlayers"] == 2) {
-        pF2->getJogador2()->setVida(0);
-        pF2->getJogador2()->operator+=(pF1->getJogador2()->getPontos());
-    }
-    */
-
-
-    // Atualiza apenas vidas (sem reinserir ponteiros)
-    /*
-    if (pF2->getJogador1()) {
-        pF2->getJogador1()->setVida(estado["jogador1"]["numvidas"]);
-        pF2->getJogador1()->operator+=(pF1->getJogador1()->getPontos());
-    }
-    if (estado["numPlayers"] == 2 && pF2->getJogador2()) {
-        pF2->getJogador2()->setVida(estado["jogador2"]["numvidas"]);
-        pF2->getJogador2()->operator+=(pF1->getJogador2()->getPontos());
-    }
-    */
-   
     if (pF1->getJogador1()) {
         pF2->getJogador1()->setVida(pF1->getJogador1()->getVidas());
         pF2->getJogador1()->operator+=(pF1->getJogador1()->getPontos());
@@ -174,9 +175,6 @@ void Jogo::mudarParaFase2(const std::string& caminho)
         delete pF1;
         pF1 = nullptr;
     }
-
-    pF2->destruirNeutralizados(); // limpa neutralizados da fase 1
-
     executarFase();
 }
 

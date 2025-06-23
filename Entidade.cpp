@@ -1,21 +1,15 @@
 #include "Entidade.h"
 
 namespace Entidades {
-
-    Entidade::Entidade(Vector2f pos) : Ente(), massa(10.f), dirColisao(0), vel(Vector2f(0.f, 0.f))
+    
+    Entidade::Entidade(Vector2f pos) : Ente(), vel(Vector2f(0.f, 0.f))
     {
 
         centralizarEntidade();
         corpo.setPosition(pos); // o centro do sprite ficará em pos
 
     }
-    Entidade::Entidade() : Ente(), massa(10.f), dirColisao(0), vel(Vector2f(0.f, 0.f))
-    {
 
-        centralizarEntidade();
-        corpo.setPosition(Vector2f(0.f, 0.f)); // o centro do sprite ficará em pos
-
-    }
     Entidade::~Entidade()
     {
     }
@@ -39,17 +33,6 @@ namespace Entidades {
         corpo.setOrigin(bounds.width / 2.f, bounds.height / 2.f); // origem no centro do sprite
     }
 
-
-    void Entidade::setDir(int v)
-    {
-        dirColisao = v;
-    }
-
-    int Entidade::getDir()
-    {
-        return dirColisao;
-    }
-
     void Entidade::setVel(Vector2f v)
     {
         vel = v;
@@ -60,8 +43,9 @@ namespace Entidades {
         return vel;
     }
 
-    const int Entidade::getVidas()
+    void Entidade::salvarPos(json& j)
     {
-        return 1;
+        j["x"] = getcm().x;
+        j["y"] = getcm().y;
     }
 }

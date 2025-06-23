@@ -40,7 +40,6 @@ namespace Entidades {
 		void InimigoAlto::executar()
 		{
 			mover();
-
 		}
 
 		void InimigoAlto::mover()
@@ -57,11 +56,21 @@ namespace Entidades {
 				direcao = 1;
 			}
 
-			corpo.move(aceleracao * direcao, 0.f);
+			corpo.move(aceleracao * direcao, vel.y);
 		}
 
-		void InimigoAlto::salvar()
+		int InimigoAlto::getDistanciaPadrao() const
 		{
+			return distanciapadrao;
+		}
+
+		void InimigoAlto::salvar(json& j)
+		{
+			j["distanciapadrao"] = getDistanciaPadrao();
+			j["xi"] = getPosicaoInicial().x;
+			j["yi"] = getPosicaoInicial().y;
+			j["vida"] = getVidas();
+			j["type"] = "InimigoAlto";
 		}
 
 		Vector2f InimigoAlto::getPosicaoInicial()

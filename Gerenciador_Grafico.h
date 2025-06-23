@@ -27,14 +27,13 @@ namespace Gerenciadores {
 		sf::RenderWindow* getWindow();
 		const bool aberta() const;
 		void clear();
-		void desenhar(Ente* pE = NULL);
+		void desenhar(Ente* pE = nullptr);
 		void desenhar(const sf::RectangleShape& retangulo);
 		void desenhaFundo();
 		void mostrar();
 		void fechar();
 
 		void moverCamera(sf::Text* t, Entidades::Entidade* p1 = nullptr, Entidades::Entidade* p2 = nullptr);
-		void moverCamera(Entidades::Entidade* p1=nullptr, Entidades::Entidade* p2=nullptr);
 		static Gerenciador_Grafico* getInstancia();
 
 		void setJanelaExterna(sf::RenderWindow* j);

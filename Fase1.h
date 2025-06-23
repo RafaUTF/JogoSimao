@@ -8,26 +8,21 @@ namespace Fases {
     private:
         bool proximaFase;
 
-    public:
+        void salvarJogo(const std::string& caminho);
+        
+        void setTrocarFase(bool t);
         void destruirNeutralizados();
+    public:
 
         Fase1(Gerenciadores::Gerenciador_Colisoes* gc, Gerenciadores::Gerenciador_Grafico* gg, int numPlayers);
         ~Fase1();
 
         void executar();
         void criarMapa(const std::string& caminhoJson);
-        void criarEntidades();
-        void criarChefe(Vector2f pos);
-
-        void criarInimigos();
-        void criarObstaculos();
-
+       
         void carregarJogo(const std::string& caminho);
-        void salvarJogo(const std::string& caminho);
 
         bool deveTrocarFase();
-        void setTrocarFase(bool t);
-
-        //void finalizarFase();
+      
     };
 }

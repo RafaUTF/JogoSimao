@@ -1,6 +1,6 @@
 #include "MenuPause.h"
 
-MenuPause::MenuPause() {
+MenuPause::MenuPause(): pausado(false) {
     std::vector<std::string> nomes = { "Continuar", "Salvar Jogo", "Sair" };
     float yStart = 220;
 
@@ -17,7 +17,12 @@ MenuPause::MenuPause() {
     }
 }
 
+MenuPause::~MenuPause()
+{
+}
+
 int MenuPause::mostrar(sf::RenderWindow& window) {
+    if (!pausado) return 2;//volta para o jogo
     while (window.isOpen()) {
         sf::Event ev;
         while (window.pollEvent(ev)) {
@@ -46,4 +51,9 @@ int MenuPause::mostrar(sf::RenderWindow& window) {
     }
 
     return 0;
+}
+
+void MenuPause::setAtivo(const bool b)
+{
+    pausado = b;
 }
